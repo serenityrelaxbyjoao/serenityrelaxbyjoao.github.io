@@ -108,13 +108,22 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
 .section{padding-block:44px}.section-head{display:block}.section-head p{margin-top:10px}
 .tiles,.split,.info-grid,.cabinet-inner{grid-template-columns:1fr}.cabinet-inner{gap:10px}.split{gap:28px}.avis{padding-block:20px}}
 @media(max-width:380px){.brand{flex-direction:column;align-items:flex-start;gap:0}.brand-main{font-size:22px}}@media(max-width:340px){.wrap{padding-inline:14px}nav .button{padding:4px 9px;font-size:12.5px}.brand-main{font-size:20px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tile{transition:none}.tile:hover{transform:none}}
+.lead{margin:0 0 14px;font-size:16.5px;line-height:1.6;color:var(--ink)}.sub{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}.info-grid{margin-top:4px}.faq{background:#fffdf8;border-top:1px solid rgba(176,141,87,.25)}.faq-list{max-width:820px;display:flex;flex-direction:column;gap:12px;margin-top:8px}.faq-list details{background:var(--pale);border:1px solid var(--line);border-radius:10px;padding:14px 18px}.faq-list summary{font-weight:600;cursor:pointer;color:var(--green);font-size:15.5px}.faq-list p{margin:10px 0 0;font-size:14.5px;color:var(--muted);line-height:1.5}.legal{font-size:13px}.legal summary{cursor:pointer;text-decoration:underline}.legal p{margin:10px 0 0;line-height:1.6;color:#a6b5aa;max-width:760px}.foot{align-items:flex-start}
   </style>
 </head>
 <body>
-  <header><div class="wrap nav"><a class="brand" href="#accueil" aria-label="Serenity &amp; Relax by João"><span class="brand-main">Serenity &amp; Relax</span><span class="brand-by">by João</span></a><nav aria-label="Navigation principale"><a href="#soins">Soins et tarifs</a><a href="#infos">Infos pratiques</a><a class="button secondary" href="https://wa.me/41783336823">Contact</a><a class="button" href="https://calendar.app.google/VVPh2Q565B15nMNw9">Réserver</a></nav></div></header>
+  <header><div class="wrap nav"><a class="brand" href="#accueil" aria-label="Serenity &amp; Relax by João"><span class="brand-main">Serenity &amp; Relax</span><span class="brand-by">by João</span></a><nav aria-label="Navigation principale"><a href="#soins">Soins et tarifs</a><a href="#apropos">À propos</a><a href="#infos">Infos pratiques</a><a href="#faq">FAQ</a><a class="button secondary" href="https://wa.me/41783336823">Contact</a><a class="button" href="https://calendar.app.google/NuUzrHipifsrdhsi8">Réserver</a></nav></div></header>
   <main id="accueil">
     <div class="hero-bg"><div class="wrap hero"><div><h1>Un massage adapté à ce dont vous avez besoin.</h1><p>Thérapeutique, sportif ou relaxant&nbsp;: je vous accueille dans un cabinet calme à deux pas de l’aéroport de Genève, 7 jours sur 7, sur rendez-vous.</p></div><aside class="hero-aside"><p>Un temps pour relâcher les tensions, retrouver du confort et souffler.</p></aside></div></div>
     <section class="cabinet" id="cabinet"><div class="wrap cabinet-inner"><div><span class="eyebrow">Le cabinet</span><h2>Un espace calme à Cointrin</h2></div><p>Je vous reçois à l’Alpha Business Center, au 4e étage, à proximité de l’aéroport de Genève, dans un cadre discret, inclusif et strictement professionnel.</p></div></section>
+    <section class="section light" id="apropos"><div class="wrap split">
+      <div><span class="eyebrow">Le praticien</span><h2>À propos de João</h2></div>
+      <div>
+        <p class="lead">Praticien passionné par le mouvement, l’anatomie et le bien-être corporel, je vous propose une prise en charge personnalisée alliant écoute attentive, bienveillance et gestes précis. Mon objectif est de vous offrir un espace serein pour libérer les tensions musculaires, retrouver votre vitalité ou simplement vous accorder un véritable temps de déconnexion.</p>
+        <p class="sub">Formé en <strong>massage classique à l’école TCMA</strong> (Genève) et en <strong>massage thaï aux huiles à la Clarissaglow Academy</strong>, je suis également titulaire d’une <strong>formation professionnelle en massothérapie de 300 heures</strong>, incluant la <strong>libération myofasciale</strong> et le <strong>drainage lymphatique manuel</strong>, ainsi que d’une <strong>formation en aromathérapie</strong>, suivies auprès d’un organisme de formation brésilien.</p>
+      </div>
+    </div></section>
+
 
 
     <section class="section soins" id="soins"><div class="wrap">
@@ -123,17 +132,45 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
       <p class="note">Les séances de 60 minutes se réservent directement en ligne. Pour une autre durée, une séance à domicile ou toute autre question, écrivez-moi.</p>
     </div></section>
 
-    <section class="closing"><div class="wrap"><h2>Prêt à réserver un moment pour vous&nbsp;?</h2><p>Réservez en ligne en quelques clics ou écrivez-moi pour toute question.</p><div class="actions"><a class="button" href="https://calendar.app.google/VVPh2Q565B15nMNw9">Réserver votre séance</a><a class="button secondary" href="https://wa.me/41783336823">Me contacter</a></div></div></section>
+    <section class="closing"><div class="wrap"><h2>Prêt à réserver un moment pour vous&nbsp;?</h2><p>Réservez en ligne en quelques clics ou écrivez-moi pour toute question.</p><div class="actions"><a class="button" href="https://calendar.app.google/NuUzrHipifsrdhsi8">Réserver votre séance</a><a class="button secondary" href="https://wa.me/41783336823">Me contacter</a></div></div></section>
     <section class="section light" id="infos"><div class="wrap split">
-      <div><span class="eyebrow">Infos pratiques</span><h2>Avant votre rendez-vous</h2></div>
-      <ul class="rules"><li class="form-action"><p>Avant une première séance, merci de remplir la fiche d’anamnèse et de signaler tout problème de santé.</p><a class="button" href="https://forms.gle/qQXcCvoZ2rzFQkbz8">Remplir la fiche d’anamnèse</a></li><li>Les massages sont dédiés au bien-être et ne remplacent pas un avis médical.</li><li>Annulation ou modification au moins 24 heures à l’avance. Une annulation tardive ou une absence pourra être facturée.</li></ul>
+      <div>
+        <span class="eyebrow">Infos pratiques</span>
+        <h2>Avant votre rendez-vous</h2>
+        <ul class="rules">
+          <li class="form-action"><p>Avant une première séance, merci de remplir la fiche d’anamnèse et de signaler tout problème de santé.</p><a class="button" href="https://forms.gle/qQXcCvoZ2rzFQkbz8" target="_blank" rel="noopener">Remplir la fiche d’anamnèse</a></li>
+          <li>Les massages sont dédiés au bien-être et ne remplacent en aucun cas un suivi ou un traitement médical.</li>
+          <li>Annulation ou modification au moins 24 heures à l’avance. Une annulation tardive ou une absence pourra être facturée.</li>
+        </ul>
+      </div>
+      <div class="info-grid">
+        <div class="info wide"><strong>Accès et transports publics</strong><p>Arrêt TPG <strong>Meyrin, De-Joinville</strong> (lignes de bus <strong>10</strong> et <strong>53</strong>).</p></div>
+        <div class="info"><strong>Stationnement</strong><p>Places en <strong>zone bleue</strong> (disque de stationnement) dans la rue, ou parking de l’<strong>hôtel Crowne Plaza</strong> à proximité.</p></div>
+        <div class="info"><strong>Moyens de paiement</strong><p>Sur place&nbsp;: <strong>Twint</strong>, <strong>cartes bancaires</strong>, <strong>espèces</strong>, <strong>Revolut</strong> et <strong>Wise</strong>.</p></div>
+        <div class="info wide"><strong>Assurances et remboursement</strong><p>Je suis actuellement en formation en vue de l’agrément ASCA / RME. <strong>À ce jour, les séances sont entièrement à la charge du patient</strong> et ne sont pas remboursées par les assurances complémentaires.</p></div>
+      </div>
     </div></section>
+    <section class="section faq" id="faq"><div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Des réponses à vos questions</span><h2>Questions fréquentes</h2></div></div>
+      <div class="faq-list">
+        <details><summary>Comment se déroule une première séance&nbsp;?</summary><p>Nous prenons quelques minutes pour échanger sur vos besoins et vos tensions. Pensez à remplir au préalable la fiche d’anamnèse en ligne pour profiter pleinement de votre temps de soin.</p></details>
+        <details><summary>Les séances sont-elles remboursées par l’assurance&nbsp;?</summary><p>Pas pour le moment. Je suis en formation en vue de l’agrément ASCA / RME&nbsp;; d’ici là, les séances ne sont pas prises en charge par les assurances complémentaires et restent entièrement à la charge du patient.</p></details>
+        <details><summary>Comment réserver une séance de 90 ou 120 minutes&nbsp;?</summary><p>L’agenda en ligne permet de réserver directement les séances de 60 minutes. Pour 90 ou 120 minutes (notamment le soin Serenity Signature), contactez-moi par WhatsApp ou au +41 78 333 68 23.</p></details>
+        <details><summary>Où stationner lors de mon rendez-vous&nbsp;?</summary><p>Des places en zone bleue (avec disque de stationnement) sont disponibles chemin de Joinville et aux alentours. Vous pouvez aussi utiliser le parking de l’hôtel Crowne Plaza, à deux pas.</p></details>
+      </div>
+    </div></section>
+
     <div class="band"><div class="wrap band-grid">
       <div><strong>Horaires</strong><p>Du lundi au dimanche<br>De 9h30 à 22h30, sur rendez-vous<br>Français · Português · English · Español</p></div>
       <div><strong>Adresse</strong><p>Alpha Business Center, 4e étage<br>Chemin de Joinville 26, 1216 Cointrin, Genève<br><a class="map-link" href="https://maps.google.com/maps?cid=7953181545082622355"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Voir l’itinéraire</span></a></p></div>
       <div><strong>Contact</strong><div class="contact-links"><a href="tel:+41783336823"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.8 3.5 4.5 5.8c-.6.6-.7 1.5-.4 2.3a20 20 0 0 0 11.8 11.8c.8.3 1.7.2 2.3-.4l2.3-2.3-4.4-3.1-2.1 2.1a16 16 0 0 1-6.2-6.2l2.1-2.1-3.1-4.4Z"/></svg><span>+41 78 333 68 23</span></a><a href="mailto:serenityrelaxbyjoao@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg><span>serenityrelaxbyjoao@gmail.com</span></a><div class="social-links"><a href="https://www.instagram.com/serenity.relax.by.joao/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a><a href="https://www.facebook.com/serenityrelaxbyjoao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M14.8 7.1h-2c-1 0-1.5.6-1.5 1.7V20M9 12h5"/></svg><span>Facebook</span></a><a href="https://maps.google.com/maps?cid=7953181545082622355"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><text x="12" y="16.2" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="currentColor" stroke="none">G</text></svg><span>Google</span></a></div></div></div>
     </div></div>
   </main>
-  <footer><div class="wrap foot"><p>© Serenity &amp; Relax by João · Cointrin, Genève</p></div></footer>
+  <footer>
+    <div class="wrap foot"><p>© Serenity &amp; Relax by João · Cointrin, Genève</p><details class="legal"><summary>Mentions légales et confidentialité</summary>
+      <p><strong>Praticien et responsable du site&nbsp;:</strong> João Alberto de Jesus da Costa<br><strong>Cabinet&nbsp;:</strong> Serenity &amp; Relax by João<br><strong>Adresse&nbsp;:</strong> Alpha Business Center, 4e étage, chemin de Joinville 26, 1216 Cointrin, Genève, Suisse<br><strong>Contact&nbsp;:</strong> +41 78 333 68 23 · serenityrelaxbyjoao@gmail.com</p>
+      <p><strong>Protection des données (nLPD)&nbsp;:</strong> les données transmises via la fiche d’anamnèse (Google Forms), l’agenda de réservation (Google Agenda) ou WhatsApp servent uniquement à organiser vos soins. Elles ne sont ni vendues ni utilisées à d’autres fins. Ces services sont fournis par des prestataires tiers (Google, Meta) dont les serveurs peuvent se trouver hors de Suisse. Ce site n’utilise ni cookies ni outil de suivi. Vous pouvez demander l’accès, la rectification ou la suppression de vos données par e-mail.</p>
+    </details></div>
+  </footer>
 </body>
 </html>
