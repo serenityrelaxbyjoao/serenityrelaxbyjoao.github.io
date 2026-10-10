@@ -115,16 +115,53 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
   
 .cabinet-photos{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-top:28px}.cabinet-photos figure{margin:0;border-radius:18px;overflow:hidden;background:var(--deepest)}.cabinet-photos img{display:block;width:100%;height:100%;object-fit:cover}.cabinet-photos .ph-wide img{aspect-ratio:4/3}.portrait{display:block;width:100%;max-width:380px;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;border-radius:18px;margin-top:24px}
 @media(max-width:760px){.cabinet-photos{grid-template-columns:1fr;gap:14px;margin-top:20px}.cabinet-photos .ph-tall img{aspect-ratio:4/5}.portrait{max-width:none;aspect-ratio:4/5}}
+.booking-frame{display:block;width:100%;max-width:680px;height:1500px;margin:24px auto 0;border:0;border-radius:20px;background:#f7f2e8}.reserver .wrap>p{max-width:680px}.booking-help{text-align:center;font-size:15px;margin-top:14px}
+</style><!-- Google Ads : chargé uniquement après « Accepter » dans le bandeau cookies -->
+<style>
+.cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:999;max-width:640px;margin:0 auto;background:#fff;color:#1c2621;border:1px solid #dccfb8;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.15);padding:16px 18px;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.cookie-bar p{margin:0 0 12px}.cookie-bar a{color:#34503f}
+.cookie-bar .btns{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-bar button{flex:1;min-width:120px;padding:10px 14px;border-radius:999px;font:600 15px system-ui,sans-serif;cursor:pointer;border:1px solid #34503f}
+.cookie-bar .ok{background:#34503f;color:#fff}.cookie-bar .no{background:#fff;color:#34503f}
 </style>
-<!-- Google Ads : Serenity & Relax by João (coller juste AVANT </head>) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18220930952"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-18220930952');
+  var SR_KEY = 'sr-cookies', srLoaded = false;
+  function srGet(){ try { return localStorage.getItem(SR_KEY); } catch(e) { return null; } }
+  function srSet(v){ try { localStorage.setItem(SR_KEY, v); } catch(e) {} }
+  function srLoadAds(){
+    if (srLoaded) return; srLoaded = true;
+    var s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18220930952';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'AW-18220930952');
+  }
+  function srConversion(label, extra){
+    if (!srLoaded) return;
+    var p = { send_to: 'AW-18220930952/' + label, transport_type: 'beacon' };
+    for (var k in (extra || {})) p[k] = extra[k];
+    gtag('event', 'conversion', p);
+  }
+  if (srGet() === 'yes') srLoadAds();
 
-  // Compte les clics sur Réserver (Google Calendar), WhatsApp et téléphone
+  // Formulaire de réservation intégré : hauteur automatique + conversion « Réservation confirmée »
+  var SR_BOOKING_LABEL = 'bpnfCIP1ho8dEIivtfBD'; // conversion « Réserver » : comptée uniquement quand une réservation est confirmée
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (!d || d.source !== 'sr-booking') return;
+    if (!/(^https:\/\/script\.google\.com$)|(\.googleusercontent\.com$)/.test(e.origin)) return;
+    if (d.type === 'height') {
+      var f = document.getElementById('bookingFrame');
+      var h = Number(d.height);
+      if (f && h > 300 && h < 6000) f.style.height = (h + 20) + 'px';
+    } else if (d.type === 'confirmed' && SR_BOOKING_LABEL) {
+      srConversion(SR_BOOKING_LABEL, { value: Number(d.value) || 0, currency: 'CHF', transaction_id: String(d.transactionId || '') });
+    }
+  });
+
+  // Compte les clics sur Réserver (Google Calendar), WhatsApp et téléphone (si cookies acceptés)
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
@@ -133,14 +170,24 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
     if (/calendar\.app\.google|calendar\.google\.com/i.test(h)) label = 'bpnfCIP1ho8dEIivtfBD';
     else if (/wa\.me|whatsapp\.com/i.test(h)) label = '97HiCIb1ho8dEIivtfBD';
     else if (/^tel:/i.test(h)) label = 'Q9zdCPn-jI8dEIivtfBD';
-    if (!label) return;
-    gtag('event', 'conversion', { send_to: 'AW-18220930952/' + label, transport_type: 'beacon' });
+    if (label) srConversion(label);
   }, true);
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var bar = document.getElementById('cookieBar');
+    function show(){ bar.hidden = false; }
+    function choose(v){ srSet(v); bar.hidden = true; if (v === 'yes') srLoadAds(); else if (srLoaded) location.reload(); }
+    document.getElementById('ckOk').onclick = function(){ choose('yes'); };
+    document.getElementById('ckNo').onclick = function(){ choose('no'); };
+    var m = document.getElementById('manageCookies');
+    if (m) m.onclick = function(e){ e.preventDefault(); show(); };
+    if (!srGet()) show();
+  });
 </script>
 <!-- fin Google Ads -->
 </head>
 <body>
-  <header><div class="wrap nav"><a class="brand" href="#accueil" aria-label="Serenity &amp; Relax by João"><span class="brand-main">Serenity &amp; Relax</span><span class="brand-by">by João</span></a><nav aria-label="Navigation principale"><a href="#soins">Soins et tarifs</a><a href="#apropos">À propos</a><a href="#infos">Infos pratiques</a><a href="#faq">FAQ</a><a class="button secondary" href="https://wa.me/41783336823">Contact</a><a class="button" href="https://calendar.app.google/NuUzrHipifsrdhsi8">Réserver</a></nav></div></header>
+  <header><div class="wrap nav"><a class="brand" href="#accueil" aria-label="Serenity &amp; Relax by João"><span class="brand-main">Serenity &amp; Relax</span><span class="brand-by">by João</span></a><nav aria-label="Navigation principale"><a href="#soins">Soins et tarifs</a><a href="#apropos">À propos</a><a href="#infos">Infos pratiques</a><a href="#faq">FAQ</a><a class="button secondary" href="https://wa.me/41783336823">Contact</a><a class="button" href="#reserver">Réserver</a></nav></div></header>
   <main id="accueil">
     <div class="hero-bg"><div class="wrap hero"><div><h1>Un massage adapté à ce dont vous avez besoin.</h1><p>Thérapeutique, sportif ou relaxant&nbsp;: je vous accueille dans un cabinet calme à deux pas de l’aéroport de Genève, 7 jours sur 7, sur rendez-vous.</p></div><aside class="hero-aside"><p>Un temps pour relâcher les tensions, retrouver du confort et souffler.</p></aside></div></div>
     <section class="cabinet" id="cabinet"><div class="wrap cabinet-inner"><div><span class="eyebrow">Le cabinet</span><h2>Un espace calme à Cointrin</h2></div><p>Je vous reçois à l’Alpha Business Center, au 4e étage, à proximité de l’aéroport de Genève, dans un cadre discret, inclusif et strictement professionnel.</p></div><div class="wrap cabinet-photos"><figure class="ph-wide"><img src="images/cabinet.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Le cabinet à Cointrin : table de massage, lumière douce et décor apaisant"></figure><figure class="ph-tall"><img src="images/massage.webp" width="800" height="1000" loading="lazy" decoding="async" alt="João pendant un massage du dos au cabinet"></figure></div></section>
@@ -160,7 +207,13 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
       <p class="note">Les séances de 60 minutes se réservent directement en ligne. Pour une autre durée, une séance à domicile ou toute autre question, écrivez-moi.</p>
     </div></section>
 
-    <section class="closing"><div class="wrap"><h2>Prêt à réserver un moment pour vous&nbsp;?</h2><p>Réservez en ligne en quelques clics ou écrivez-moi pour toute question.</p><div class="actions"><a class="button" href="https://calendar.app.google/NuUzrHipifsrdhsi8">Réserver votre séance</a><a class="button secondary" href="https://wa.me/41783336823">Me contacter</a></div></div></section>
+    <section class="closing"><div class="wrap"><h2>Prêt à réserver un moment pour vous&nbsp;?</h2><p>Réservez en ligne en quelques clics ou écrivez-moi pour toute question.</p><div class="actions"><a class="button" href="#reserver">Réserver votre séance</a><a class="button secondary" href="https://wa.me/41783336823">Me contacter</a></div></div></section>
+    <section class="section reserver" id="reserver"><div class="wrap">
+      <span class="eyebrow">Réservation en ligne</span><h2>Choisissez votre soin et votre horaire</h2>
+      <p>Les horaires affichés sont ceux réellement disponibles. Vous recevez la confirmation par e-mail.</p>
+      <iframe id="bookingFrame" class="booking-frame" src="https://script.google.com/macros/s/AKfycbzMEVFIzDBtuAIOkuwgNSB42OtxRvoEhPibhT8O-vwhBVlixQx5LQKWhLQyTDjG6pkDMg/exec" title="Formulaire de réservation Serenity &amp; Relax by João" loading="lazy"></iframe>
+      <p class="booking-help">Le formulaire ne s’affiche pas ? <a href="https://script.google.com/macros/s/AKfycbzMEVFIzDBtuAIOkuwgNSB42OtxRvoEhPibhT8O-vwhBVlixQx5LQKWhLQyTDjG6pkDMg/exec" target="_blank" rel="noopener">Ouvrir la réservation dans une nouvelle page</a> ou écrivez-moi sur <a href="https://wa.me/41783336823">WhatsApp</a>.</p>
+    </div></section>
     <section class="section light" id="infos"><div class="wrap split">
       <div>
         <span class="eyebrow">Infos pratiques</span>
@@ -174,7 +227,7 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
       <div class="info-grid">
         <div class="info wide"><strong>Accès et transports publics</strong><p>Arrêt TPG <strong>Meyrin, De-Joinville</strong> (lignes de bus <strong>10</strong> et <strong>53</strong>).</p></div>
         <div class="info"><strong>Stationnement</strong><p>Places en <strong>zone bleue</strong> (disque de stationnement) dans la rue, ou parking de l’<strong>hôtel Crowne Plaza</strong> à proximité.</p></div>
-        <div class="info"><strong>Moyens de paiement</strong><p>Sur place&nbsp;: <strong>Twint</strong>, <strong>cartes bancaires</strong>, <strong>espèces</strong>, <strong>Revolut</strong> et <strong>Wise</strong>.</p></div>
+        <div class="info"><strong>Moyens de paiement</strong><p>Sur place&nbsp;: <strong>espèces</strong>, <strong>cartes bancaires</strong> et <strong>TWINT</strong>.</p></div>
         <div class="info wide"><strong>Assurances et remboursement</strong><p>Je suis actuellement en formation en vue de l’agrément ASCA / RME. <strong>À ce jour, les séances sont entièrement à la charge du patient</strong> et ne sont pas remboursées par les assurances complémentaires.</p></div>
       </div>
     </div></section>
@@ -195,10 +248,14 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
     </div></div>
   </main>
   <footer>
-    <div class="wrap foot"><p>© Serenity &amp; Relax by João · Cointrin, Genève</p><details class="legal"><summary>Mentions légales et confidentialité</summary>
+    <div class="wrap foot"><p>© Serenity &amp; Relax by João · Cointrin, Genève · <a href="conditions.html">Conditions générales et confidentialité</a> · <a href="#" id="manageCookies">Gérer les cookies</a></p><details class="legal"><summary>Mentions légales et confidentialité</summary>
       <p><strong>Praticien et responsable du site&nbsp;:</strong> João Alberto de Jesus da Costa<br><strong>Cabinet&nbsp;:</strong> Serenity &amp; Relax by João<br><strong>Adresse&nbsp;:</strong> Alpha Business Center, 4e étage, chemin de Joinville 26, 1216 Cointrin, Genève, Suisse<br><strong>Contact&nbsp;:</strong> +41 78 333 68 23 · serenityrelaxbyjoao@gmail.com</p>
-      <p><strong>Protection des données (nLPD)&nbsp;:</strong> les données transmises via la fiche d’anamnèse (Google Forms), l’agenda de réservation (Google Agenda) ou WhatsApp servent uniquement à organiser vos soins. Elles ne sont ni vendues ni utilisées à d’autres fins. Ces services sont fournis par des prestataires tiers (Google, Meta) dont les serveurs peuvent se trouver hors de Suisse. Ce site n’utilise ni cookies ni outil de suivi. Vous pouvez demander l’accès, la rectification ou la suppression de vos données par e-mail.</p>
+      <p><strong>Protection des données (nLPD)&nbsp;:</strong> les données transmises via la fiche d’anamnèse (Google Forms), l’agenda de réservation (Google Agenda) ou WhatsApp servent à organiser vos soins et, si nécessaire, à la facturation. Elles ne sont jamais vendues. Détails dans les <a href="conditions.html#confidentialite">conditions générales</a>. Ces services sont fournis par des prestataires tiers (Google, Meta) dont les serveurs peuvent se trouver hors de Suisse. Ce site n’utilise l’outil de mesure de Google Ads (cookies) que si vous l’avez accepté dans le bandeau. Vous pouvez demander l’accès, la rectification ou la suppression de vos données par e-mail.</p>
     </details></div>
   </footer>
+  <div class="cookie-bar" id="cookieBar" hidden role="dialog" aria-label="Cookies">
+    <p>Ce site peut utiliser l’outil de mesure de Google Ads, qui dépose des cookies pour savoir si une visite provient d’une annonce. Aucune donnée de santé n’est transmise. <a href="conditions.html#cookies">En savoir plus</a></p>
+    <div class="btns"><button class="no" id="ckNo" type="button">Refuser</button><button class="ok" id="ckOk" type="button">Accepter</button></div>
+  </div>
 </body>
 </html>
