@@ -39,6 +39,9 @@
     var d = e.data;
     if (!d || d.source !== 'sr-booking') return;
     if (!/(^https:\/\/script\.google\.com$)|(\.googleusercontent\.com$)/.test(e.origin)) return;
+    var fr = $('#bookingFrame'), w = e.source, ok = false;
+    try { for (var i = 0; w && i < 5; i++) { if (fr && w === fr.contentWindow) { ok = true; break; } if (w === w.parent) break; w = w.parent; } } catch (x) {}
+    if (!ok) return;
     if (d.type === 'height') {
       var f = $('#bookingFrame'), h = Number(d.height);
       if (f && h > 300 && h < 6000) f.style.height = (h + 20) + 'px';
@@ -74,12 +77,25 @@
     function bookingUrl(service) {
       return SR.exec + '?lang=' + encodeURIComponent(SR.lang || 'fr') + (service ? '&service=' + encodeURIComponent(service) : '');
     }
+    var lastFocus = null;
     function openBooking(service) {
       var url = bookingUrl(service);
       if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
+      lastFocus = document.activeElement;
       modal.hidden = false; document.body.classList.add('bk-open'); modal.scrollTop = 0; syncBar();
+      $$('body > *:not(#bookingModal)').forEach(function (el) { el.setAttribute('inert', ''); });
+      $('#bookingClose').focus();
     }
-    function closeBooking() { modal.hidden = true; document.body.classList.remove('bk-open'); syncBar(); }
+    function closeBooking() {
+      modal.hidden = true; document.body.classList.remove('bk-open'); syncBar();
+      $$('[inert]').forEach(function (el) { el.removeAttribute('inert'); });
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var f = [$('#bookingClose'), frame], i = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+    });
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('[data-book]') : null;
       if (!a) return;
