@@ -198,6 +198,10 @@ footer{background:var(--deepest);color:#c9d3cc;padding-block:20px;font-size:13.5
     document.getElementById('bookingClose').onclick = closeBooking;
     modal.addEventListener('click', function(e){ if (e.target === modal) closeBooking(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) closeBooking(); });
+    // Lien direct vers la réservation : https://serenityrelaxbyjoao.github.io/#reserver
+    var bookingUrl = document.querySelector('a[data-booking]').href;
+    function checkHash(){ if (/^#(reserver|reservation|booking)$/i.test(location.hash)) openBooking(bookingUrl); }
+    checkHash(); window.addEventListener('hashchange', checkHash);
   });
 </script>
 <!-- fin Google Ads -->
