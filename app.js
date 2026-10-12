@@ -45,6 +45,10 @@
     if (d.type === 'height') {
       var f = $('#bookingFrame'), h = Number(d.height);
       if (f && h > 300 && h < 6000) f.style.height = (h + 20) + 'px';
+    } else if (d.type === 'close') {
+      var cb = $('#bookingClose'); if (cb) cb.click();
+    } else if (d.type === 'top') {
+      var mt = $('#bookingModal'); if (mt) mt.scrollTop = 0;
     } else if (d.type === 'confirmed') {
       var m = $('#bookingModal'); if (m) m.scrollTop = 0;
       conv(LABELS.booking, { value: Number(d.value) || 0, currency: 'CHF', transaction_id: String(d.transactionId || '') });
