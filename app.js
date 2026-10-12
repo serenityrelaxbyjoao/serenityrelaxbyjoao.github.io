@@ -44,9 +44,12 @@
     if (!ok) return;
     if (d.type === 'height') {
       var f = $('#bookingFrame'), h = Number(d.height);
-      if (f && h > 300 && h < 6000) f.style.height = (h + 20) + 'px';
+      if (f && h > 120 && h < 8000) f.style.height = (h + 20) + 'px';
     } else if (d.type === 'close') {
       var cb = $('#bookingClose'); if (cb) cb.click();
+    } else if (d.type === 'scroll') {
+      var ms = $('#bookingModal'), fs = $('#bookingFrame');
+      if (ms && fs) ms.scrollTop = Math.max(0, fs.getBoundingClientRect().top - ms.getBoundingClientRect().top + ms.scrollTop + (Number(d.y) || 0) - 60);
     } else if (d.type === 'top') {
       var mt = $('#bookingModal'); if (mt) mt.scrollTop = 0;
     } else if (d.type === 'confirmed') {

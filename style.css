@@ -203,7 +203,7 @@ footer{background:var(--deepest);color:rgba(255,255,255,.78);font-size:15px}
 .bk-modal[hidden]{display:none}
 .bk-box{position:relative;width:100%;max-width:680px;background:var(--cream);border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.35);margin:auto 0;animation:rise .3s ease both}
 .bk-close{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--deep);font:400 26px/1 var(--sans);cursor:pointer}
-.bk-frame{display:block;width:100%;height:1400px;border:0;border-radius:24px}
+.bk-frame{display:block;width:100%;height:900px;border:0;border-radius:24px}
 body.bk-open{overflow:hidden}
 .cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:999;max-width:640px;margin:0 auto;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.18);padding:18px 20px;font-size:15px}
 .cookie-bar[hidden]{display:none}
