@@ -97,6 +97,9 @@
       modal.hidden = true; document.body.classList.remove('bk-open'); syncBar();
       $$('[inert]').forEach(function (el) { el.removeAttribute('inert'); });
       if (lastFocus && lastFocus.focus) lastFocus.focus();
+      if (/^#(reserver|reservar|book|booking|reservation)$/i.test(location.hash)) {
+        var target = $('#reserver'); if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
     }
     modal.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
