@@ -2,42 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://serenityrelaxbyjoao.github.io/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.github.io/"/>
     <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.github.io/pt.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.github.io/en.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.github.io/es.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.github.io/it.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.github.io/"/>
   </url>
   <url>
     <loc>https://serenityrelaxbyjoao.github.io/pt.html</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.github.io/"/>
     <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.github.io/pt.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.github.io/en.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.github.io/es.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.github.io/it.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.github.io/"/>
   </url>
   <url>
     <loc>https://serenityrelaxbyjoao.github.io/en.html</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.github.io/"/>
     <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.github.io/pt.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.github.io/en.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.github.io/es.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.github.io/it.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.github.io/"/>
   </url>
   <url>
     <loc>https://serenityrelaxbyjoao.github.io/es.html</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.github.io/"/>
     <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.github.io/pt.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.github.io/en.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.github.io/es.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.github.io/it.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.github.io/"/>
+  </url>
+  <url>
+    <loc>https://serenityrelaxbyjoao.github.io/it.html</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.github.io/pt.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.github.io/en.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.github.io/es.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.github.io/it.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.github.io/"/>
   </url>
   <url>
     <loc>https://serenityrelaxbyjoao.github.io/conditions.html</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-14</lastmod>
   </url>
 </urlset>
