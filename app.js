@@ -73,7 +73,17 @@
     // Cookies
     var bar = $('#cookieBar');
     function syncBar() { if (mbar) mbar.classList.toggle('hide', !bar.hidden || !$('#bookingModal').hidden); }
-    function choose(v) { setC(v); bar.hidden = true; syncBar(); if (v === 'yes') loadAds(); else if (loaded) location.reload(); }
+    function clearAdsCookies() {
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (/^(_gcl_|_gac_)/.test(n)) {
+          document.cookie = n + '=; Max-Age=0; path=/';
+          document.cookie = n + '=; Max-Age=0; path=/; domain=' + location.hostname;
+        }
+      });
+    }
+    function choose(v) { setC(v); bar.hidden = true; syncBar(); if (v === 'yes') loadAds(); else { clearAdsCookies(); if (loaded) location.reload(); } }
+    if (getC() === 'no') clearAdsCookies();
     $('#ckOk').onclick = function () { choose('yes'); };
     $('#ckNo').onclick = function () { choose('no'); };
     $$('[data-cookies]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); bar.hidden = false; syncBar(); }); });
