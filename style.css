@@ -274,3 +274,5 @@ body.bk-open{overflow:hidden}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+
+@media (max-width:760px){.cookie-bar{left:10px;right:10px;bottom:10px;padding:12px 14px;font-size:13.5px;line-height:1.45;border-radius:14px}.cookie-bar p{margin:0 0 9px}.cookie-bar .btns{flex-wrap:nowrap;gap:8px}.cookie-bar button{min-width:0;padding:9px 10px;font-size:14px}}
