@@ -118,7 +118,7 @@
     if(!$('birthDate').value){showMsg(t.birthErr);return null;}
     if(!$('street').value.trim()||!$('zip').value.trim()||!$('city').value.trim()||!$('country').value.trim()){showMsg(t.addressErr);return null;}
     if(!$('accepted').checked){showMsg(t.termsErr);return null;}
-    return Object.assign(quoteInput(),{time:state.time,firstName:$('firstName').value.trim(),lastName:$('lastName').value.trim(),email:$('email').value.trim(),phoneDial:dial,phoneNumber:$('phoneNumber').value.trim(),birthDate:$('birthDate').value,street:$('street').value.trim(),zip:$('zip').value.trim(),city:$('city').value.trim(),country:$('country').value.trim(),area:$('area').value.trim(),website:$('website').value.trim(),accepted:true,birthdayOk:$('birthdayOk').checked,requestId:bookingRequestId});
+    return Object.assign(quoteInput(),{time:state.time,firstName:$('firstName').value.trim(),lastName:$('lastName').value.trim(),email:$('email').value.trim(),phoneDial:dial,phoneNumber:$('phoneNumber').value.trim(),birthDate:$('birthDate').value,street:$('street').value.trim(),zip:$('zip').value.trim(),city:$('city').value.trim(),country:$('country').value.trim(),area:$('area').value.trim(),website:$('website').value.trim(),accepted:true,birthdayOk:$('birthdayOk').checked,lang:lang,requestId:bookingRequestId});
   }
 
   $('submit').onclick=async function(){
