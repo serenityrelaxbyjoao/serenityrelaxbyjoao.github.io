@@ -59,7 +59,7 @@ function nativeApiReply_(transportId, result) {
     .replace(/\u2029/g, '\\u2029');
 
   var html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' +
-    '<script>try{window.parent.postMessage(' + json + ',' + JSON.stringify(NATIVE_SITE_ORIGIN) + ');}catch(e){}<\/script>' +
+    '<script>try{window.top.postMessage(' + json + ',' + JSON.stringify(NATIVE_SITE_ORIGIN) + ');}catch(e){}<\/script>' +
     '</body></html>';
 
   return HtmlService.createHtmlOutput(html)
