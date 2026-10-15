@@ -42,7 +42,7 @@
 
   function makeId(prefix){
     var rnd = (self.crypto && crypto.randomUUID) ? crypto.randomUUID().replace(/-/g,'') : Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);
-    return prefix+'_'+Date.now().toString(36)+'_'+rnd;
+    return prefix+'-'+Date.now().toString(36)+'-'+rnd;
   }
   function showMsg(text,type){ var m=$('msg'); m.className='msg '+(type||'error'); m.textContent=text; }
   function clearMsg(){ var m=$('msg'); m.className='msg'; m.textContent=''; }
