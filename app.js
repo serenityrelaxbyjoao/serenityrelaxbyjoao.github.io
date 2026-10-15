@@ -39,13 +39,23 @@
 
   loadAds();
 
+  window.addEventListener('sr-booking-complete', function (e) {
+    var d = e && e.detail ? e.detail : {};
+    conv(LABELS.booking, {
+      value: Number(d.price) || 0,
+      currency: d.currency || 'CHF'
+    });
+  });
+
   function bookingUrl(service) {
     var base = 'reservation/?lang=' + encodeURIComponent(SR.lang || 'fr');
     return base + (service ? '&service=' + encodeURIComponent(service) : '');
   }
 
-  function goBooking(service) {
-    window.location.assign(bookingUrl(service || ''));
+  function goBooking(service, replaceHistory) {
+    var url = bookingUrl(service || '');
+    if (replaceHistory) window.location.replace(url);
+    else window.location.assign(url);
   }
 
   document.addEventListener('click', function (e) {
@@ -149,7 +159,7 @@
     });
 
     function checkHash() {
-      if (/^#(reserver|reservar|book|booking|reservation)$/i.test(location.hash)) goBooking('');
+      if (/^#(reserver|reservar|book|booking|reservation)$/i.test(location.hash)) goBooking('', true);
     }
     checkHash();
     window.addEventListener('hashchange', checkHash);
