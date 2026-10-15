@@ -36,7 +36,7 @@
   $('phoneDial').innerHTML = DIALS.map(function(d){return '<option value="'+d[0]+'">'+(d[0]==='other'?'':d[0]+' ')+d[1]+'</option>';}).join('');
   $('phoneDial').onchange=function(){ $('phoneOther').hidden=this.value!=='other'; };
 
-  var state={cfg:null,service:null,minutes:null,time:null,quote:null};
+  var state={cfg:null,service:null,minutes:null,time:null,quote:null,availabilitySeq:0};
   var pending={};
   var bookingRequestId = makeId('booking');
 
@@ -75,25 +75,41 @@
     if(state.service.options.length===1) state.minutes=Number(state.service.options[0].minutes);
     state.service.options.forEach(function(o){
       var b=document.createElement('button'); b.type='button'; b.className='chip'; b.setAttribute('aria-pressed',state.minutes===Number(o.minutes)); b.textContent=o.minutes+' min · '+o.price+' CHF';
-      b.onclick=function(){ state.minutes=Number(o.minutes); renderDurations(); loadSlots(); };
+      b.onclick=function(){ state.minutes=Number(o.minutes); renderDurations(); loadSlots({preserveTime:false}); };
       box.appendChild(b);
     });
   }
 
-  function quoteInput(){ return {serviceId:state.service?state.service.id:'',minutes:state.minutes,code:$('code').value.trim(),date:$('date').value}; }
+  function quoteInput(){ return {serviceId:state.service?state.service.id:'',minutes:state.minutes,code:$('code').value.trim(),date:$('date').value,lang:lang}; }
 
-  async function loadSlots(){
-    state.time=null; state.quote=null; renderSummary(); clearMsg();
+  async function loadSlots(opts){
+    opts=opts||{};
+    var seq=++state.availabilitySeq;
+    var previousTime=opts.preserveTime ? state.time : null;
+    if(!opts.preserveTime) state.time=null;
+    state.quote=null; renderSummary(); clearMsg();
     if(!state.service || !state.minutes || !$('date').value){ $('slotsBlock').hidden=true; return; }
     $('slotsBlock').hidden=false; $('slots').innerHTML='<span class="loading">'+esc(t.searching)+'</span>';
     try{
       var res=await callApi('availability',quoteInput(),12000);
+      if(seq!==state.availabilitySeq) return;
       if(!res || !res.ok){ $('slots').innerHTML=''; showMsg((res&&res.error)||t.connection); return; }
       state.quote=res.quote;
       if(!res.slots || !res.slots.length){ $('slots').innerHTML='<span class="loading">'+esc(t.none)+'</span>'; return; }
       $('slots').innerHTML='';
-      res.slots.forEach(function(h){ var b=document.createElement('button'); b.type='button'; b.className='chip slot'; b.textContent=h; b.setAttribute('aria-pressed','false'); b.onclick=function(){ state.time=h; Array.from($('slots').children).forEach(function(x){ if(x.setAttribute)x.setAttribute('aria-pressed',x===b?'true':'false'); }); renderSummary(); }; $('slots').appendChild(b); });
-    }catch(e){ $('slots').innerHTML=''; showMsg(t.connection); }
+      res.slots.forEach(function(h){
+        var b=document.createElement('button'); b.type='button'; b.className='chip slot'; b.textContent=h;
+        var selected=previousTime===h;
+        if(selected) state.time=h;
+        b.setAttribute('aria-pressed',selected?'true':'false');
+        b.onclick=function(){ state.time=h; Array.from($('slots').children).forEach(function(x){ if(x.setAttribute)x.setAttribute('aria-pressed',x===b?'true':'false'); }); renderSummary(); };
+        $('slots').appendChild(b);
+      });
+      if(previousTime && !state.time) renderSummary(); else renderSummary();
+    }catch(e){
+      if(seq!==state.availabilitySeq) return;
+      $('slots').innerHTML=''; showMsg(t.connection);
+    }
   }
 
   function fmtDate(s){ if(!s)return''; var p=s.split('-'); return p[2]+'.'+p[1]+'.'+p[0]; }
@@ -104,9 +120,9 @@
     box.innerHTML='<strong>'+esc(state.quote.service)+'</strong><br>'+esc(state.quote.totalMinutes)+' min'+(state.quote.extraMinutes?' (+'+esc(state.quote.extraMinutes)+' min)':'')+' · '+esc(state.quote.price)+' CHF<br>'+esc(fmtDate($('date').value))+' · '+esc(state.time)+'<br>Cointrin, Genève';
   }
 
-  $('service').onchange=function(){ state.service=(state.cfg.services||[]).find(function(s){return s.id===$('service').value;})||null; state.minutes=null; renderDurations(); loadSlots(); };
-  $('date').onchange=loadSlots;
-  $('code').onchange=loadSlots;
+  $('service').onchange=function(){ state.service=(state.cfg.services||[]).find(function(s){return s.id===$('service').value;})||null; state.minutes=null; renderDurations(); loadSlots({preserveTime:false}); };
+  $('date').onchange=function(){ loadSlots({preserveTime:false}); };
+  $('code').onchange=function(){ loadSlots({preserveTime:true}); };
 
   function validate(){
     var dial=$('phoneDial').value==='other'?$('phoneDialOther').value.trim():$('phoneDial').value;
@@ -126,11 +142,15 @@
     var btn=$('submit'); btn.disabled=true; btn.textContent=t.booking;
     try{
       var res=await callApi('book',data,20000);
-      if(!res || !res.ok){ btn.disabled=false; btn.textContent=t.confirm; showMsg((res&&res.error)||t.connection); if(res&&res.error&&/créneau|horaire|slot|time/i.test(res.error)) loadSlots(); return; }
+      if(!res || !res.ok){ btn.disabled=false; btn.textContent=t.confirm; showMsg((res&&res.error)||t.connection); if(res&&res.error&&/créneau|horaire|slot|time/i.test(res.error)) loadSlots({preserveTime:false}); return; }
       var r=res.receipt||{};
       $('doneBox').innerHTML='<strong>'+esc(r.service||state.quote.service)+'</strong><br>'+esc(r.totalMinutes||state.quote.totalMinutes)+' min · '+esc(r.price||state.quote.price)+' CHF<br>'+esc(fmtDate(r.date||$('date').value))+' · '+esc(r.time||state.time)+'<br>'+esc(r.location||'Cointrin, Genève');
       if(r.anamnesisUrl) $('anamLink').href=r.anamnesisUrl; else if(state.cfg.anamnesisUrl) $('anamLink').href=state.cfg.anamnesisUrl;
       $('bookingCard').hidden=true; $('doneCard').hidden=false; window.scrollTo(0,0);
+      try{
+        if(typeof gtag==='function') gtag('event','booking_complete',{event_category:'reservation',event_label:'site_native'});
+        window.dispatchEvent(new CustomEvent('sr-booking-complete',{detail:{service:r.service||state.quote.service,price:r.price||state.quote.price,currency:'CHF'}}));
+      }catch(trackErr){}
     }catch(e){ btn.disabled=false; btn.textContent=t.confirm; showMsg(t.connection); }
   };
 
