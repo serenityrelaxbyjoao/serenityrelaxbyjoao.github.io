@@ -1,0 +1,44 @@
+name: Activate native booking
+on:
+  push:
+    paths:
+      - '.github/workflows/activate-native-booking.yml'
+permissions:
+  contents: write
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build clean native reservation route
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          src = Path('reservation.html').read_text()
+          page = src
+          page = page.replace('href="reservation.css?v=1"', 'href="../reservation.css?v=2"')
+          page = page.replace('href="./">Serenity &amp; Relax', 'href="../">Serenity &amp; Relax')
+          page = page.replace('class="back" href="./" data-i18n="back"', 'class="back" href="../" data-i18n="back"')
+          for lang in ['fr','pt','en','es','it','de']:
+              page = page.replace(f'href="reservation.html?lang={lang}"', f'href="./?lang={lang}"')
+          page = page.replace('href="conditions.html"', 'href="../conditions.html"')
+          page = page.replace('class="back" href="./" data-i18n="backSite"', 'class="back" href="../" data-i18n="backSite"')
+          page = page.replace('src="reservation.js?v=1"', 'src="../reservation.js?v=2"')
+          Path('reservation/index.html').write_text(page)
+
+          js = Path('reservation.js').read_text()
+          old = "birthdayOk:$('birthdayOk').checked,requestId:bookingRequestId"
+          new = "birthdayOk:$('birthdayOk').checked,lang:lang,requestId:bookingRequestId"
+          if old not in js:
+              raise SystemExit('Expected booking payload marker not found')
+          js = js.replace(old, new, 1)
+          Path('reservation.js').write_text(js)
+          PY
+      - name: Commit native booking activation
+        run: |
+          git config user.name 'Serenity maintenance'
+          git config user.email 'serenityrelaxbyjoao@gmail.com'
+          git add reservation/index.html reservation.js
+          git diff --cached --quiet || git commit -m 'Activate native GitHub booking form'
+          git push
