@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Réservation | Serenity &amp; Relax by João</title>
+  <meta name="theme-color" content="#26402f">
+  <link rel="stylesheet" href="reservation.css?v=1">
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="./">Serenity &amp; Relax <small>by João</small></a>
+      <a class="back" href="./" data-i18n="back">← Retour au site</a>
+    </div>
+
+    <main class="card" id="bookingCard">
+      <h1 data-i18n="title">Réserver votre séance</h1>
+      <p class="sub" data-i18n="subtitle">Cabinet à Cointrin, près de l’aéroport de Genève · 7 jours sur 7 · sur rendez-vous</p>
+
+      <nav class="langline" aria-label="Langues">
+        <a href="reservation.html?lang=fr" data-lang="fr">FR</a><a href="reservation.html?lang=pt" data-lang="pt">PT</a><a href="reservation.html?lang=en" data-lang="en">EN</a><a href="reservation.html?lang=es" data-lang="es">ES</a><a href="reservation.html?lang=it" data-lang="it">IT</a><a href="reservation.html?lang=de" data-lang="de">DE</a>
+      </nav>
+
+      <section class="step">
+        <span class="step-title" data-i18n="step1">1. Votre massage</span>
+        <label for="service" data-i18n="serviceLabel">Quel massage souhaitez-vous ?</label>
+        <select id="service" disabled><option data-i18n="loading">Chargement…</option></select>
+        <div id="durationBlock" hidden>
+          <span class="lbl" data-i18n="duration">Durée</span>
+          <div class="chips" id="durations"></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <span class="step-title" data-i18n="step2">2. Date et heure</span>
+        <label for="date" data-i18n="date">Date</label>
+        <input type="date" id="date">
+        <div id="slotsBlock" hidden>
+          <span class="lbl" data-i18n="time">Heure</span>
+          <div class="slots" id="slots"></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <span class="step-title" data-i18n="step3">3. Vos précisions</span>
+        <label for="area" data-i18n="areaLabel">Zones à travailler en priorité, zones à éviter, tensions particulières ou demande à signaler (facultatif)</label>
+        <textarea id="area" maxlength="1000"></textarea>
+        <label for="code" data-i18n="codeLabel">Code promotionnel ou nom de la personne qui vous a recommandé (facultatif)</label>
+        <input id="code" maxlength="150" autocomplete="off">
+        <div class="offer" id="offerBox" hidden></div>
+      </section>
+
+      <section class="step">
+        <span class="step-title" data-i18n="step4">4. Vos coordonnées</span>
+        <div class="grid2">
+          <div><label for="firstName" data-i18n="firstName">Prénom</label><input id="firstName" autocomplete="given-name" maxlength="60"></div>
+          <div><label for="lastName" data-i18n="lastName">Nom</label><input id="lastName" autocomplete="family-name" maxlength="60"></div>
+        </div>
+        <label for="email" data-i18n="email">Adresse e-mail</label>
+        <input id="email" type="email" autocomplete="email" maxlength="180">
+        <label for="phoneNumber" data-i18n="phone">Numéro de téléphone</label>
+        <div class="phone"><select id="phoneDial" aria-label="Indicatif du pays"></select><input id="phoneNumber" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="79 123 45 67"></div>
+        <div id="phoneOther" hidden><input id="phoneDialOther" maxlength="5" placeholder="+971" style="margin-top:8px"></div>
+
+        <label for="birthDate" data-i18n="birthDate">Date de naissance</label>
+        <input type="date" id="birthDate" min="1900-01-01">
+        <div class="check"><input type="checkbox" id="birthdayOk"><label for="birthdayOk" data-i18n="birthdayOk">J’accepte de recevoir un petit message le jour de mon anniversaire (facultatif).</label></div>
+
+        <span class="lbl" data-i18n="address">Adresse complète pour la facturation</span>
+        <input id="street" autocomplete="street-address" maxlength="150" data-i18n-placeholder="street" placeholder="Rue et numéro">
+        <div class="address-row" style="margin-top:10px"><input id="zip" autocomplete="postal-code" maxlength="12" data-i18n-placeholder="zip" placeholder="NPA"><input id="city" autocomplete="address-level2" maxlength="80" data-i18n-placeholder="city" placeholder="Localité"></div>
+        <input id="country" autocomplete="country-name" maxlength="60" value="Suisse" data-i18n-placeholder="country" placeholder="Pays" style="margin-top:10px">
+
+        <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" tabindex="-1" autocomplete="off"></div>
+        <p class="notice" data-i18n="cancel">Important : toute annulation à moins de 24 heures du rendez-vous ou absence sans prévenir entraîne la facturation intégrale de la séance réservée.</p>
+        <div class="check"><input type="checkbox" id="accepted"><label for="accepted"><span data-i18n="termsStart">J’ai lu et j’accepte les</span> <a href="conditions.html" target="_blank" rel="noopener" data-i18n="terms">conditions générales</a> <span data-i18n="termsEnd">et la politique de confidentialité.</span></label></div>
+      </section>
+
+      <div class="summary" id="summary" hidden></div>
+      <button class="main" id="submit" type="button" disabled data-i18n="confirm">Confirmer la réservation</button>
+      <div class="msg" id="msg" role="alert" aria-live="assertive"></div>
+      <p class="fallback"><span data-i18n="problem">Un problème avec la réservation ?</span> <a id="directFallback" href="#" target="_blank" rel="noopener" data-i18n="direct">Ouvrir le formulaire direct</a> · <a href="https://wa.me/41783336823" data-i18n="whatsapp">WhatsApp</a></p>
+    </main>
+
+    <main class="card done" id="doneCard" hidden>
+      <h1 data-i18n="doneTitle">Votre séance est réservée</h1>
+      <div class="done-box" id="doneBox"></div>
+      <p data-i18n="doneMail">Un e-mail de confirmation vous a été envoyé.</p>
+      <p><a id="anamLink" class="back" href="#" target="_blank" rel="noopener" data-i18n="anam">Remplir la fiche d’anamnèse</a></p>
+      <p><a class="back" href="./" data-i18n="backSite">Retour au site</a></p>
+    </main>
+  </div>
+
+  <iframe class="transport" id="transportFrame" name="transportFrame" title="" aria-hidden="true"></iframe>
+  <form class="transport" id="transportForm" method="post" target="transportFrame" aria-hidden="true">
+    <input name="action" id="transportAction"><input name="transportId" id="transportId"><textarea name="payload" id="transportPayload"></textarea>
+  </form>
+
+  <script src="reservation.js?v=1" defer></script>
+</body>
+</html>
