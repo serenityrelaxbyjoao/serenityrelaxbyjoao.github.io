@@ -40,14 +40,12 @@
   loadAds();
 
   function bookingUrl(service) {
-    if (!SR.exec) return '';
-    return SR.exec + '?lang=' + encodeURIComponent(SR.lang || 'fr') + (service ? '&service=' + encodeURIComponent(service) : '');
+    var base = 'reservation/?lang=' + encodeURIComponent(SR.lang || 'fr');
+    return base + (service ? '&service=' + encodeURIComponent(service) : '');
   }
 
   function goBooking(service) {
-    var url = bookingUrl(service || '');
-    if (!url) return;
-    window.location.assign(url);
+    window.location.assign(bookingUrl(service || ''));
   }
 
   document.addEventListener('click', function (e) {
@@ -143,7 +141,6 @@
     if (bar && !getC()) bar.hidden = false;
     syncBar();
 
-    /* Production safety: no iframe. Every booking action opens the public Apps Script page directly. */
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('[data-book]') : null;
       if (!a) return;
