@@ -25,6 +25,10 @@
     document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(t[k]) el.textContent=t[k]; });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){ var k=el.getAttribute('data-i18n-placeholder'); if(t[k]) el.placeholder=t[k]; });
     document.querySelectorAll('[data-lang]').forEach(function(a){ if(a.getAttribute('data-lang')===lang) a.setAttribute('aria-current','page'); });
+    document.querySelectorAll('[data-lang]').forEach(function(a){
+      var code=a.getAttribute('data-lang');
+      a.href='./?lang='+encodeURIComponent(code)+(preselect?'&service='+encodeURIComponent(preselect):'');
+    });
   }
   tr();
 
@@ -105,7 +109,7 @@
         b.onclick=function(){ state.time=h; Array.from($('slots').children).forEach(function(x){ if(x.setAttribute)x.setAttribute('aria-pressed',x===b?'true':'false'); }); renderSummary(); };
         $('slots').appendChild(b);
       });
-      if(previousTime && !state.time) renderSummary(); else renderSummary();
+      renderSummary();
     }catch(e){
       if(seq!==state.availabilitySeq) return;
       $('slots').innerHTML=''; showMsg(t.connection);
