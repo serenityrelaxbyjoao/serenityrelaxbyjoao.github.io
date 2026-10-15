@@ -1,0 +1,29 @@
+name: Bump booking cache
+on:
+  push:
+    paths:
+      - '.github/workflows/bump-booking-cache.yml'
+permissions:
+  contents: write
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update app cache version
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in ['index.html','pt.html','en.html','es.html','it.html','de.html']:
+              p=Path(name)
+              s=p.read_text()
+              s=s.replace('app.js?v=6','app.js?v=7')
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'Serenity maintenance'
+          git config user.email 'serenityrelaxbyjoao@gmail.com'
+          git add index.html pt.html en.html es.html it.html de.html
+          git diff --cached --quiet || git commit -m 'Force fresh booking routing script'
+          git push
