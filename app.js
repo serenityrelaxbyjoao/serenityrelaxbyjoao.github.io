@@ -151,6 +151,12 @@
     if (bar && !getC()) bar.hidden = false;
     syncBar();
 
+    $$('[data-book]').forEach(function (a) {
+      a.setAttribute('href', bookingUrl(a.getAttribute('data-book') || ''));
+      a.removeAttribute('target');
+      a.removeAttribute('rel');
+    });
+
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('[data-book]') : null;
       if (!a) return;
@@ -177,7 +183,7 @@
             if (!s) return;
             html += '<article class="pick"><span class="tag">' + (i === 0 ? SR.t.best : SR.t.alt) + '</span><h3>' + s.name +
               '</h3><p>' + s.desc + '</p><div class="row"><span class="prices">' + s.prices.map(function (p) { return '<span>' + p + '</span>'; }).join('') +
-              '</span><a class="btn small" href="#reserver" data-book="' + id + '">' + SR.t.bookThis + '</a></div></article>';
+              '</span><a class="btn small" href="' + bookingUrl(id) + '" data-book="' + id + '">' + SR.t.bookThis + '</a></div></article>';
           });
           res.innerHTML = html + '</div>';
         });
