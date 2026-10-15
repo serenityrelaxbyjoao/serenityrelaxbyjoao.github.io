@@ -114,7 +114,7 @@
     if(!$('date').value||!state.time){showMsg(t.pickDate);return null;}
     if(!$('firstName').value.trim()||!$('lastName').value.trim()){showMsg(t.nameErr);return null;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())){showMsg(t.emailErr);return null;}
-    if(!/^\+\d{1,4}$/.test(dial)||!^[\d\s().\/-]{6,20}$/.test($('phoneNumber').value.trim())){showMsg(t.phoneErr);return null;}
+    if(!/^\+\d{1,4}$/.test(dial)||!/[\d\s().\/-]{6,20}/.test($('phoneNumber').value.trim())){showMsg(t.phoneErr);return null;}
     if(!$('birthDate').value){showMsg(t.birthErr);return null;}
     if(!$('street').value.trim()||!$('zip').value.trim()||!$('city').value.trim()||!$('country').value.trim()){showMsg(t.addressErr);return null;}
     if(!$('accepted').checked){showMsg(t.termsErr);return null;}
