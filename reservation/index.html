@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Réserver | Serenity & Relax by João</title>
+  <meta name="theme-color" content="#26402f">
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#f4eddf;color:#294536;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{min-height:100vh}.top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#294536;color:#fff;position:sticky;top:0;z-index:20}.brand{font-family:Georgia,serif;font-size:20px;color:#fff;text-decoration:none}.back{color:#fff;text-decoration:none;font-size:14px;border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:9px 13px}.shell{max-width:980px;margin:0 auto;padding:18px}.framebox{background:#fff;border:1px solid #dfd2bc;border-radius:22px;overflow:hidden;box-shadow:0 12px 36px rgba(38,64,47,.08);min-height:76vh;position:relative}.loader{position:absolute;inset:0;display:grid;place-items:center;padding:28px;text-align:center;background:#fff;z-index:2}.loader[hidden]{display:none}.spinner{width:36px;height:36px;border:3px solid #e6dccb;border-top-color:#34503f;border-radius:50%;animation:s .8s linear infinite;margin:0 auto 14px}@keyframes s{to{transform:rotate(360deg)}}iframe{display:block;width:100%;min-height:78vh;border:0;background:#fff}.fallback{display:none;padding:24px;text-align:center;background:#fff8ec;border-top:1px solid #eadfce}.fallback.show{display:block}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border-radius:999px;background:#34503f;color:#fff;text-decoration:none;font-weight:650;margin:6px}.btn.alt{background:transparent;color:#34503f;border:1px solid #34503f}.note{font-size:13px;color:#66766c;max-width:680px;margin:14px auto 0;line-height:1.45}@media(max-width:600px){.shell{padding:0}.framebox{border:0;border-radius:0;box-shadow:none;min-height:calc(100vh - 64px)}iframe{min-height:calc(100vh - 64px)}.top{height:58px}}
+  </style>
+</head>
+<body>
+  <header class="top"><a class="brand" href="../">Serenity & Relax <small>by João</small></a><a class="back" href="../">← Retour</a></header>
+  <main class="shell">
+    <section class="framebox" aria-label="Réservation">
+      <div class="loader" id="loader"><div><div class="spinner" aria-hidden="true"></div><strong id="loadingText">Chargement de la réservation…</strong><p class="note">Vous restez sur le site Serenity & Relax pendant la réservation.</p></div></div>
+      <iframe id="booking" title="Formulaire de réservation" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+      <div class="fallback" id="fallback"><strong id="fallbackTitle">Le formulaire ne s’affiche pas correctement ?</strong><div><a class="btn" id="direct" href="#" target="_blank" rel="noopener">Ouvrir la réservation</a><a class="btn alt" href="https://wa.me/41783336823" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </section>
+  </main>
+  <script>
+  (function(){
+    var p=new URLSearchParams(location.search), lang=p.get('lang')||'fr', service=p.get('service')||'';
+    if(!/^(fr|pt|en|es|it|de)$/.test(lang)) lang='fr';
+    document.documentElement.lang=lang;
+    var tx={
+      fr:['Chargement de la réservation…','Le formulaire ne s’affiche pas correctement ?','Ouvrir la réservation','← Retour'],
+      pt:['A carregar a reserva…','O formulário não aparece corretamente?','Abrir a reserva','← Voltar'],
+      en:['Loading booking…','Is the booking form not displaying correctly?','Open booking','← Back'],
+      es:['Cargando la reserva…','¿El formulario no se muestra correctamente?','Abrir reserva','← Volver'],
+      it:['Caricamento prenotazione…','Il modulo non viene visualizzato correttamente?','Apri prenotazione','← Indietro'],
+      de:['Buchung wird geladen…','Wird das Formular nicht korrekt angezeigt?','Buchung öffnen','← Zurück']
+    }[lang];
+    document.getElementById('loadingText').textContent=tx[0];
+    document.getElementById('fallbackTitle').textContent=tx[1];
+    document.getElementById('direct').textContent=tx[2];
+    document.querySelector('.back').textContent=tx[3];
+    var base='https://script.google.com/macros/s/AKfycbzMEVFIzDBtuAIOkuwgNSB42OtxRvoEhPibhT8O-vwhBVlixQx5LQKWhLQyTDjG6pkDMg/exec';
+    var url=base+'?lang='+encodeURIComponent(lang)+(service?'&service='+encodeURIComponent(service):'');
+    var frame=document.getElementById('booking'), loader=document.getElementById('loader'), fallback=document.getElementById('fallback');
+    document.getElementById('direct').href=url;
+    var ready=false;
+    frame.addEventListener('load',function(){ready=true;loader.hidden=true;});
+    frame.src=url;
+    setTimeout(function(){loader.hidden=true;if(!ready) fallback.classList.add('show');},4500);
+    setTimeout(function(){if(!ready) fallback.classList.add('show');},8000);
+  })();
+  </script>
+</body>
+</html>
