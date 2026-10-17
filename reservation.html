@@ -67,6 +67,7 @@
         <label for="birthDate" data-i18n="birthDate">Date de naissance</label>
         <input type="date" id="birthDate" min="1900-01-01">
         <div class="check"><input type="checkbox" id="birthdayOk"><label for="birthdayOk" data-i18n="birthdayOk">J’accepte de recevoir un petit message le jour de mon anniversaire (facultatif).</label></div>
+        <div class="check"><input type="checkbox" id="marketingOk"><label for="marketingOk" data-i18n="marketingOk">Je souhaite recevoir occasionnellement des offres et nouvelles de Serenity &amp; Relax by João, ainsi qu’un message après ma séance pour donner mon avis (facultatif, désinscription à tout moment).</label></div>
 
         <span class="lbl" data-i18n="address">Adresse complète pour la facturation</span>
         <input id="street" autocomplete="street-address" maxlength="150" data-i18n-placeholder="street" placeholder="Rue et numéro">
@@ -75,7 +76,7 @@
 
         <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" tabindex="-1" autocomplete="off"></div>
         <p class="notice" data-i18n="cancel">Important : toute annulation à moins de 24 heures du rendez-vous ou absence sans prévenir entraîne la facturation intégrale de la séance réservée.</p>
-        <div class="check"><input type="checkbox" id="accepted"><label for="accepted"><span data-i18n="termsStart">J’ai lu et j’accepte les</span> <a href="conditions.html" target="_blank" rel="noopener" data-i18n="terms">conditions générales</a> <span data-i18n="termsEnd">et la politique de confidentialité.</span></label></div>
+        <div class="check"><input type="checkbox" id="accepted"><label for="accepted"><span data-i18n="termsStart">J’ai lu et j’accepte les</span> <a href="conditions.html" target="_blank" rel="noopener" data-i18n="terms">conditions générales</a> <span data-i18n="termsEnd">et la politique de confidentialité. Je consens au traitement de mes données de santé (fiche d’anamnèse) afin d’adapter mes séances.</span></label></div>
       </section>
 
       <div class="summary" id="summary" hidden></div>
@@ -98,6 +99,6 @@
     <input name="action" id="transportAction"><input name="transportId" id="transportId"><textarea name="payload" id="transportPayload"></textarea>
   </form>
 
-  <script src="reservation.js?v=1" defer></script>
+  <script src="reservation.js?v=2" defer></script>
 </body>
 </html>
