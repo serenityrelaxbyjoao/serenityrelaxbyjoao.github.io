@@ -179,5 +179,46 @@
     }catch(e){ $('service').innerHTML='<option>'+esc(t.connection)+'</option>'; showMsg(t.connection); $('submit').disabled=true; }
   }
 
+  // Conditions générales : la case ne se coche qu'après lecture (comme le formulaire direct)
+  (function(){
+    var CGT={fr:{read:'J’accepte les conditions générales',close:'Fermer',note:''},
+      pt:{read:'Aceito as condições gerais',close:'Fechar',note:'O texto das condições gerais está em francês; a versão francesa é a que faz fé.'},
+      en:{read:'I accept the terms and conditions',close:'Close',note:'The terms are in French; the French version is legally binding.'},
+      es:{read:'Acepto las condiciones generales',close:'Cerrar',note:'Las condiciones generales están en francés; la versión francesa es la que prevalece.'},
+      it:{read:'Accetto le condizioni generali',close:'Chiudi',note:'Le condizioni generali sono in francese; fa fede la versione francese.'},
+      de:{read:'Ich akzeptiere die AGB',close:'Schliessen',note:'Die AGB sind auf Französisch; massgebend ist die französische Fassung.'}};
+    var c=CGT[lang]||CGT.fr, box=$('accepted'); if(!box) return;
+    var link=box.parentNode.querySelector('a'), url=link?link.getAttribute('href'):'../conditions.html';
+    var read=false, html=null, modal=null, last=null;
+    function build(){
+      modal=document.createElement('div'); modal.className='cg-modal'; modal.hidden=true;
+      modal.setAttribute('role','dialog'); modal.setAttribute('aria-modal','true'); modal.setAttribute('aria-label',c.read);
+      modal.innerHTML='<div class="cg-box"><button type="button" class="cg-x" aria-label="'+esc(c.close)+'">×</button>'+
+        (c.note?'<p class="cg-note">'+esc(c.note)+'</p>':'')+'<div class="cg-body"></div>'+
+        '<button type="button" class="main cg-ok">'+esc(c.read)+'</button></div>';
+      document.body.appendChild(modal);
+      modal.querySelector('.cg-body').innerHTML=html;
+      modal.querySelector('.cg-x').onclick=close;
+      modal.addEventListener('click',function(e){ if(e.target===modal) close(); });
+      modal.querySelector('.cg-ok').onclick=function(){ read=true; box.checked=true; close(); clearMsg(); };
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!modal.hidden) close(); });
+    }
+    function close(){ modal.hidden=true; document.body.style.overflow=''; (last||box).focus(); }
+    function open(){
+      last=document.activeElement;
+      if(html===null){
+        fetch(url,{cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(txt){
+          var doc=new DOMParser().parseFromString(txt,'text/html'), card=doc.querySelector('.card.cg')||doc.body;
+          card.querySelectorAll('a.back,script').forEach(function(n){ n.remove(); });
+          html=card.innerHTML; build(); open();
+        }).catch(function(){ window.open(url,'_blank','noopener'); read=true; });
+        return;
+      }
+      modal.hidden=false; document.body.style.overflow='hidden'; modal.querySelector('.cg-box').scrollTop=0; modal.querySelector('.cg-ok').focus({preventScroll:true});
+    }
+    box.addEventListener('click',function(e){ if(box.checked&&!read){ e.preventDefault(); box.checked=false; open(); } });
+    if(link) link.addEventListener('click',function(e){ e.preventDefault(); open(); });
+  })();
+
   init();
 })();
