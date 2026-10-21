@@ -2,7 +2,7 @@
 (function () {
   var SR = window.SR || {};
   var ADS = 'AW-18220930952';
-  var LABELS = { booking: 'bpnfCIP1ho8dEIivtfBD', whatsapp: '97HiCIb1ho8dEIivtfBD', phone: 'Q9zdCPn-jI8dEIivtfBD' };
+  var LABELS = { bookingClick: 'bpnfCIP1ho8dEIivtfBD', whatsapp: '97HiCIb1ho8dEIivtfBD', phone: 'Q9zdCPn-jI8dEIivtfBD' };
   var KEY = 'sr-cookies', loaded = false;
 
   window.dataLayer = window.dataLayer || [];
@@ -13,7 +13,7 @@
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
 
-  var GRANTED = { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' };
+  var GRANTED = { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'granted' };
   var DENIED = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' };
   gtag('consent', 'default', DENIED);
   gtag('set', 'ads_data_redaction', true);
@@ -38,14 +38,6 @@
   }
 
   loadAds();
-
-  window.addEventListener('sr-booking-complete', function (e) {
-    var d = e && e.detail ? e.detail : {};
-    conv(LABELS.booking, {
-      value: Number(d.price) || 0,
-      currency: d.currency || 'CHF'
-    });
-  });
 
   function bookingUrl(service) {
     var base = 'reservation/?lang=' + encodeURIComponent(SR.lang || 'fr');
@@ -161,6 +153,7 @@
       var a = e.target.closest ? e.target.closest('[data-book]') : null;
       if (!a) return;
       e.preventDefault();
+      conv(LABELS.bookingClick);
       goBooking(a.getAttribute('data-book') || '');
     });
 
