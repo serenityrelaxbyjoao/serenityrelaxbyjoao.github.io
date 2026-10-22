@@ -2,6 +2,8 @@
 (function () {
   var SR = window.SR || {};
   var ADS = 'AW-18220930952';
+  var GA4 = 'G-CCB168JXJR', analyticsStarted = false;
+  window['ga-disable-' + GA4] = true;
   var LABELS = { bookingClick: 'bpnfCIP1ho8dEIivtfBD', whatsapp: '97HiCIb1ho8dEIivtfBD', phone: 'Q9zdCPn-jI8dEIivtfBD' };
   var KEY = 'sr-cookies', loaded = false;
 
@@ -37,7 +39,20 @@
     gtag('event', 'conversion', p);
   }
 
+  function startAnalytics() {
+    window['ga-disable-' + GA4] = false;
+    if (analyticsStarted) return;
+    analyticsStarted = true;
+    gtag('config', GA4, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      page_location: location.origin + location.pathname,
+      page_referrer: document.referrer ? document.referrer.split('?')[0].split('#')[0] : ''
+    });
+  }
+
   loadAds();
+  if (getC() === 'yes') startAnalytics();
 
   function bookingUrl(service) {
     var base = 'reservation/?lang=' + encodeURIComponent(SR.lang || 'fr');
@@ -117,7 +132,7 @@
     function clearAdsCookies() {
       document.cookie.split(';').forEach(function (c) {
         var n = c.split('=')[0].trim();
-        if (/^(_gcl_|_gac_)/.test(n)) {
+        if (/^(_gcl_|_gac_|_ga(?:_|$))/.test(n)) {
           document.cookie = n + '=; Max-Age=0; path=/';
           document.cookie = n + '=; Max-Age=0; path=/; domain=' + location.hostname;
         }
@@ -127,8 +142,8 @@
       setC(v);
       if (bar) bar.hidden = true;
       syncBar();
-      if (v === 'yes') gtag('consent', 'update', GRANTED);
-      else { gtag('consent', 'update', DENIED); clearAdsCookies(); }
+      if (v === 'yes') { gtag('consent', 'update', GRANTED); startAnalytics(); }
+      else { window['ga-disable-' + GA4] = true; gtag('consent', 'update', DENIED); clearAdsCookies(); }
     }
     if (getC() === 'no') clearAdsCookies();
     var ckOk = $('#ckOk'), ckNo = $('#ckNo');
