@@ -8,7 +8,7 @@
  * placed in the URL and no CORS relaxation is required.
  */
 
-var NATIVE_SITE_ORIGIN = 'https://serenityrelaxbyjoao.github.io';
+var NATIVE_SITE_ORIGIN = 'https://serenityrelaxbyjoao.ch';
 
 function doPost(e) {
   var transportId = '';
