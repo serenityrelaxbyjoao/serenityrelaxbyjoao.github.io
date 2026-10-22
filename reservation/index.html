@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex">
   <title>Réservation | Serenity &amp; Relax by João</title>
   <meta name="theme-color" content="#26402f">
-  <link rel="stylesheet" href="../reservation.css?v=4">
+  <link rel="stylesheet" href="../reservation.css?v=5">
 </head>
 <body>
   <div class="wrap">
@@ -103,7 +103,12 @@
     <input name="action" id="transportAction"><input name="transportId" id="transportId"><textarea name="payload" id="transportPayload"></textarea>
   </form>
 
-  <script src="../app.js?v=8" defer></script>
-  <script src="../reservation.js?v=11" defer></script>
+  <div class="cookie-bar" id="cookieBar" hidden role="dialog" aria-label="Cookies">
+    <p id="bookingCookieText">Avec votre accord, Google Analytics et Google Ads mesurent les visites et réservations, sans les données du formulaire. Refuser ne bloque pas la réservation.</p>
+    <div class="btns"><button id="ckNo" type="button">Refuser</button><button id="ckOk" type="button">Accepter</button></div>
+  </div>
+  <p class="cookie-settings"><a href="../conditions.html" data-cookies id="bookingCookieSettings">Choix des cookies</a></p>
+  <script src="../app.js?v=10" defer></script>
+  <script src="../reservation.js?v=12" defer></script>
 </body>
 </html>

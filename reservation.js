@@ -32,6 +32,20 @@
   }
   tr();
 
+  var cookieText = {
+    fr:['Avec votre accord, Google Analytics et Google Ads mesurent les visites et réservations, sans les données du formulaire. Refuser ne bloque pas la réservation.','Refuser','Accepter','Choix des cookies'],
+    pt:['Com a sua autorização, Google Analytics e Google Ads medem visitas e reservas, sem os dados do formulário. Recusar não impede a reserva.','Recusar','Aceitar','Escolha de cookies'],
+    en:['With your consent, Google Analytics and Google Ads measure visits and bookings, without form data. Declining does not prevent booking.','Decline','Accept','Cookie choices'],
+    es:['Con su permiso, Google Analytics y Google Ads miden visitas y reservas, sin datos del formulario. Rechazar no impide reservar.','Rechazar','Aceptar','Opciones de cookies'],
+    it:['Con il suo consenso, Google Analytics e Google Ads misurano visite e prenotazioni, senza i dati del modulo. Rifiutare non impedisce la prenotazione.','Rifiuta','Accetta','Scelte sui cookie'],
+    de:['Mit Ihrer Zustimmung messen Google Analytics und Google Ads Besuche und Buchungen, ohne Formulardaten. Ablehnen verhindert keine Buchung.','Ablehnen','Akzeptieren','Cookie-Auswahl']
+  }[lang];
+  if($('bookingCookieText')) {
+    $('bookingCookieText').textContent=cookieText[0];
+    $('ckNo').textContent=cookieText[1]; $('ckOk').textContent=cookieText[2];
+    $('bookingCookieSettings').textContent=cookieText[3];
+  }
+
   var direct = API + '?lang=' + encodeURIComponent(lang) + (preselect ? '&service=' + encodeURIComponent(preselect) : '');
   $('directFallback').href = direct;
   $('transportForm').action = API;
@@ -158,8 +172,7 @@
       if(r.anamnesisUrl) $('anamLink').href=r.anamnesisUrl; else if(state.cfg.anamnesisUrl) $('anamLink').href=state.cfg.anamnesisUrl;
       $('bookingCard').hidden=true; $('doneCard').hidden=false; window.scrollTo(0,0);
       try{
-        if(typeof gtag==='function') gtag('event','booking_complete',{event_category:'reservation',event_label:'site_native'});
-        window.dispatchEvent(new CustomEvent('sr-booking-complete',{detail:{service:r.service||state.quote.service,price:r.price||state.quote.price,currency:'CHF'}}));
+        if(window.SR && typeof window.SR.trackBooking==='function') window.SR.trackBooking(bookingRequestId);
       }catch(trackErr){}
     }catch(e){ btn.disabled=false; btn.textContent=t.confirm; showMsg(t.connection); }
   };

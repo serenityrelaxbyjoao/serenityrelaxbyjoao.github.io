@@ -1,6 +1,7 @@
 /* Serenity & Relax by João — script commun */
 (function () {
-  var SR = window.SR || {};
+  var SR = window.SR = window.SR || {};
+  var isBookingPage = /\/reservation\/$/.test(location.pathname);
   var ADS = 'AW-18220930952';
   var GA4 = 'G-CCB168JXJR', analyticsStarted = false;
   window['ga-disable-' + GA4] = true;
@@ -29,7 +30,7 @@
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ADS;
     document.head.appendChild(s);
     gtag('js', new Date());
-    gtag('config', ADS);
+    gtag('config', ADS, { page_location: location.origin + location.pathname, page_referrer: document.referrer ? document.referrer.split('?')[0].split('#')[0] : '' });
   }
 
   function conv(label, extra) {
@@ -44,6 +45,7 @@
     if (analyticsStarted) return;
     analyticsStarted = true;
     gtag('config', GA4, {
+      send_page_view: !isBookingPage,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
       page_location: location.origin + location.pathname,
@@ -53,6 +55,28 @@
 
   loadAds();
   if (getC() === 'yes') startAnalytics();
+
+  // Only called after the booking API confirms success. Never pass patient data.
+  var measuredBookings = {};
+  SR.trackBooking = function (id) {
+    if (getC() !== 'yes' || typeof id !== 'string' || !/^booking-[a-z0-9-]+$/i.test(id)) return false;
+    var key = 'sr-measured-' + id;
+    if (measuredBookings[id]) return false;
+    try { if (sessionStorage.getItem(key)) return false; } catch (e) {}
+    measuredBookings[id] = true;
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+    startAnalytics();
+    var safePage = location.origin + '/reservation/';
+    gtag('event', 'booking_complete', {
+      send_to: GA4,
+      event_id: id,
+      page_location: safePage,
+      page_title: 'Réservation confirmée',
+      page_referrer: document.referrer ? document.referrer.split('?')[0].split('#')[0] : ''
+    });
+    conv('JmD-CMfCmKYdEIivtfBD', { transaction_id: id, page_location: safePage, page_title: 'Réservation confirmée' });
+    return true;
+  };
 
   function bookingUrl(service) {
     var base = 'reservation/?lang=' + encodeURIComponent(SR.lang || 'fr');
