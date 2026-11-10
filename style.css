@@ -362,3 +362,7 @@ body.bk-open{overflow:hidden}
   #cabinet .place-grid>img{display:block;height:590px;min-height:590px;max-height:590px;aspect-ratio:auto;object-fit:cover;object-position:center}
   #cabinet .infos{height:590px;min-height:590px;max-height:590px;grid-template-rows:repeat(3,minmax(0,1fr))}
 }
+
+/* Cabinet heading and description stay together */
+#cabinet .section-head{grid-template-columns:1fr;gap:0}
+#cabinet .section-head .lead{margin-top:12px;max-width:65ch;justify-self:start}
