@@ -45,8 +45,8 @@ header.solid{background:rgba(248,244,236,.92);backdrop-filter:blur(12px);-webkit
 .brand b{font:400 33px/1 "Great Vibes",cursive}
 .brand small{font:italic 500 16px/1 var(--serif);color:var(--gold-light)}
 header.solid .brand small{color:var(--gold-dark)}
-.menu{display:flex;gap:24px}
-.menu a{text-decoration:none;font-size:15px;opacity:.88}
+.menu{display:flex;gap:clamp(8px,1vw,16px);align-items:center}
+.menu a{text-decoration:none;font-size:clamp(12px,.86vw,14px);opacity:.88;white-space:nowrap}
 .menu a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
 .flag{display:block;width:20px;height:14px;border-radius:2px;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
 .langs{position:relative}
@@ -275,3 +275,17 @@ body.bk-open{overflow:hidden}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* Dedicated treatment price list */
+.tariffs-section{background:var(--paper)}
+.tariffs-scroller{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--cream)}
+.tariffs-table{border-collapse:collapse;width:100%;min-width:540px;text-align:left}
+.tariffs-table th,.tariffs-table td{padding:16px 20px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tariffs-table thead th{background:var(--sage);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--deep)}
+.tariffs-table tbody tr:last-child th,.tariffs-table tbody tr:last-child td{border-bottom:0}
+.tariffs-table tbody th{font-weight:600;color:var(--deep)}
+.tariffs-table td:nth-child(2){line-height:1.75;white-space:nowrap}
+.tariffs-table td:last-child{text-align:right}
+.tariffs-table td a{color:var(--green);font-weight:600;text-decoration:none;white-space:nowrap}
+.tariffs-table td a:hover{text-decoration:underline}
+@media(max-width:760px){.tariffs-table th,.tariffs-table td{padding:12px 14px;font-size:14px}}
