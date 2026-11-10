@@ -289,3 +289,63 @@ body.bk-open{overflow:hidden}
 .tariffs-table td a{color:var(--green);font-weight:600;text-decoration:none;white-space:nowrap}
 .tariffs-table td a:hover{text-decoration:underline}
 @media(max-width:760px){.tariffs-table th,.tariffs-table td{padding:12px 14px;font-size:14px}}
+
+
+/* Harmonisation visuelle globale — novembre 2026 */
+@media (min-width:901px){
+  #cabinet .place-grid{
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    align-items:stretch;
+    gap:24px;
+  }
+  #cabinet .place-grid>img{
+    aspect-ratio:auto;
+    width:100%;
+    height:100%;
+    max-height:590px;
+    min-height:0;
+    object-fit:cover;
+    object-position:center 42%;
+  }
+  #cabinet .infos{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:repeat(3,minmax(0,1fr));
+    gap:14px;
+    min-height:530px;
+    max-height:590px;
+  }
+  #cabinet .info{min-height:0;padding:clamp(15px,1.6vw,22px)}
+  #cabinet .info:last-child{grid-column:1/-1}
+  #apropos .about-grid{align-items:start;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(30px,4vw,62px)}
+  #apropos .portrait{position:sticky;top:105px;max-width:100%}
+  #apropos .portrait img{display:block;max-height:650px;aspect-ratio:4/5;object-fit:cover}
+}
+#apropos .about-grid>div{min-width:0}
+#apropos .about-grid .lead{line-height:1.7}
+#apropos .about-body{max-width:68ch}
+#apropos .about-body h3{margin:28px 0 10px;font-size:clamp(22px,2.2vw,29px);line-height:1.2}
+#apropos .about-body p{margin:0 0 14px;line-height:1.75}
+.soins .cards{align-items:stretch}
+.soins .card{min-width:0;height:100%;gap:12px}
+.soins .card .book{margin-top:auto;padding-top:17px}
+.tariffs-table tbody tr:hover{background:rgba(210,187,141,.10)}
+.tariffs-table th,.tariffs-table td{line-height:1.55}
+.tariffs-table td:nth-child(2){font-variant-numeric:tabular-nums}
+#cabinet .infos .info{display:flex;flex-direction:column;justify-content:center}
+#cabinet .infos .info p{overflow-wrap:anywhere}
+@media (min-width:761px) and (max-width:900px){
+  #cabinet .place-grid{grid-template-columns:1fr;align-items:start}
+  #cabinet .place-grid>img{max-height:480px;aspect-ratio:16/9;object-fit:cover}
+  #cabinet .infos{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
+}
+@media(max-width:760px){
+  #cabinet .place-grid{gap:20px}
+  #cabinet .place-grid>img{width:100%;height:auto;max-height:410px;aspect-ratio:4/3;object-fit:cover}
+  #cabinet .infos{grid-template-columns:1fr;gap:12px}
+  #cabinet .info{padding:19px}
+  #apropos .portrait{position:relative;top:auto;width:100%;max-width:390px;margin:0 auto 12px}
+  #apropos .about-grid{gap:26px}
+  #apropos .about-body h3{margin-top:22px}
+  .tariffs-scroller{margin-inline:0}
+  .tariffs-table{min-width:490px}
+}
