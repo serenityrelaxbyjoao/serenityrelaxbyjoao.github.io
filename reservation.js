@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var API = 'https://script.google.com/macros/s/AKfycbzMEVFIzDBtuAIOkuwgNSB42OtxRvoEhPibhT8O-vwhBVlixQx5LQKWhLQyTDjG6pkDMg/exec';
+  var API = 'https://script.google.com/macros/s/AKfycby8YyN-S8lzyXj1rwhUjkp5JA8b59U3Eu67JqCvmCqllFWdKv-hJ4P7naijlY20MBU5SQ/exec';
   var params = new URLSearchParams(location.search);
   var lang = params.get('lang') || 'fr';
   if (!/^(fr|pt|en|es|it|de)$/.test(lang)) lang = 'fr';
