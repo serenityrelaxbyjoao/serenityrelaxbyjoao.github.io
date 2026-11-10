@@ -54,3 +54,27 @@
   .promo-showcase-message h2{font-size:clamp(27px,7vw,36px);margin-bottom:9px}
   .promo-showcase-action{grid-column:1;min-height:55px}
 }
+
+
+/* Campagne intégrée à l'identité visuelle du cabinet */
+.promo-showcase{background:var(--cream,#f5f3ec);color:var(--deep,#253c2e);padding:clamp(42px,5vw,70px) 0}
+.promo-showcase-inner{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);column-gap:clamp(30px,5vw,76px);row-gap:0;align-items:center;justify-content:center}
+.promo-showcase-art{max-width:370px}
+.promo-showcase-art img{box-shadow:0 14px 34px rgba(13,30,31,.13)}
+.promo-showcase-message{max-width:540px}
+.promo-showcase-message .promo-kicker{display:block;color:var(--gold,#a37c3b);font-size:12px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;margin-bottom:16px}
+.promo-showcase-message h2{color:var(--deep,#253c2e);font-size:clamp(29px,3.5vw,49px);line-height:1.15;margin-bottom:14px}
+.promo-showcase-message p{color:var(--ink,#384138);font-size:clamp(16px,1.65vw,20px);line-height:1.55}
+.promo-showcase-message .promo-price{display:block;margin-top:17px;color:var(--deep,#253c2e);font:700 clamp(25px,2.7vw,37px)/1.2 Georgia,serif}
+.promo-showcase-action{grid-column:2;width:max-content;min-width:220px;max-width:100%;min-height:49px;margin-top:22px;padding:12px 25px;border-radius:999px;background:var(--green,#31583f);color:#fff;font-size:15px}
+.promo-showcase-action:hover{background:var(--deep,#253c2e);color:#fff}
+.promo-showcase-action .promo-arrow{font-size:20px}
+@media(max-width:760px){
+ .promo-showcase{padding:35px 0 42px}
+ .promo-showcase-inner{grid-template-columns:1fr;gap:0}
+ .promo-showcase-art{max-width:340px;margin-inline:auto}
+ .promo-showcase-message{margin:26px auto 0;text-align:center}
+ .promo-showcase-message .promo-kicker{margin-bottom:10px}
+ .promo-showcase-message h2{font-size:clamp(28px,7vw,38px)}
+ .promo-showcase-action{grid-column:1;justify-self:center;width:auto;min-width:225px;margin-top:23px}
+}
