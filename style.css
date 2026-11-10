@@ -349,3 +349,16 @@ body.bk-open{overflow:hidden}
   .tariffs-scroller{margin-inline:0}
   .tariffs-table{min-width:490px}
 }
+
+
+/* Cabinet: image and information panels share an explicit visual height. */
+@media (min-width:1101px){
+  #cabinet .place-grid{align-items:stretch}
+  #cabinet .place-grid>img{display:block;height:520px;min-height:520px;max-height:520px;aspect-ratio:auto;object-fit:cover;object-position:center 46%}
+  #cabinet .infos{height:520px;min-height:520px;max-height:520px;grid-template-rows:repeat(3,minmax(0,1fr));align-content:stretch}
+  #cabinet .infos>.info{min-height:0;overflow:visible}
+}
+@media (min-width:901px) and (max-width:1100px){
+  #cabinet .place-grid>img{display:block;height:590px;min-height:590px;max-height:590px;aspect-ratio:auto;object-fit:cover;object-position:center}
+  #cabinet .infos{height:590px;min-height:590px;max-height:590px;grid-template-rows:repeat(3,minmax(0,1fr))}
+}
