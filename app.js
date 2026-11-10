@@ -233,4 +233,13 @@
       $$('.reveal').forEach(function (el) { el.classList.add('in'); });
     }
   });
+  /* Offre du mois : la carte du hero ouvre une fenêtre avec le détail et le bouton de réservation. */
+  document.addEventListener('click', function (e) {
+    var dlg = document.getElementById('offer-dialog');
+    if (!dlg || !dlg.showModal) return;
+    var openBtn = e.target.closest ? e.target.closest('.hero-offer') : null;
+    if (openBtn) { dlg.showModal(); return; }
+    var closeBtn = e.target.closest ? e.target.closest('.offer-dialog-close') : null;
+    if (closeBtn || e.target === dlg) { dlg.close(); }
+  });
 })();
