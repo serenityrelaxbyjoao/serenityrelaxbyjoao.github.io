@@ -193,6 +193,7 @@ header.solid .lang-btn:hover,header.solid .lang-btn[aria-expanded="true"]{backgr
 .final .ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:30px}
 footer{background:var(--deepest);color:rgba(255,255,255,.78);font-size:15px}
 .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:34px;padding-block:60px 40px}
+.foot-extras{margin-top:16px;display:grid;gap:10px}.foot-extras p{font-size:13.5px;color:rgba(255,255,255,.72);line-height:1.5}.foot-review-link{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px;color:var(--gold-light);font-size:14px;text-decoration:none}.foot-review-link:hover{text-decoration:underline;text-underline-offset:3px}.foot-review-link:focus-visible{outline:2px solid var(--gold-light);outline-offset:4px}.foot-review-link .stars{color:var(--gold-light);letter-spacing:1px}
 .foot-grid h4{margin:0 0 12px;font:500 12.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light)}
 .foot-grid a{text-decoration:none}
 .foot-grid a:hover{text-decoration:underline}
