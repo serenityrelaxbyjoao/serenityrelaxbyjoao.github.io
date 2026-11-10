@@ -27,3 +27,8 @@
 .offer-dialog-close{position:absolute;top:10px;right:16px;background:none;border:0;color:#fff;font-size:32px;line-height:1;cursor:pointer;opacity:.85;padding:4px 8px}
 .offer-dialog-close:hover{opacity:1}
 @media(max-width:900px){.hero .hero-offer{position:relative;top:auto;right:auto;bottom:auto;width:min(420px,100%);margin:28px auto 0;transform:none}.hero .hero-offer:hover{transform:translateY(-3px)}}
+
+/* Section « Qui suis-je ? » : texte structuré, lisible sur ordinateur et téléphone */
+.about .about-body{margin-top:8px}
+.about .about-body h3{font-family:Georgia,serif;font-size:clamp(20px,2vw,24px);font-weight:400;margin:30px 0 10px}
+.about .about-body p{margin:0 0 12px;line-height:1.7}
