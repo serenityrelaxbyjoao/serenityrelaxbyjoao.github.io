@@ -36,3 +36,6 @@
 .offer-share-panel input,.offer-share-panel p{flex-basis:100%}
 .offer-share-panel button:not(.offer-share-icon){width:100%;text-align:center}
 @media(max-width:680px){.offer-share-panel{max-width:340px}}
+
+/* Labelled share action */
+.offer-share-trigger{width:auto;min-width:180px;height:auto;min-height:44px;gap:10px;padding:10px 20px;border-radius:28px;font-weight:500}
