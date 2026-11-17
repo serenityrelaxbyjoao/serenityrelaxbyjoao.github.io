@@ -40,7 +40,7 @@
   document.querySelectorAll('[data-offer-share]').forEach(function (host, index) {
     var trigger = document.createElement('button');
     trigger.type = 'button'; trigger.className = 'offer-share-trigger';
-    trigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 14v6h16v-6"/></svg>'; trigger.setAttribute('aria-label', t[0]); trigger.title = t[0];
+    trigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 14v6h16v-6"/></svg>'; trigger.appendChild(document.createTextNode(' ' + t[0])); trigger.setAttribute('aria-label', t[0]); trigger.title = t[0];
     trigger.setAttribute('aria-expanded', 'false');
     var panel = document.createElement('div');
     panel.className = 'offer-share-panel'; panel.id = 'offer-share-' + index; panel.hidden = true;
