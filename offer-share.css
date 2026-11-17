@@ -46,3 +46,9 @@
 .offer-dialog .offer-share-trigger:hover{background:rgba(255,255,255,.12)}
 .offer-dialog .offer-share-panel{max-width:none;justify-content:center;margin-top:10px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
 .hero-promo .offer-share-trigger{width:100%;border-color:rgba(255,255,255,.75);color:#fff;background:#21372ce6}
+
+/* Gift voucher option for the November campaign */
+.offer-page .offer-gift-intro{margin:18px 0 8px;font-size:15px;line-height:1.55;color:#435247}
+.offer-page .offer-gift-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border:1px solid #b8a474;border-radius:999px;background:transparent;color:#21372c;text-decoration:none;font-weight:600;transition:background .2s ease}
+.offer-page .offer-gift-link:hover{background:#e7e0cd}
+.offer-page .offer-gift-link:focus-visible{outline:3px solid #b38a35;outline-offset:3px}
