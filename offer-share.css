@@ -39,3 +39,10 @@
 
 /* Labelled share action */
 .offer-share-trigger{width:auto;min-width:180px;height:auto;min-height:44px;gap:10px;padding:10px 20px;border-radius:28px;font-weight:500}
+
+/* Restore readable sharing button inside the homepage offer dialog. */
+.offer-dialog [data-offer-share]{display:block;width:100%;margin-top:14px}
+.offer-dialog .offer-share-trigger{display:flex;width:100%;min-width:0;justify-content:center;gap:10px;border:1px solid rgba(255,255,255,.65);color:#fff;background:transparent;font-size:16px}
+.offer-dialog .offer-share-trigger:hover{background:rgba(255,255,255,.12)}
+.offer-dialog .offer-share-panel{max-width:none;justify-content:center;margin-top:10px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.hero-promo .offer-share-trigger{width:100%;border-color:rgba(255,255,255,.75);color:#fff;background:#21372ce6}
