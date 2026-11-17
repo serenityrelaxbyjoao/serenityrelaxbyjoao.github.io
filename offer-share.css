@@ -1,0 +1,21 @@
+[data-offer-share]{position:relative;width:100%}
+.offer-share-trigger{display:block;width:100%;min-height:44px;padding:10px 18px;border:1px solid currentColor;border-radius:24px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.hero-promo .offer-share-trigger{color:#fff;background:#21372ce6}
+.offer-share-panel{position:relative;z-index:3;margin-top:10px;padding:14px;border:1px solid #d5c494;border-radius:16px;background:#f6f3ec;color:#21372c;box-shadow:0 8px 24px #0003;text-align:left}
+.offer-share-panel[hidden],.offer-share-panel input[hidden],[data-campaign-booking][hidden],#offer-expired[hidden]{display:none}
+.offer-share-panel a,.offer-share-panel button{display:block;width:100%;box-sizing:border-box;padding:11px 12px;border:0;border-radius:8px;background:transparent;color:#21372c;text-align:left;font:inherit;text-decoration:none;cursor:pointer}
+.offer-share-panel a:hover,.offer-share-panel button:hover{background:#e7e0cd}
+.offer-share-panel p{margin:8px 10px;font:14px/1.5 system-ui,sans-serif;color:#435247}
+.offer-share-panel p:empty{display:none}
+.offer-share-panel input{box-sizing:border-box;width:100%;padding:10px;font-size:14px}
+.offer-share-trigger:focus-visible,.offer-share-panel :focus-visible{outline:3px solid #b38a35;outline-offset:3px}
+.offer-page{background:#f6f3ec;color:#21372c;min-height:100vh}
+.offer-page main{max-width:1000px;margin:auto;padding:32px 24px 60px}
+.offer-page .offer-layout{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;margin-top:30px}
+.offer-page .offer-poster{width:100%;height:auto;border-radius:20px}
+.offer-page h1{font-size:clamp(34px,5vw,54px);line-height:1.1;margin:14px 0}
+.offer-page .offer-price{font-size:30px;margin:20px 0}
+.offer-page .offer-price s{font-size:20px;opacity:.6;margin-left:12px}
+.offer-page [data-offer-share]{margin-top:16px}
+.offer-page .offer-terms{font-size:14px;line-height:1.5;margin-top:20px}
+@media(max-width:680px){.offer-page .offer-layout{grid-template-columns:1fr;gap:24px}.offer-page .offer-poster{max-width:440px;justify-self:center}}
