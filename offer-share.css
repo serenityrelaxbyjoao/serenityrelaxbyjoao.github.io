@@ -23,3 +23,16 @@
 .offer-page [data-offer-share]{margin-top:16px}
 .offer-page .offer-terms{font-size:14px;line-height:1.5;margin-top:20px}
 @media(max-width:680px){.offer-page .offer-layout{grid-template-columns:1fr;gap:24px}.offer-page .offer-poster{max-width:440px;justify-self:center}}
+
+/* Compact sharing controls: icons remain labelled for assistive technology. */
+.offer-page [data-offer-share]{display:flex;flex-direction:column;align-items:center}
+.offer-share-trigger{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;min-height:48px;padding:10px;border:1px solid #b9a575;border-radius:50%;background:transparent;color:#21372c}
+.offer-share-trigger svg,.offer-share-icon svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.offer-share-panel{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;max-width:420px;padding:12px}
+.offer-share-panel[hidden]{display:none}
+.offer-share-panel .offer-share-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px;padding:10px;border:1px solid #e0d8c6;border-radius:50%;background:#fff;color:#21372c;text-align:center;transition:background .15s,border-color .15s}
+.offer-share-panel .offer-share-icon:hover{background:#e7e0cd;border-color:#c9b98f}
+.offer-share-panel .offer-instagram{flex-basis:100%;width:100%;box-sizing:border-box;order:2}
+.offer-share-panel input,.offer-share-panel p{flex-basis:100%}
+.offer-share-panel button:not(.offer-share-icon){width:100%;text-align:center}
+@media(max-width:680px){.offer-share-panel{max-width:340px}}
