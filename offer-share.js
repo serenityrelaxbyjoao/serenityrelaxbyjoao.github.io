@@ -40,18 +40,42 @@
   document.querySelectorAll('[data-offer-share]').forEach(function (host, index) {
     var trigger = document.createElement('button');
     trigger.type = 'button'; trigger.className = 'offer-share-trigger';
-    trigger.textContent = '↗ ' + t[0];
+    trigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 14v6h16v-6"/></svg>'; trigger.setAttribute('aria-label', t[0]); trigger.title = t[0];
     trigger.setAttribute('aria-expanded', 'false');
     var panel = document.createElement('div');
     panel.className = 'offer-share-panel'; panel.id = 'offer-share-' + index; panel.hidden = true;
     trigger.setAttribute('aria-controls', panel.id);
+    function icon(name) {
+      var paths = {
+        whatsapp: '<path d="M20.5 11.7a8.5 8.5 0 0 1-12.3 7.6L3 21l1.8-5A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.3 7.6c-.5.6-.8 1.2-.5 2.2.6 2 2.7 4.3 4.8 5.2 1 .4 2 .3 2.7-.4l.7-.9-2.4-1.2-1 1c-1.5-.6-2.7-1.8-3.4-3.3l.9-1.1-1.3-2.3Z"/>',
+        facebook: '<path d="M14 21v-8h3l.5-4H14V7c0-1.1.4-2 2-2h2V2.3A20 20 0 0 0 15 2c-3.1 0-5 1.8-5 5v2H7v4h3v8"/>',
+        instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.7" r=".7" fill="currentColor" stroke="none"/>',
+        copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+        download: '<path d="M12 3v12m0 0-5-5m5 5 5-5M4 17v4h16v-4"/>',
+        share: '<path d="M12 16V3m0 0L7 8m5-5 5 5M4 14v6h16v-6"/>',
+        close: '<path d="M5 5l14 14M19 5 5 19"/>'
+      };
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.innerHTML = paths[name] || paths.share;
+      return svg;
+    }
+    function iconControl(el, label, name) {
+      el.classList.add('offer-share-icon');
+      el.textContent = '';
+      el.appendChild(icon(name));
+      el.setAttribute('aria-label', label);
+      el.title = label;
+      return el;
+    }
     function button(label, action) {
       var b = document.createElement('button'); b.type = 'button'; b.textContent = label;
-      b.addEventListener('click', action); panel.appendChild(b); return b;
+      b.addEventListener('click', action); iconControl(b, label, label === t[1] ? 'copy' : label === t[5] ? 'close' : label.indexOf('Instagram') === 0 ? 'instagram' : 'share'); panel.appendChild(b); return b;
     }
     function link(label, href) {
       var a = document.createElement('a'); a.textContent = label; a.href = href;
-      a.target = '_blank'; a.rel = 'noopener noreferrer'; panel.appendChild(a); return a;
+      a.target = '_blank'; a.rel = 'noopener noreferrer'; iconControl(a, label, label === 'WhatsApp' ? 'whatsapp' : label === 'Facebook' ? 'facebook' : 'download'); panel.appendChild(a); return a;
     }
     if (typeof navigator.share === 'function') {
       button(t[7], async function () {
@@ -103,7 +127,7 @@
     });
     var download = link(t[4], '/images/novembre-bleu-2026.jpg');
     download.download = 'serenity-relax-novembre-bleu-2026.jpg'; download.removeAttribute('target');
-    var note = document.createElement('p'); note.textContent = t[8]; panel.appendChild(note);
+    
     var field = document.createElement('input'); field.type = 'url'; field.readOnly = true; field.value = url;
     field.setAttribute('aria-label', t[6]); field.hidden = true; panel.appendChild(field);
     var status = document.createElement('p'); status.setAttribute('role', 'status'); panel.appendChild(status);
