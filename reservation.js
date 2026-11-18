@@ -168,6 +168,11 @@
 
   $('submit').onclick=async function(){
     clearMsg(); var data=validate(); if(!data)return;
+    // Le tarif affiché provient du devis du serveur. Le renvoyer lors de la réservation
+    // permet au serveur de refuser toute différence de prix pour l'offre du mois.
+    if (data.serviceId === 'offre-du-mois' && state.quote && Number.isFinite(Number(state.quote.price))) {
+      data.expectedPrice = Number(state.quote.price);
+    }
     var btn=$('submit'); btn.disabled=true; btn.textContent=t.booking;
     try{
       var res=await callApi('book',data,20000);
