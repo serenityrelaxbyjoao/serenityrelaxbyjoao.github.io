@@ -22,7 +22,7 @@
     return null;
   }
   function active(d) {
-    var today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Zurich',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    var today = new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Zurich'});
     return d.active === true && d.kind === 'offre' && d.title && d.duration > 0 &&
       Number.isFinite(d.price) && d.price >= 0 &&
       (!d.startsOn || today >= d.startsOn) && (!d.endsOn || today <= d.endsOn);
