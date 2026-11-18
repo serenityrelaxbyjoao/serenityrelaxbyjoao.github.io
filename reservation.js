@@ -167,7 +167,14 @@
     clearMsg(); var data=validate(); if(!data)return;
     var btn=$('submit'); btn.disabled=true; btn.textContent=t.booking;
     try{
-      if(data.serviceId==='offre-du-mois') { var option=(state.service.options||[]).find(function(o){return Number(o.minutes)===Number(state.minutes);}); if(!option){btn.disabled=false;btn.textContent=t.confirm;showMsg(t.pickMassage);return;} data.expectedPrice=Number(option.price);data.expectedMinutes=Number(option.minutes); }\n      var res=await callApi('book',data,20000);
+      if(data.serviceId==='offre-du-mois'){
+        var option=(state.service.options||[]).find(function(o){return Number(o.minutes)===Number(state.minutes);});
+        if(!option){btn.disabled=false;btn.textContent=t.confirm;showMsg(t.pickMassage);return;}
+        /* Prix et durée attendus : Apps Script refuse la réservation si l'offre a changé entre-temps. */
+        data.expectedPrice=Number(option.price);
+        data.expectedMinutes=Number(option.minutes);
+      }
+      var res=await callApi('book',data,20000);
       if(!res || !res.ok){ btn.disabled=false; btn.textContent=t.confirm; showMsg((res&&res.error)||t.connection); if(res&&res.error&&/créneau|horaire|slot|time/i.test(res.error)) loadSlots({preserveTime:false}); return; }
       var r=res.receipt||{};
       $('doneBox').innerHTML='<strong>'+esc(r.service||state.quote.service)+'</strong><br>'+esc(r.totalMinutes||state.quote.totalMinutes)+' min · '+esc(r.price||state.quote.price)+' CHF<br>'+esc(fmtDate(r.date||$('date').value))+' · '+esc(r.time||state.time)+'<br>'+esc(r.location||'Cointrin, Genève');
