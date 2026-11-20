@@ -27,7 +27,7 @@
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function tr(){
     document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(t[k]) el.textContent=t[k]; });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){ var k=el.getAttribute('data-i18n-placeholder'); if(t[k]) el.placeholder=t[k]; });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){ var k=el.getAttribute('data-i18n-placeholder'); if(t[k]){ el.placeholder=t[k]; el.setAttribute('aria-label', t[k]); } });
     document.querySelectorAll('[data-lang]').forEach(function(a){ if(a.getAttribute('data-lang')===lang) a.setAttribute('aria-current','page'); });
     document.querySelectorAll('[data-lang]').forEach(function(a){
       var code=a.getAttribute('data-lang');

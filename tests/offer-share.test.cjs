@@ -1,16 +1,16 @@
 const {test}=require('node:test'); const assert=require('node:assert/strict'); const vm=require('node:vm'); const fs=require('node:fs');
 const source=fs.readFileSync('offer-share.js','utf8');
 class Element {
- constructor(tag){this.tag=tag;this.children=[];this.events={};this.attrs={};this.hidden=false;}
+ constructor(tag){this.tag=tag;this.classList={add(){},remove(){},toggle(){}};this.style={};this.children=[];this.events={};this.attrs={};this.hidden=false;}
  appendChild(x){this.children.push(x);return x;} setAttribute(k,v){this.attrs[k]=v;} removeAttribute(k){delete this[k];}
  addEventListener(k,v){this.events[k]=v;} focus(){this.focused=true;} select(){this.selected=true;} contains(x){return x===this||this.children.some(c=>c.contains(x));}
 }
 function setup(nav={},lang='fr',date='2026-11-17T12:00:00Z',extra={}){
  const host=new Element('div'),booking=new Element('a'),expired=new Element('p'); expired.hidden=true;
- const document={documentElement:{lang},querySelectorAll:()=>[host],createElement:t=>new Element(t),addEventListener(){},querySelector:()=>booking,getElementById:()=>expired};
+ const document={documentElement:{lang},querySelectorAll:()=>[host],createElement:t=>new Element(t),createTextNode:t=>({textContent:String(t)}),createElementNS:(n,t)=>new Element(t),addEventListener(){},querySelector:()=>booking,getElementById:()=>expired};
  const RealDate=Date; class FakeDate extends RealDate{constructor(...args){super(...(args.length?args:[date]));}}
  vm.runInNewContext(source,{document,navigator:nav,Date:FakeDate,...extra});
- const panel=host.children[1];return {host,panel,booking,expired,find:label=>panel.children.find(x=>x.textContent===label)};
+ const panel=host.children[1];return {host,panel,booking,expired,find:label=>panel.children.find(x=>x.attrs['aria-label']===label||x.textContent===label)};
 }
 test('no automatic transmissions; social URLs share the dedicated offer, not the home page',()=>{
  let calls=0;const x=setup({share(){calls++;},clipboard:{writeText(){calls++;}}});assert.equal(calls,0);
@@ -58,7 +58,7 @@ test('offer expires at midnight in Zurich, including UTC boundary',()=>{
 });
 test('all six home pages load sharing beside the poster and inside the dialog',()=>{
  for(const file of ['index.html','pt.html','en.html','de.html','es.html','it.html']){const html=fs.readFileSync(file,'utf8');assert.equal((html.match(/data-offer-share/g)||[]).length,2);assert.match(html,/offer-share.js/);assert.match(html,/offer-share.css/);}
- for(const lang of ['fr','pt','en','de','es','it']) assert.ok(setup({},lang).host.children[0].textContent.length>5);
+ for(const lang of ['fr','pt','en','de','es','it']) assert.ok((setup({},lang).host.children[0].attrs['aria-label']||'').length>5);
 });
 test('social preview is static HTML and its image exists as JPEG',()=>{
  const html=fs.readFileSync('offres/novembre-bleu-2026.html','utf8');assert.match(html,/property="og:title" content="Novembre Bleu/);assert.match(html,/property="og:image" content="https:\/\/serenityrelaxbyjoao.ch\/images\/novembre-bleu-2026.jpg"/);assert.ok(fs.existsSync('images/novembre-bleu-2026.jpg'));assert.match(html,/reservation\/\?lang=fr&amp;service=offre-du-mois/);

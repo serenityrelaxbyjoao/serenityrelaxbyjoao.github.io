@@ -227,7 +227,7 @@ body.bk-open{overflow:hidden}
 .js .reveal.in{opacity:1;transform:none}
 
 /* ---------- Responsive */
-@media (max-width:1020px){
+@media (max-width:1140px){
   .menu{display:none}
   .burger{display:block}
   header.open{background:var(--cream);color:var(--ink)}
@@ -383,4 +383,26 @@ header.solid .pro-access:hover,header.open .pro-access:hover{background:var(--sa
  .pro-access{min-height:44px;padding:9px 11px}
  .hero h1{font-size:clamp(36px,8vw,46px)}
  .hero .lead{font-size:17px}
+}
+
+/* Audit 2026-11-20: portrait keeps its natural 4:5 ratio (the HTML height attribute stretched it on phones). */
+.portrait img,#apropos .portrait img{height:auto}
+
+/* Phones: tariffs become stacked cards, so the "Réserver" link is never hidden off-screen. */
+@media(max-width:600px){
+ .tariffs-scroller{overflow:visible;border:0;background:transparent;border-radius:0}
+ .tariffs-table{display:block;min-width:0;border-collapse:separate}
+ .tariffs-table thead{display:none}
+ .tariffs-table tbody{display:grid;gap:12px}
+ .tariffs-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:end;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--cream)}
+ .tariffs-table tbody th,.tariffs-table tbody td{display:block;padding:0;border:0;font-size:15px}
+ .tariffs-table tbody th{grid-column:1/-1;font-size:16px}
+ .tariffs-table td:nth-child(2){white-space:normal}
+ .tariffs-table td:last-child{text-align:right}
+ .tariffs-table td a{display:inline-block;padding:10px 4px;min-height:44px}
+}
+
+/* Single-column layouts: the massage photo is a 4:5 portrait, so show it uncropped instead of a landscape strip. */
+@media(max-width:900px){
+ #cabinet .place-grid>img{width:100%;height:auto;max-width:440px;max-height:none;aspect-ratio:4/5;object-fit:cover;margin-inline:auto}
 }
