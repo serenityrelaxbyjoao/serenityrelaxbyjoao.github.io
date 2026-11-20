@@ -33,14 +33,26 @@
     gtag('config', ADS, { page_location: location.origin + location.pathname, page_referrer: document.referrer ? document.referrer.split('?')[0].split('#')[0] : '' });
   }
 
-  function conv(label, extra) {
-    if (!loaded) return;
+  // The Google tag is ready once its script has really executed (not merely requested).
+  function tagReady() { return !!(window.google_tag_manager && window.google_tag_manager[ADS]); }
+
+  // Sends a conversion. loadAds() is idempotent and queues "js" + "config" before the event,
+  // so the order is always correct even if the Google script is still downloading.
+  // onSent (optional) runs once Google has been told, or after maxWait ms as a safety net.
+  function conv(label, extra, onSent, maxWait) {
+    loadAds();
     var p = { send_to: ADS + '/' + label, transport_type: 'beacon' };
     for (var k in (extra || {})) p[k] = extra[k];
+    if (onSent) {
+      var done = false, finish = function () { if (!done) { done = true; onSent(); } };
+      p.event_callback = finish;
+      setTimeout(finish, maxWait || 1200);
+    }
     gtag('event', 'conversion', p);
   }
 
   function startAnalytics() {
+    loadAds();
     window['ga-disable-' + GA4] = false;
     if (analyticsStarted) return;
     analyticsStarted = true;
@@ -53,7 +65,25 @@
     });
   }
 
-  loadAds();
+  // Performance: the Google tag (~155 KB, ~0.5 s of main-thread work on a phone) is no longer
+  // loaded during the first render. Consent defaults are set above, BEFORE any Google code exists,
+  // so nothing changes for privacy. It loads: immediately for visitors who already accepted and on
+  // the booking page (analytics fidelity); otherwise on the first touch/click/key press, or 4 s after
+  // the page has finished loading. Conversion clicks below also force it to load.
+  function scheduleAds() {
+    if (loaded) return;
+    if (isBookingPage || getC() === 'yes') { loadAds(); return; }
+    var evs = ['pointerdown', 'keydown', 'touchstart'], timer = 0;
+    function go() {
+      evs.forEach(function (n) { window.removeEventListener(n, go, true); });
+      clearTimeout(timer);
+      loadAds();
+    }
+    evs.forEach(function (n) { window.addEventListener(n, go, { capture: true, passive: true, once: true }); });
+    function arm() { timer = setTimeout(go, 4000); }
+    if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm, { once: true });
+  }
+  scheduleAds();
   if (getC() === 'yes') startAnalytics();
 
   // Only called after the booking API confirms success. Never pass patient data.
@@ -93,8 +123,15 @@
     var a = e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
     var h = a.getAttribute('href') || '';
-    if (/wa\.me|whatsapp\.com/i.test(h)) conv(LABELS.whatsapp);
-    else if (/^tel:/i.test(h)) conv(LABELS.phone);
+    var label = /wa\.me|whatsapp\.com/i.test(h) ? LABELS.whatsapp : /^tel:/i.test(h) ? LABELS.phone : '';
+    if (!label) return;
+    // Same-tab link and the Google tag not executed yet: hold the navigation (max ~1.2 s) so the
+    // conversion is not lost. Once the tag is ready (normal case) nothing is delayed.
+    var plain = !e.defaultPrevented && e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && (!a.target || a.target === '_self');
+    if (plain && !tagReady()) {
+      e.preventDefault();
+      conv(label, null, function () { window.location.href = a.href; });
+    } else conv(label);
   }, true);
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -192,8 +229,9 @@
       var a = e.target.closest ? e.target.closest('[data-book]') : null;
       if (!a) return;
       e.preventDefault();
-      conv(LABELS.bookingClick);
-      goBooking(a.getAttribute('data-book') || '');
+      var svc = a.getAttribute('data-book') || '';
+      if (tagReady()) { conv(LABELS.bookingClick); goBooking(svc); }
+      else conv(LABELS.bookingClick, null, function () { goBooking(svc); });
     });
 
     function checkHash() {
