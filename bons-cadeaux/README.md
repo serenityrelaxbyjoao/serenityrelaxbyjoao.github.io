@@ -1,29 +1,27 @@
-# Parcours Bons cadeaux (aperçu isolé)
+# Bons cadeaux : prévisualisation non publiée
 
-Cette branche introduit une page **non publiée** `/bons-cadeaux/` sans paiement fonctionnel et sans collecte persistante de données.
+Cette branche prépare le formulaire d'achat, séparé de la page de réservation existante.
 
-## Fonctions actuellement visibles
-- Catalogue des neuf prestations et de leurs durées (prix CHF habituels).
-- Black Friday à 90 CHF pour toutes les prestations de 90 minutes. Le drainage ne propose que 60 minutes : il est donc exclu.
-- Lien de présélection envisagé : `/bons-cadeaux/?offre=black-friday`.
-- Choix indépendant de l'offre commerciale et du graphisme du bon.
-- Personnalisation immédiate ou ultérieure, dédicace suggérée, libre ou absente.
-- Email saisi deux fois, erreur si divergence.
-- Récapitulatif de prix et aperçu textuel du voucher.
-- Le bouton de paiement reste **désactivé**.
+## Déjà réalisé dans cette PR
+- Catalogue et sélection de massages, durées, occasions disponibles, dédicace et destinataire.
+- Vérification de l'email en deux champs puis code de confirmation à 6 chiffres.
+- Sélecteur international du téléphone avec libphonenumber-js.
+- Acceptation des CGV, pages distinctes de vente et de confidentialité.
+- Page de confirmation de retour Stripe, sans affirmation non vérifiée de paiement.
+- Adaptateur de test vers Firebase pour les tarifs et Stripe Checkout.
+- Contrôles automatiques du JavaScript et des liens juridiques.
 
-## Ne pas commercialiser avant les éléments suivants
-1. Une source de vérité unique et serveur pour les prestations / prix / disponibilité des promotions (Firestore ou autre solution validée), supprimer le tableau JS dupliqué dans ce prototype.
-2. Une fonction serveur Stripe Checkout qui vérifie le tarif et une confirmation de paiement webhook authentifiée.
-3. Un contrôle d'identité de l'email par code ou lien; double saisie seule insuffisante.
-4. Sélecteur mondial des indicatifs et vérification de numéros avec `libphonenumber-js`; les quelques pays de la page ne sont que des exemples en attendant cette intégration.
-5. Enregistrement sécurisé des commandes, génération et livraison du PDF, statuts d'envoi, récupération / renvoi.
-6. Conditions de vente approuvées et acceptation explicite, respect de la protection des données.
-7. Tests d'intégration, affichage mobile, accessibilité, conformité aux six langues du site.
-8. Contrôle de l'offre Black Friday avec dates configurables côté serveur.
-9. **Ne pas utiliser l'actuel lien Stripe autonome en tant que chemin de paiement public**, car il ne lie pas la commande au voucher.
+## Backend en préparation
+PR #46 du dépôt privé serenity-relax-gestion-patients : prix recalculés côté serveur, Stripe test Checkout, webhook signé, voucher Firestore, paiement comptable unique, PDF avec les visuels du cabinet, email transactionnel et renvoi par admin.
 
-## Précautions
-Ne pas fusionner ou publier la branche en l'état. Ne pas modifier le système de réservation existant. Éviter les changements simultanés de ces fichiers par plusieurs assistants.
+## Sécurité
+`bons-cadeaux/test-config.js` reste sur `enabled: false`. Le bouton de paiement demeure désactivé tant que les secrets de test, l'envoi SMTP, les CGV définitives et les tests de bout en bout ne sont pas validés. Les identifiants Stripe et SMTP ne doivent jamais être placés dans les fichiers publics.
 
-Ce prototype est volontairement conçu pour pouvoir être remplacé par une page connectée à la même API tarifaire que Gestion de Cabinet.
+## Travaux bloquants avant lancement
+1. Définir les secrets Stripe **de test uniquement** et les secrets SMTP côté Firebase Functions.
+2. Déployer les fonctions de test dans un environnement Firebase isolé, sans connecter les ventes réelles.
+3. Tester email OTP, Checkout Stripe test, webhook signé, génération et livraison PDF, renvoi et lien au rendez-vous.
+4. Approuver visuellement les PDF, les CGV et la confidentialité avec un avocat genevois.
+5. Valider les traductions, le mobile et les contrôles anti-abus, puis décider séparément de la publication.
+
+La période conseillée d'utilisation des nouveaux bons cadeaux est de **12 mois**. Aucun code de cette branche n'est publié en production.
