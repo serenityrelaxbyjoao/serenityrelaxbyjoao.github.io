@@ -1,0 +1,24 @@
+name: Bons cadeaux preview checks
+on:
+  pull_request:
+    paths:
+      - 'bons-cadeaux/**'
+      - 'conditions-bons-cadeaux.html'
+      - 'confidentialite-bons-cadeaux.html'
+      - 'scripts/check-gift-preview.cjs'
+      - '.github/workflows/bons-cadeaux-checks.yml'
+  workflow_dispatch:
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check bons-cadeaux/bons-cadeaux.js
+          node --check bons-cadeaux/test-config.js
+      - name: Verify terms, privacy and checkout structure
+        run: node scripts/check-gift-preview.cjs
