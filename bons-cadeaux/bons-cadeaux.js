@@ -1,7 +1,7 @@
 /* Serenity & Relax · Bons cadeaux · aperçu non transactionnel */
 (() => {
   'use strict';
-  const services = [
+  let services = [
     { id: 'therapeutique', name: 'Massage thérapeutique', prices: { 60: 110, 90: 150 } },
     { id: 'sportif', name: 'Massage sportif', prices: { 60: 110, 90: 150 } },
     { id: 'relaxant', name: 'Massage relaxant', prices: { 60: 110, 90: 150 } },
@@ -121,7 +121,7 @@
   $('phone').addEventListener('input', checkPhonePreview);
   // Checkout stays disabled until backend, signed webhook, email ownership check,
   // consent pages, PDF and transactional delivery are validated in staging.
-  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '' });
+  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '', catalogEndpoint: '' });
   async function startCheckoutTest() {
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint) return;
     const q = quote();
@@ -176,6 +176,32 @@
   }
   $('checkout').addEventListener('click', () => { void startCheckoutTest(); });
   $('giftForm').addEventListener('submit', event => event.preventDefault());
+  async function loadCatalogWhenConfigured() {
+    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.catalogEndpoint) return;
+    try {
+      const response = await fetch(CHECKOUT_TEST.catalogEndpoint, { method: 'GET', cache: 'no-store' });
+      if (!response.ok) throw new Error('Catalogue indisponible.');
+      const catalogue = await response.json();
+      if (!Array.isArray(catalogue.services) || catalogue.currency !== 'chf') {
+        throw new Error('Catalogue invalide.');
+      }
+      services = catalogue.services.filter(item =>
+        item && typeof item.id === 'string' && typeof item.name === 'string' &&
+        item.prices && typeof item.prices === 'object'
+      );
+      if (!services.length) throw new Error('Aucune prestation disponible.');
+      fillServices();
+      if (!catalogue.offers?.blackFriday?.enabled) {
+        document.querySelector('input[name="offer"][value="standard"]').checked = true;
+        document.querySelector('input[name="offer"][value="black-friday"]').closest('label').hidden = true;
+      }
+      synchronizeDurations();
+    } catch (error) {
+      $('checkout').disabled = true;
+      $('checkout').textContent = 'Tarifs indisponibles, réessayez plus tard';
+      console.warn('Impossible de charger les tarifs officiels', error);
+    }
+  }
   fillServices();
   fillDesigns();
   if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
@@ -183,4 +209,5 @@
   }
   synchronizeDurations();
   updatePersonalization();
+  void loadCatalogWhenConfigured();
 })();
