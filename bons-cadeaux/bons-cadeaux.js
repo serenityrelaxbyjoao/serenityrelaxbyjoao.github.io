@@ -103,12 +103,39 @@
     $('emailError').textContent = '';
     return true;
   }
-  // This preview deliberately does not pretend to validate global numbers.
-  // A country-aware libphonenumber implementation and verification code are
-  // required before enabling the payment button.
+  function initializeWorldPhoneSelector() {
+    const lib = window.libphonenumber;
+    if (!lib?.getCountries || !lib?.getCountryCallingCode || !lib?.parsePhoneNumberFromString) {
+      $('phoneError').textContent = 'Validation internationale momentanément indisponible.';
+      return false;
+    }
+    const names = new Intl.DisplayNames(['fr'], { type: 'region' });
+    const options = lib.getCountries().map(code => ({
+      code,
+      name: names.of(code) || code,
+      callingCode: lib.getCountryCallingCode(code),
+    })).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    $('countryCode').replaceChildren(...options.map(item =>
+      option(item.code, item.name + ' (+' + item.callingCode + ')')
+    ));
+    $('countryCode').value = 'CH';
+    return true;
+  }
+  function validatedPhoneE164() {
+    const lib = window.libphonenumber;
+    if (!lib?.parsePhoneNumberFromString) return null;
+    const raw = $('phone').value.trim();
+    if (!raw) return null;
+    try {
+      const number = lib.parsePhoneNumberFromString(raw, $('countryCode').value);
+      return number?.isValid() ? number.number : null;
+    } catch { return null; }
+  }
   function checkPhonePreview() {
-    const digits = $('phone').value.replace(/\D/g, '');
-    $('phoneError').textContent = digits && digits.length < 6 ? 'Numéro incomplet.' : '';
+    const raw = $('phone').value.trim();
+    const formatted = validatedPhoneE164();
+    $('phoneError').textContent = raw && !formatted ? 'Numéro incomplet ou invalide pour le pays choisi.' : '';
+    return Boolean(formatted);
   }
   document.querySelectorAll('input[name="offer"]').forEach(radio => {
     radio.addEventListener('change', synchronizeDurations);
@@ -119,6 +146,7 @@
   ['recipient', 'dedication'].forEach(id => $(id).addEventListener('input', updateSummary));
   ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', checkEmails));
   $('phone').addEventListener('input', checkPhonePreview);
+  $('countryCode').addEventListener('change', checkPhonePreview);
   // Checkout stays disabled until backend, signed webhook, email ownership check,
   // consent pages, PDF and transactional delivery are validated in staging.
   const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '', catalogEndpoint: '' });
@@ -126,9 +154,9 @@
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint) return;
     const q = quote();
     if (!q || !checkEmails() || !$('giftForm').reportValidity() || !$('acceptTerms').checked) return;
-    const phoneE164 = $('phone').value.trim();
-    if (!/^\+[1-9]\d{6,14}$/.test(phoneE164)) {
-      $('phoneError').textContent = 'Indiquez votre numéro complet avec indicatif international.';
+    const phoneE164 = validatedPhoneE164();
+    if (!phoneE164) {
+      $('phoneError').textContent = 'Veuillez vérifier le pays et le numéro de téléphone.';
       return;
     }
     const recipientMode = $('recipientMode').value;
@@ -204,6 +232,7 @@
   }
   fillServices();
   fillDesigns();
+  initializeWorldPhoneSelector();
   if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
     document.querySelector('input[name="offer"][value="black-friday"]').checked = true;
   }
