@@ -149,11 +149,61 @@
   $('countryCode').addEventListener('change', checkPhonePreview);
   // Checkout stays disabled until backend, signed webhook, email ownership check,
   // consent pages, PDF and transactional delivery are validated in staging.
-  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '', catalogEndpoint: '' });
+  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '', catalogEndpoint: '', sendCodeEndpoint: '', confirmCodeEndpoint: '' });
+  let verifiedEmail = '';
+  async function sendEmailCodeTest() {
+    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.sendCodeEndpoint || !checkEmails()) return;
+    $('sendEmailCode').disabled = true;
+    $('emailVerifyStatus').textContent = 'Envoi du code…';
+    try {
+      const result = await fetch(CHECKOUT_TEST.sendCodeEndpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: $('email').value.trim(), emailConfirmation: $('emailAgain').value.trim() }),
+      });
+      if (!result.ok) throw new Error((await result.json()).error || 'Envoi impossible.');
+      $('emailVerifyStatus').textContent = 'Consultez votre messagerie et saisissez le code à 6 chiffres.';
+      $('confirmEmailCode').disabled = false;
+    } catch (error) {
+      $('emailVerifyStatus').textContent = error instanceof Error ? error.message : 'Envoi impossible.';
+    } finally {
+      $('sendEmailCode').disabled = !CHECKOUT_TEST.enabled;
+    }
+  }
+  async function confirmEmailCodeTest() {
+    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.confirmCodeEndpoint || !checkEmails()) return;
+    $('confirmEmailCode').disabled = true;
+    try {
+      const result = await fetch(CHECKOUT_TEST.confirmCodeEndpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: $('email').value.trim(), emailConfirmation: $('emailAgain').value.trim(),
+          code: $('emailCode').value.trim(),
+        }),
+      });
+      if (!result.ok) throw new Error((await result.json()).error || 'Code incorrect.');
+      verifiedEmail = $('email').value.trim().toLowerCase();
+      $('emailVerifyStatus').textContent = 'Adresse email vérifiée.';
+      $('checkout').disabled = !CHECKOUT_TEST.enabled;
+      $('checkout').textContent = 'Payer avec Stripe (test)';
+    } catch (error) {
+      verifiedEmail = '';
+      $('emailVerifyStatus').textContent = error instanceof Error ? error.message : 'Vérification impossible.';
+      $('confirmEmailCode').disabled = false;
+    }
+  }
+  $('sendEmailCode').addEventListener('click', () => { void sendEmailCodeTest(); });
+  $('confirmEmailCode').addEventListener('click', () => { void confirmEmailCodeTest(); });
+  ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', () => {
+    verifiedEmail = '';
+    $('checkout').disabled = true;
+    $('checkout').textContent = 'Vérifiez votre adresse email pour continuer';
+    $('emailVerifyStatus').textContent = 'Adresse email à vérifier.';
+  }));
   async function startCheckoutTest() {
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint) return;
     const q = quote();
-    if (!q || !checkEmails() || !$('giftForm').reportValidity() || !$('acceptTerms').checked) return;
+    if (!q || !checkEmails() || !$('giftForm').reportValidity() || !$('acceptTerms').checked ||
+        verifiedEmail !== $('email').value.trim().toLowerCase()) return;
     const phoneE164 = validatedPhoneE164();
     if (!phoneE164) {
       $('phoneError').textContent = 'Veuillez vérifier le pays et le numéro de téléphone.';
@@ -233,6 +283,7 @@
   fillServices();
   fillDesigns();
   initializeWorldPhoneSelector();
+  $('sendEmailCode').disabled = !CHECKOUT_TEST.enabled;
   if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
     document.querySelector('input[name="offer"][value="black-friday"]').checked = true;
   }
