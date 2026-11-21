@@ -16,12 +16,10 @@
     ['anniversaire', 'Anniversaire', 'Joyeux anniversaire ! Que cette parenthèse de détente vous apporte douceur et bien-être.'],
     ['noel', 'Noël', 'Un doux moment de détente à savourer. Joyeux Noël !'],
     ['saint-valentin', 'Saint-Valentin', 'Pour toi, mon amour. Un moment de douceur rien que pour toi.'],
-    ['paques', 'Pâques', 'Joyeuses Pâques ! Une belle occasion de prendre du temps pour soi.'],
     ['fete-meres', 'Fête des Mères', 'Bonne fête ! Un moment de douceur rien que pour toi.'],
     ['fete-peres', 'Fête des Pères', 'Bonne fête ! Un moment de détente bien mérité.'],
     ['mariage', 'Mariage', 'Félicitations ! Un moment de sérénité à savourer.'],
     ['black-friday', 'Black Friday', 'Une pause bien méritée, un instant de détente rien que pour vous.'],
-    ['classique', 'Classique', 'Un moment de bien-être et de sérénité à savourer pleinement.'],
   ];
   const $ = id => document.getElementById(id);
   const chosenOffer = () => document.querySelector('input[name="offer"]:checked').value;
