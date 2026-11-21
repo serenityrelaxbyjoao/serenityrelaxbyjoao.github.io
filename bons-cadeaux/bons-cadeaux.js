@@ -147,7 +147,21 @@
   $('countryCode').addEventListener('change', checkPhonePreview);
   // Checkout stays disabled until backend, signed webhook, email ownership check,
   // consent pages, PDF and transactional delivery are validated in staging.
-  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '', catalogEndpoint: '', sendCodeEndpoint: '', confirmCodeEndpoint: '' });
+  const testConfig = window.SERENITY_GIFT_TEST_CONFIG || {};
+  const expectedFunctionsOrigin = 'https://europe-west6-serenity-relax-gestion.cloudfunctions.net';
+  const validEndpoint = (url, fnName) => typeof url === 'string' &&
+    url === expectedFunctionsOrigin + '/' + fnName;
+  const CHECKOUT_TEST = Object.freeze({
+    enabled: testConfig.enabled === true &&
+      validEndpoint(testConfig.endpoint, 'createGiftCheckoutTest') &&
+      validEndpoint(testConfig.catalogEndpoint, 'getGiftCatalogTest') &&
+      validEndpoint(testConfig.sendCodeEndpoint, 'requestGiftEmailCodeTest') &&
+      validEndpoint(testConfig.confirmCodeEndpoint, 'confirmGiftEmailCodeTest'),
+    endpoint: testConfig.endpoint || '',
+    catalogEndpoint: testConfig.catalogEndpoint || '',
+    sendCodeEndpoint: testConfig.sendCodeEndpoint || '',
+    confirmCodeEndpoint: testConfig.confirmCodeEndpoint || '',
+  });
   let verifiedEmail = '';
   async function sendEmailCodeTest() {
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.sendCodeEndpoint || !checkEmails()) return;
