@@ -72,6 +72,15 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="field"><label for="emailAgain">Confirmez votre email *</label><input type="email" id="emailAgain" autocomplete="off" required></div>
 </div>
 <p class="error" id="emailError" role="status" aria-live="polite"></p>
+<div class="field">
+  <label for="emailCode">Vérification de votre adresse email *</label>
+  <div class="columns">
+    <button type="button" id="sendEmailCode" disabled>Recevoir mon code</button>
+    <input id="emailCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="Code à 6 chiffres">
+  </div>
+  <button type="button" id="confirmEmailCode" disabled>Vérifier le code</button>
+  <p class="note" id="emailVerifyStatus" aria-live="polite">Vérification activée uniquement en environnement de test sécurisé.</p>
+</div>
 <div class="columns">
 <div class="field"><label for="countryCode">Indicatif</label><select id="countryCode"><option value="+41">Suisse (+41)</option><option value="+33">France (+33)</option><option value="+351">Portugal (+351)</option><option value="+34">Espagne (+34)</option><option value="+39">Italie (+39)</option><option value="+49">Allemagne (+49)</option><option value="+44">Royaume-Uni (+44)</option><option value="+1">États-Unis / Canada (+1)</option><option value="+55">Brésil (+55)</option><option value="+32">Belgique (+32)</option><option value="+31">Pays-Bas (+31)</option><option value="+352">Luxembourg (+352)</option></select></div>
 <div class="field"><label for="phone">Téléphone *</label><input type="tel" id="phone" autocomplete="tel-national" required placeholder="79 123 45 67"></div>
