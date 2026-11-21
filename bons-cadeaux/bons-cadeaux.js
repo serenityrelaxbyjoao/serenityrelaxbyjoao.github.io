@@ -119,6 +119,62 @@
   ['recipient', 'dedication'].forEach(id => $(id).addEventListener('input', updateSummary));
   ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', checkEmails));
   $('phone').addEventListener('input', checkPhonePreview);
+  // Checkout stays disabled until backend, signed webhook, email ownership check,
+  // consent pages, PDF and transactional delivery are validated in staging.
+  const CHECKOUT_TEST = Object.freeze({ enabled: false, endpoint: '' });
+  async function startCheckoutTest() {
+    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint) return;
+    const q = quote();
+    if (!q || !checkEmails() || !$('giftForm').reportValidity() || !$('acceptTerms').checked) return;
+    const phoneE164 = $('phone').value.trim();
+    if (!/^\+[1-9]\d{6,14}$/.test(phoneE164)) {
+      $('phoneError').textContent = 'Indiquez votre numéro complet avec indicatif international.';
+      return;
+    }
+    const recipientMode = $('recipientMode').value;
+    if (recipientMode === 'gift' && !$('recipient').value.trim()) {
+      $('recipient').focus();
+      return;
+    }
+    const currentDedication = $('dedicationMode').value;
+    const proposed = designs.find(([id]) => id === $('design').value)?.[2] || '';
+    const dedication = currentDedication === 'none' ? '' :
+      currentDedication === 'custom' ? $('dedication').value.trim() : proposed;
+    $('checkout').disabled = true;
+    $('checkout').textContent = 'Ouverture du paiement sécurisé…';
+    try {
+      const response = await fetch(CHECKOUT_TEST.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceId: q.service.id,
+          durationMinutes: q.duration,
+          offerId: q.offer,
+          buyerName: $('fullName').value.trim(),
+          email: $('email').value.trim(),
+          emailConfirmation: $('emailAgain').value.trim(),
+          phoneE164,
+          recipientMode,
+          recipient: $('recipient').value.trim(),
+          design: $('design').value,
+          dedication,
+          acceptedTerms: true,
+          acceptedTermsVersion: '2026-11-21-draft',
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Paiement indisponible.');
+      const redirect = new URL(result.checkoutUrl);
+      if (redirect.protocol !== 'https:' || redirect.hostname !== 'checkout.stripe.com') {
+        throw new Error('Adresse de paiement non reconnue.');
+      }
+      location.assign(redirect.href);
+    } catch (error) {
+      $('checkout').textContent = error instanceof Error ? error.message : 'Paiement indisponible.';
+      $('checkout').disabled = false;
+    }
+  }
+  $('checkout').addEventListener('click', () => { void startCheckoutTest(); });
   $('giftForm').addEventListener('submit', event => event.preventDefault());
   fillServices();
   fillDesigns();
