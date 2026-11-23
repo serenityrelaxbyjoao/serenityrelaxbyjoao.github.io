@@ -1,7 +1,7 @@
 const {test}=require('node:test'); const assert=require('node:assert/strict'); const vm=require('node:vm'); const fs=require('node:fs');
 const source=fs.readFileSync('offer-share.js','utf8');
 class Element {
- constructor(tag){this.tag=tag;this.children=[];this.events={};this.attrs={};this.hidden=false;}
+ constructor(tag){this.tag=tag;this.children=[];this.events={};this.attrs={};this.hidden=false;this.classList={add:()=>{}};}
  appendChild(x){this.children.push(x);return x;} setAttribute(k,v){this.attrs[k]=v;} removeAttribute(k){delete this[k];}
  addEventListener(k,v){this.events[k]=v;} focus(){this.focused=true;} select(){this.selected=true;} contains(x){return x===this||this.children.some(c=>c.contains(x));}
 }
