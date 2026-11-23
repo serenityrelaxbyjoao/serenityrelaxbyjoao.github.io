@@ -148,19 +148,19 @@
   // Checkout stays disabled until backend, signed webhook, email ownership check,
   // consent pages, PDF and transactional delivery are validated in staging.
   const testConfig = window.SERENITY_GIFT_TEST_CONFIG || {};
-  const expectedFunctionsOrigin = 'https://europe-west6-serenity-relax-gestion.cloudfunctions.net';
-  const validEndpoint = (url, fnName) => typeof url === 'string' &&
-    url === expectedFunctionsOrigin + '/' + fnName;
+  const testProjectId = String(testConfig.projectId || '');
+  // Never send buyer information to the live clinic Firebase project from this preview.
+  const validStagingProject = /^[a-z0-9][a-z0-9-]{3,58}-(test|staging|sandbox)$/.test(testProjectId) &&
+    testProjectId !== 'serenity-relax-gestion';
+  const base = validStagingProject
+    ? 'https://europe-west6-' + testProjectId + '.cloudfunctions.net/'
+    : '';
   const CHECKOUT_TEST = Object.freeze({
-    enabled: testConfig.enabled === true &&
-      validEndpoint(testConfig.endpoint, 'createGiftCheckoutTest') &&
-      validEndpoint(testConfig.catalogEndpoint, 'getGiftCatalogTest') &&
-      validEndpoint(testConfig.sendCodeEndpoint, 'requestGiftEmailCodeTest') &&
-      validEndpoint(testConfig.confirmCodeEndpoint, 'confirmGiftEmailCodeTest'),
-    endpoint: testConfig.endpoint || '',
-    catalogEndpoint: testConfig.catalogEndpoint || '',
-    sendCodeEndpoint: testConfig.sendCodeEndpoint || '',
-    confirmCodeEndpoint: testConfig.confirmCodeEndpoint || '',
+    enabled: testConfig.enabled === true && validStagingProject,
+    endpoint: base + 'createGiftCheckoutTest',
+    catalogEndpoint: base + 'getGiftCatalogTest',
+    sendCodeEndpoint: base + 'requestGiftEmailCodeTest',
+    confirmCodeEndpoint: base + 'confirmGiftEmailCodeTest',
   });
   let verifiedEmail = '';
   async function sendEmailCodeTest() {
