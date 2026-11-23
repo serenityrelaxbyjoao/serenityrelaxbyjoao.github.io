@@ -1,9 +1,7 @@
 [data-offer-share]{position:relative;width:100%}
 .offer-share-trigger{display:block;width:100%;min-height:44px;padding:10px 18px;border:1px solid currentColor;border-radius:24px;background:transparent;color:inherit;font:inherit;cursor:pointer}
 .hero-promo .offer-share-trigger{color:#fff;background:#21372ce6}
-.offer-share-panel{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:4px;padding:4px 0;color:#21372c;text-align:left}
-.offer-share-trigger[hidden]{display:none}
-.hero-promo .offer-share-panel{color:#fff}
+.offer-share-panel{position:relative;z-index:3;margin-top:10px;padding:14px;border:1px solid #d5c494;border-radius:16px;background:#f6f3ec;color:#21372c;box-shadow:0 8px 24px #0003;text-align:left}
 .offer-share-panel[hidden],.offer-share-panel input[hidden],[data-campaign-booking][hidden],#offer-expired[hidden]{display:none}
 .offer-share-panel a,.offer-share-panel button{display:block;width:100%;box-sizing:border-box;padding:11px 12px;border:0;border-radius:8px;background:transparent;color:#21372c;text-align:left;font:inherit;text-decoration:none;cursor:pointer}
 .offer-share-panel a:hover,.offer-share-panel button:hover{background:#e7e0cd}
@@ -14,13 +12,6 @@
 .offer-instagram{margin:8px 0;padding:10px;border:1px solid #d5c494;border-radius:10px}
 .offer-instagram textarea{box-sizing:border-box;width:100%;min-height:180px;padding:10px;border:1px solid #b8b5a9;border-radius:6px;background:white;color:#21372c;font:14px/1.5 system-ui,sans-serif;resize:vertical}
 .offer-share-panel button:disabled{opacity:.5;cursor:default}
-.offer-share-panel .offer-icon-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid #b4a16a66;border-radius:50%;background:#f6f3ec;color:#31483a;font-size:0;transition:background .15s,transform .15s}
-.offer-share-panel .offer-icon-button:hover{background:#e8dec5;transform:translateY(-2px)}
-.offer-icon{display:inline-flex;align-items:center;justify-content:center;pointer-events:none}
-.offer-icon svg{display:block}
-.offer-instagram{order:10;flex-basis:100%;box-sizing:border-box;background:#f6f3ec;color:#21372c}
-.offer-instagram .offer-icon-button{margin:6px 6px 0 0}
-.offer-share-panel>input,.offer-share-panel>p{flex-basis:100%;color:inherit}
 .offer-share-trigger:focus-visible,.offer-share-panel :focus-visible{outline:3px solid #b38a35;outline-offset:3px}
 .offer-page{background:#f6f3ec;color:#21372c;min-height:100vh}
 .offer-page main{max-width:1000px;margin:auto;padding:32px 24px 60px}
@@ -32,3 +23,32 @@
 .offer-page [data-offer-share]{margin-top:16px}
 .offer-page .offer-terms{font-size:14px;line-height:1.5;margin-top:20px}
 @media(max-width:680px){.offer-page .offer-layout{grid-template-columns:1fr;gap:24px}.offer-page .offer-poster{max-width:440px;justify-self:center}}
+
+/* Compact sharing controls: icons remain labelled for assistive technology. */
+.offer-page [data-offer-share]{display:flex;flex-direction:column;align-items:center}
+.offer-share-trigger{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;min-height:48px;padding:10px;border:1px solid #b9a575;border-radius:50%;background:transparent;color:#21372c}
+.offer-share-trigger svg,.offer-share-icon svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.offer-share-panel{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;max-width:420px;padding:12px}
+.offer-share-panel[hidden]{display:none}
+.offer-share-panel .offer-share-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px;padding:10px;border:1px solid #e0d8c6;border-radius:50%;background:#fff;color:#21372c;text-align:center;transition:background .15s,border-color .15s}
+.offer-share-panel .offer-share-icon:hover{background:#e7e0cd;border-color:#c9b98f}
+.offer-share-panel .offer-instagram{flex-basis:100%;width:100%;box-sizing:border-box;order:2}
+.offer-share-panel input,.offer-share-panel p{flex-basis:100%}
+.offer-share-panel button:not(.offer-share-icon){width:100%;text-align:center}
+@media(max-width:680px){.offer-share-panel{max-width:340px}}
+
+/* Labelled share action */
+.offer-share-trigger{width:auto;min-width:180px;height:auto;min-height:44px;gap:10px;padding:10px 20px;border-radius:28px;font-weight:500}
+
+/* Restore readable sharing button inside the homepage offer dialog. */
+.offer-dialog [data-offer-share]{display:block;width:100%;margin-top:14px}
+.offer-dialog .offer-share-trigger{display:flex;width:100%;min-width:0;justify-content:center;gap:10px;border:1px solid rgba(255,255,255,.65);color:#fff;background:transparent;font-size:16px}
+.offer-dialog .offer-share-trigger:hover{background:rgba(255,255,255,.12)}
+.offer-dialog .offer-share-panel{max-width:none;justify-content:center;margin-top:10px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.hero-promo .offer-share-trigger{width:100%;border-color:rgba(255,255,255,.75);color:#fff;background:#21372ce6}
+
+/* Gift voucher option for the November campaign */
+.offer-page .offer-gift-intro{margin:18px 0 8px;font-size:15px;line-height:1.55;color:#435247}
+.offer-page .offer-gift-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border:1px solid #b8a474;border-radius:999px;background:transparent;color:#21372c;text-decoration:none;font-weight:600;transition:background .2s ease}
+.offer-page .offer-gift-link:hover{background:#e7e0cd}
+.offer-page .offer-gift-link:focus-visible{outline:3px solid #b38a35;outline-offset:3px}
