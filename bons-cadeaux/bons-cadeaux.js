@@ -152,17 +152,27 @@
   // Never send buyer information to the live clinic Firebase project from this preview.
   const validStagingProject = /^[a-z0-9][a-z0-9-]{3,58}-(test|staging|sandbox)$/.test(testProjectId) &&
     testProjectId !== 'serenity-relax-gestion';
-  const base = validStagingProject
+  const hostname = window.location.hostname;
+  const localPreview = hostname === 'localhost' || hostname === '127.0.0.1';
+  const liveSite = /^(?:[a-z0-9-]+\.)*(?:serenityrelaxbyjoao\.ch|serenityrelaxbyjoao\.github\.io)$/.test(hostname);
+  const localEmulator = localPreview && testConfig.localEmulator === true &&
+    testProjectId.startsWith('demo-') && validStagingProject;
+  const base = localEmulator
+    ? 'http://127.0.0.1:5007/' + testProjectId + '/europe-west6/'
+    : validStagingProject
     ? 'https://europe-west6-' + testProjectId + '.cloudfunctions.net/'
     : '';
   const CHECKOUT_TEST = Object.freeze({
-    enabled: testConfig.enabled === true && validStagingProject,
+    enabled: testConfig.enabled === true && validStagingProject && !liveSite &&
+      (testConfig.localEmulator !== true || localEmulator),
     endpoint: base + 'createGiftCheckoutTest',
     catalogEndpoint: base + 'getGiftCatalogTest',
     sendCodeEndpoint: base + 'requestGiftEmailCodeTest',
     confirmCodeEndpoint: base + 'confirmGiftEmailCodeTest',
   });
   let verifiedEmail = '';
+  let emailProof = '';
+  let catalogReady = false;
   async function sendEmailCodeTest() {
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.sendCodeEndpoint || !checkEmails()) return;
     $('sendEmailCode').disabled = true;
@@ -184,21 +194,29 @@
   async function confirmEmailCodeTest() {
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.confirmCodeEndpoint || !checkEmails()) return;
     $('confirmEmailCode').disabled = true;
+    const email = $('email').value.trim();
+    const emailConfirmation = $('emailAgain').value.trim();
     try {
       const result = await fetch(CHECKOUT_TEST.confirmCodeEndpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: $('email').value.trim(), emailConfirmation: $('emailAgain').value.trim(),
+          email, emailConfirmation,
           code: $('emailCode').value.trim(),
         }),
       });
-      if (!result.ok) throw new Error((await result.json()).error || 'Code incorrect.');
-      verifiedEmail = $('email').value.trim().toLowerCase();
+      const confirmation = await result.json();
+      if (!result.ok || typeof confirmation.emailProof !== 'string') {
+        throw new Error(confirmation.error || 'Code incorrect.');
+      }
+      if ($('email').value.trim() !== email || $('emailAgain').value.trim() !== emailConfirmation) return;
+      verifiedEmail = email.toLowerCase();
+      emailProof = confirmation.emailProof;
       $('emailVerifyStatus').textContent = 'Adresse email vérifiée.';
-      $('checkout').disabled = !CHECKOUT_TEST.enabled;
+      $('checkout').disabled = !catalogReady;
       $('checkout').textContent = 'Payer avec Stripe (test)';
     } catch (error) {
       verifiedEmail = '';
+      emailProof = '';
       $('emailVerifyStatus').textContent = error instanceof Error ? error.message : 'Vérification impossible.';
       $('confirmEmailCode').disabled = false;
     }
@@ -207,12 +225,13 @@
   $('confirmEmailCode').addEventListener('click', () => { void confirmEmailCodeTest(); });
   ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', () => {
     verifiedEmail = '';
+    emailProof = '';
     $('checkout').disabled = true;
     $('checkout').textContent = 'Vérifiez votre adresse email pour continuer';
     $('emailVerifyStatus').textContent = 'Adresse email à vérifier.';
   }));
   async function startCheckoutTest() {
-    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint) return;
+    if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.endpoint || !catalogReady || !emailProof) return;
     const q = quote();
     if (!q || !checkEmails() || !$('giftForm').reportValidity() || !$('acceptTerms').checked ||
         verifiedEmail !== $('email').value.trim().toLowerCase()) return;
@@ -244,6 +263,7 @@
           email: $('email').value.trim(),
           emailConfirmation: $('emailAgain').value.trim(),
           phoneE164,
+          emailProof,
           recipientMode,
           recipient: $('recipient').value.trim(),
           design: $('design').value,
@@ -286,6 +306,8 @@
         document.querySelector('input[name="offer"][value="black-friday"]').closest('label').hidden = true;
       }
       synchronizeDurations();
+      catalogReady = true;
+      $('checkout').disabled = !emailProof;
     } catch (error) {
       $('checkout').disabled = true;
       $('checkout').textContent = 'Tarifs indisponibles, réessayez plus tard';

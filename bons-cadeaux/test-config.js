@@ -4,4 +4,5 @@
 window.SERENITY_GIFT_TEST_CONFIG = Object.freeze({
   enabled: false,
   projectId: '',
+  localEmulator: false,
 });
