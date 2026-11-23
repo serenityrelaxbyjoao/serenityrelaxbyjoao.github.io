@@ -318,6 +318,11 @@
   fillDesigns();
   initializeWorldPhoneSelector();
   $('sendEmailCode').disabled = !CHECKOUT_TEST.enabled;
+  if (CHECKOUT_TEST.enabled) {
+    $('previewTerms').textContent = 'Aperçu de test. Utilisez uniquement une carte de test Stripe.';
+    $('checkout').textContent = 'Vérifiez votre adresse email pour continuer';
+    $('checkoutStatus').textContent = 'Le PDF est envoyé après confirmation du paiement simulé.';
+  }
   if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
     document.querySelector('input[name="offer"][value="black-friday"]').checked = true;
   }

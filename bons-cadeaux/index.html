@@ -40,7 +40,7 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <main>
 <p class="note">APERÇU DE TEST · AUCUN PAIEMENT POSSIBLE</p>
 <h1>Offrez un moment de bien-être</h1>
-<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. Cette page de test ne transmet aucune donnée et ne permet pas encore d'acheter.</p>
+<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms">L’achat est désactivé sur cet aperçu.</span></p>
 <div class="layout">
 <form id="giftForm" novalidate>
 <section class="panel">
@@ -104,10 +104,10 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="sum-line total"><span>Total</span><span id="summaryTotal"></span></div>
 <p class="note">Le prix sera recalculé côté serveur avant d'ouvrir Stripe Checkout.</p>
 <button type="button" id="checkout" disabled>Paiement indisponible en aperçu</button>
-<p class="status">Aucun paiement n'est activé. Le bon PDF sera émis uniquement après confirmation sécurisée du paiement.</p>
+<p class="status" id="checkoutStatus">Paiement désactivé.</p>
 </aside>
 </div>
-<p class="footer"><a href="../">Retour au site</a> · Version de travail non publiée, sans connexion Stripe ni enregistrement des informations.</p>
+<p class="footer"><a href="../">Retour au site</a></p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.0/bundle/libphonenumber-js.min.js" defer></script>
 <script src="./test-config.js" defer></script>
