@@ -220,7 +220,7 @@
       emailProof = confirmation.emailProof;
       $('emailVerifyStatus').textContent = 'Adresse email vérifiée.';
       $('checkout').disabled = !catalogReady;
-      $('checkout').textContent = liveMode ? 'Payer par carte ou TWINT' : 'Payer avec Stripe (test)';
+      $('checkout').textContent = liveMode ? 'Payer par carte' : 'Payer avec Stripe (test)';
     } catch (error) {
       verifiedEmail = '';
       emailProof = '';
