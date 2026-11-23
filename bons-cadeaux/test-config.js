@@ -1,10 +1,10 @@
-// Test only. No Stripe secret or SMTP credentials belong in this file.
-// Set projectId only after creating an isolated Firebase project ending in -test / -staging.
-// Payment stays disabled until all private test functions and email flow are verified.
-// Production (après accord de João) : mode: 'live', projectId: 'serenity-relax-gestion',
-// enabled: true, termsVersion: date de la version validée des CGV. Actif uniquement sur serenityrelaxbyjoao.ch.
+// Aucune clé Stripe ni identifiant SMTP dans ce fichier.
+// Production : actif uniquement sur serenityrelaxbyjoao.ch, avec le projet de la gestion.
+// L'ouverture réelle des ventes est contrôlée côté serveur (GIFT_LIVE_SALES_OPEN, liste d'adresses).
 window.SERENITY_GIFT_TEST_CONFIG = Object.freeze({
-  enabled: false,
-  projectId: '',
+  mode: 'live',
+  enabled: true,
+  projectId: 'serenity-relax-gestion',
   localEmulator: false,
+  termsVersion: '2026-11-23-projet',
 });

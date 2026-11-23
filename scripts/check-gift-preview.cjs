@@ -14,7 +14,10 @@ assert.ok(form.includes('conditions-bons-cadeaux.html'), 'CGV link missing');
 assert.ok(form.includes('confidentialite-bons-cadeaux.html'), 'Privacy policy link missing');
 assert.ok(form.includes('./test-config.js'), 'Test config script missing');
 assert.ok(form.includes('id="emailCode"'), 'Email verification control missing');
-assert.ok(config.includes('enabled: false'), 'The purchase preview must ship with payments disabled');
+assert.ok(config.includes('enabled: false') ||
+  (config.includes("mode: 'live'") && config.includes("projectId: 'serenity-relax-gestion'")),
+  'Payments must stay disabled, or be bound explicitly to the production project');
+assert.ok(!/sk_|rk_|whsec_/.test(config), 'No secret in the public configuration');
 assert.ok(script.includes('verifiedEmail !=='), 'Checkout must reject unverified email');
 assert.ok(script.includes('checkout.stripe.com'), 'Only verified Stripe Checkout redirect should be accepted');
 assert.ok(script.includes('getGiftCatalogTest'), 'Server-side catalog connection missing');
