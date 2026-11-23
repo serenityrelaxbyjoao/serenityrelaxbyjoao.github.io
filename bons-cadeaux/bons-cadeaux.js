@@ -157,14 +157,21 @@
   const liveSite = /^(?:[a-z0-9-]+\.)*(?:serenityrelaxbyjoao\.ch|serenityrelaxbyjoao\.github\.io)$/.test(hostname);
   const localEmulator = localPreview && testConfig.localEmulator === true &&
     testProjectId.startsWith('demo-') && validStagingProject;
-  const base = localEmulator
+  // Production : seulement sur le site publié, avec le projet de la gestion et mode: 'live' explicite.
+  const LIVE_PROJECT = 'serenity-relax-gestion';
+  const liveMode = testConfig.mode === 'live' && testProjectId === LIVE_PROJECT && liveSite;
+  const TERMS_VERSION = typeof testConfig.termsVersion === 'string' ? testConfig.termsVersion : '2026-11-21-draft';
+  const base = liveMode
+    ? 'https://europe-west6-' + LIVE_PROJECT + '.cloudfunctions.net/'
+    : localEmulator
     ? 'http://127.0.0.1:5007/' + testProjectId + '/europe-west6/'
     : validStagingProject
     ? 'https://europe-west6-' + testProjectId + '.cloudfunctions.net/'
     : '';
   const CHECKOUT_TEST = Object.freeze({
-    enabled: testConfig.enabled === true && validStagingProject && !liveSite &&
-      (testConfig.localEmulator !== true || localEmulator),
+    enabled: liveMode ? testConfig.enabled === true
+      : testConfig.enabled === true && validStagingProject && !liveSite &&
+        (testConfig.localEmulator !== true || localEmulator),
     endpoint: base + 'createGiftCheckoutTest',
     catalogEndpoint: base + 'getGiftCatalogTest',
     sendCodeEndpoint: base + 'requestGiftEmailCodeTest',
@@ -213,7 +220,7 @@
       emailProof = confirmation.emailProof;
       $('emailVerifyStatus').textContent = 'Adresse email vérifiée.';
       $('checkout').disabled = !catalogReady;
-      $('checkout').textContent = 'Payer avec Stripe (test)';
+      $('checkout').textContent = liveMode ? 'Payer par carte ou TWINT' : 'Payer avec Stripe (test)';
     } catch (error) {
       verifiedEmail = '';
       emailProof = '';
@@ -269,7 +276,7 @@
           design: $('design').value,
           dedication,
           acceptedTerms: true,
-          acceptedTermsVersion: '2026-11-21-draft',
+          acceptedTermsVersion: TERMS_VERSION,
         }),
       });
       const result = await response.json();
@@ -319,9 +326,11 @@
   initializeWorldPhoneSelector();
   $('sendEmailCode').disabled = !CHECKOUT_TEST.enabled;
   if (CHECKOUT_TEST.enabled) {
-    $('previewTerms').textContent = 'Aperçu de test. Utilisez uniquement une carte de test Stripe.';
+    $('previewTerms').textContent = liveMode ? '' : 'Aperçu de test. Utilisez uniquement une carte de test Stripe.';
     $('checkout').textContent = 'Vérifiez votre adresse email pour continuer';
-    $('checkoutStatus').textContent = 'Le PDF est envoyé après confirmation du paiement simulé.';
+    $('checkoutStatus').textContent = liveMode
+      ? 'Paiement sécurisé par Stripe. Votre bon cadeau en PDF vous est envoyé par e-mail dès la confirmation du paiement.'
+      : 'Le PDF est envoyé après confirmation du paiement simulé.';
   }
   if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
     document.querySelector('input[name="offer"][value="black-friday"]').checked = true;
