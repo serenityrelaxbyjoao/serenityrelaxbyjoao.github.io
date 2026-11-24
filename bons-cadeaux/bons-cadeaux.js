@@ -143,11 +143,18 @@
     return Boolean(formatted);
   }
   // Choisir une occasion règle aussi le modèle du bon (modifiable à l'étape 3).
+  const ART = {anniversaire:'anniversaire',remerciement:'anniversaire',noel:'noel','saint-valentin':'saint-valentin','fete-meres':'fete-des-meres','fete-peres':'fete-des-peres',mariage:'mariage','black-friday':'black-friday'};
+  function updateArtwork() {
+    const box = document.querySelector('.preview');
+    if (box) box.style.backgroundImage = "url('artwork/" + (ART[$('design').value] || 'anniversaire') + ".webp')";
+  }
+  $('design').addEventListener('change', updateArtwork);
   function applyChoiceToDesign() {
     const choice = chosenChoice();
     if (choice === 'black-friday') $('design').value = 'black-friday';
     else if (choice === 'novembre-bleu') { if ($('design').value === 'black-friday') $('design').value = 'anniversaire'; }
     else if (designs.some(([id]) => id === choice)) $('design').value = choice;
+    updateArtwork();
     updatePersonalization();
   }
   document.querySelectorAll('input[name="offer"]').forEach(radio => {
