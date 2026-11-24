@@ -231,7 +231,7 @@
   const swissToday = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Zurich' });
   const promoPreview = /[?&]bf=apercu(&|$)/.test(location.search);
   showPromo('black-friday', promoPreview || (swissToday >= '2026-11-25' && swissToday <= '2026-11-30'));
-  showPromo('novembre-bleu', swissToday <= '2026-11-30');
+  showPromo('novembre-bleu', false);
   $('service').addEventListener('change', synchronizeDurations);
   $('duration').addEventListener('change', updateSummary);
   ['recipientMode', 'dedicationMode'].forEach(id => $(id).addEventListener('change', updatePersonalization));
