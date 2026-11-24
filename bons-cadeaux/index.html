@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Bons cadeaux, aperçu | Serenity &amp; Relax by João</title>
+<title>Bons cadeaux | Serenity &amp; Relax by João</title>
 <meta name="description" content="Préparation du parcours d'achat de bons cadeaux Serenity & Relax by João.">
 <style>
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
@@ -38,18 +38,17 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <body>
 <header><a href="../">Serenity &amp; Relax <small>by João</small></a></header>
 <main>
-<p class="note">APERÇU DE TEST · AUCUN PAIEMENT POSSIBLE</p>
 <h1>Offrez un moment de bien-être</h1>
-<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms">L’achat est désactivé sur cet aperçu.</span></p>
+<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>
 <div class="layout">
 <form id="giftForm" novalidate>
 <section class="panel">
 <h2>1. Choisissez votre offre</h2>
 <div class="options">
 <label><input type="radio" name="offer" value="standard" checked> Tarif habituel</label>
-<label><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
+<label><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF au lieu de 150 CHF</label>
 </div>
-<div class="promo" id="promoNotice" hidden>Offre Black Friday de 90 minutes, disponible sur les massages éligibles. La période de vente sera contrôlée par le serveur.</div>
+<div class="promo" id="promoNotice" hidden>Offre Black Friday du 25 au 30 novembre 2026 : 90 minutes à 90 CHF au lieu de 150 CHF, pour les massages thérapeutique, sportif, relaxant, thaï et myofascial.</div>
 </section>
 <section class="panel">
 <h2>2. Votre prestation</h2>
@@ -79,20 +78,20 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
     <input id="emailCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="Code à 6 chiffres">
   </div>
   <button type="button" id="confirmEmailCode" disabled>Vérifier le code</button>
-  <p class="note" id="emailVerifyStatus" aria-live="polite">Vérification activée uniquement en environnement de test sécurisé.</p>
+  <p class="note" id="emailVerifyStatus" aria-live="polite">Vous recevrez un code à 6 chiffres par e-mail pour confirmer votre adresse.</p>
 </div>
 <div class="columns">
 <div class="field"><label for="countryCode">Indicatif</label><select id="countryCode"><option value="+41">Suisse (+41)</option><option value="+33">France (+33)</option><option value="+351">Portugal (+351)</option><option value="+34">Espagne (+34)</option><option value="+39">Italie (+39)</option><option value="+49">Allemagne (+49)</option><option value="+44">Royaume-Uni (+44)</option><option value="+1">États-Unis / Canada (+1)</option><option value="+55">Brésil (+55)</option><option value="+32">Belgique (+32)</option><option value="+31">Pays-Bas (+31)</option><option value="+352">Luxembourg (+352)</option></select></div>
 <div class="field"><label for="phone">Téléphone *</label><input type="tel" id="phone" autocomplete="tel-national" required placeholder="79 123 45 67"></div>
 </div>
-<p class="note">Sélecteur et contrôle international complets à connecter avec libphonenumber-js avant toute mise en ligne.</p>
+<p class="note">Uniquement pour vous joindre au sujet de votre bon, si nécessaire.</p>
 <p class="error" id="phoneError" role="status" aria-live="polite"></p>
 </section>
 <section class="panel">
 <h2>5. Conditions de vente</h2>
-<p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. Utilisation conseillée dans les douze mois suivant l'émission.</p>
+<p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. À utiliser de préférence dans les 12 mois suivant l’émission. Bon non remboursable.</p>
 <div class="options"><label><input type="checkbox" id="acceptTerms" required> J'ai lu et j'accepte les conditions générales de vente des bons cadeaux.</label></div>
-<p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> seront accessibles avant l'achat.</p>
+<p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> s’appliquent à votre achat.</p>
 </section>
 </form>
 <aside class="summary panel" aria-live="polite">
@@ -103,8 +102,8 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="sum-line"><span>Offre</span><strong id="summaryOffer"></strong></div>
 <div class="sum-line total"><span>Total</span><span id="summaryTotal"></span></div>
 <p class="note">Le prix sera recalculé côté serveur avant d'ouvrir Stripe Checkout.</p>
-<button type="button" id="checkout" disabled>Paiement indisponible en aperçu</button>
-<p class="status" id="checkoutStatus">Paiement désactivé.</p>
+<button type="button" id="checkout" disabled>Vérifiez votre adresse e-mail pour continuer</button>
+<p class="status" id="checkoutStatus"></p>
 </aside>
 </div>
 <p class="footer"><a href="../">Retour au site</a></p>

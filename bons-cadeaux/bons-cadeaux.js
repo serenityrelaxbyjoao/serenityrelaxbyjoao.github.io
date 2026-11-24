@@ -24,6 +24,9 @@
   const $ = id => document.getElementById(id);
   const chosenOffer = () => document.querySelector('input[name="offer"]:checked').value;
   const chosenService = () => services.find(service => service.id === $('service').value);
+  // Black Friday : seulement les massages dont le tarif habituel 90 min est de 150 CHF (liste fournie par le serveur).
+  let blackFridayIds = null;
+  const blackFridayEligible = service => Boolean(service) && (blackFridayIds ? blackFridayIds.includes(service.id) : service.prices[90] === 150);
   const option = (value, label) => {
     const element = document.createElement('option');
     element.value = value;
@@ -40,11 +43,15 @@
     const offer = chosenOffer();
     const service = chosenService();
     if (!service) return;
+    if (offer === 'black-friday' && !blackFridayEligible(service)) {
+      const fallback = services.find(blackFridayEligible);
+      if (fallback && fallback.id !== service.id) { $('service').value = fallback.id; return synchronizeDurations(); }
+    }
     const eligible = Object.keys(service.prices).map(Number).filter(duration => offer !== 'black-friday' || duration === 90);
     $('duration').replaceChildren(...eligible.map(d => option(String(d), d + ' minutes')));
     $('service').querySelectorAll('option').forEach(optionElement => {
       const selected = services.find(s => s.id === optionElement.value);
-      optionElement.disabled = offer === 'black-friday' && !Object.prototype.hasOwnProperty.call(selected.prices, '90');
+      optionElement.disabled = offer === 'black-friday' && !blackFridayEligible(selected);
     });
     if (!eligible.length) {
       const fallback = services.find(s => s.prices[90] !== undefined);
@@ -308,6 +315,7 @@
       );
       if (!services.length) throw new Error('Aucune prestation disponible.');
       fillServices();
+      if (Array.isArray(catalogue.offers?.blackFriday?.serviceIds)) blackFridayIds = catalogue.offers.blackFriday.serviceIds;
       if (!catalogue.offers?.blackFriday?.enabled) {
         document.querySelector('input[name="offer"][value="standard"]').checked = true;
         document.querySelector('input[name="offer"][value="black-friday"]').closest('label').hidden = true;
