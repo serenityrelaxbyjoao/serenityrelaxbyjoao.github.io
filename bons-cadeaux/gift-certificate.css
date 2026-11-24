@@ -1,5 +1,6 @@
 /* Certificate layout from the Gestion voucher editor. */
-.gift-preview-frame{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;margin:16px 0}
+.summary{min-width:0}
+.gift-preview-frame{position:relative;contain:inline-size;width:100%;aspect-ratio:3/2;overflow:hidden;margin:16px 0}
 .gift-certificate [data-fit]{overflow:hidden}
 .gift-certificate [hidden]{display:none!important}
 .gift-certificate h2,.gift-certificate h3{font-family:inherit}
