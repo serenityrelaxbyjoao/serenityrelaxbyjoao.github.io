@@ -10,7 +10,13 @@
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
 header{background:#233e30;color:#fff;padding:22px max(20px,calc((100vw - 1040px)/2))}
-header a{color:#fff;text-decoration:none;font-weight:600}header small{display:block;font-weight:400;color:#e3d5b7}
+header a{color:#fff;text-decoration:none}
+@font-face{font-family:"Great Vibes";src:url(../fonts/great-vibes.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Cormorant";font-style:italic;font-weight:500;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");font-display:swap}
+.brand{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;white-space:nowrap}
+.brand b{font:400 33px/1 "Great Vibes",cursive;color:#fff}
+.brand small{font:italic 500 16px/1 "Cormorant",Georgia,serif;color:#e0c48e}
+
 main{max-width:1040px;margin:32px auto 70px;padding:0 18px}
 h1,h2{font-family:Georgia,serif;font-weight:500;line-height:1.2}h1{font-size:clamp(32px,5vw,52px);margin:10px 0}h2{font-size:24px;margin:0 0 18px}
 .intro{max-width:750px;color:var(--muted);margin-bottom:28px}
@@ -36,7 +42,7 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </style>
 </head>
 <body>
-<header><a href="../">Serenity &amp; Relax <small>by João</small></a></header>
+<header><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a></header>
 <main>
 <h1>Offrez un moment de bien-être</h1>
 <p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>
