@@ -82,12 +82,7 @@
     $('summaryDuration').textContent = q.duration + ' min';
     $('summaryOffer').textContent = isPromo(q.offer) ? PROMOS[q.offer].label : 'Tarif habituel';
     $('summaryTotal').textContent = q.amount + ' CHF';
-    $('previewService').textContent = q.service.name + ' · ' + q.duration + ' minutes';
-    const recipient = $('recipientMode').value === 'gift' ? $('recipient').value.trim() : '';
-    $('previewRecipient').textContent = recipient ? 'Pour ' + recipient : '';
-    const mode = $('dedicationMode').value;
-    const standard = designs.find(([id]) => id === $('design').value)?.[2] || '';
-    $('previewDedication').textContent = mode === 'none' ? '' : mode === 'custom' ? $('dedication').value.trim() : standard;
+    renderCertificate(q);
   }
   function updatePersonalization() {
     $('recipientField').hidden = $('recipientMode').value !== 'gift';
@@ -144,17 +139,58 @@
   }
   // Choisir une occasion règle aussi le modèle du bon (modifiable à l'étape 3).
   const ART = {anniversaire:'anniversaire',remerciement:'anniversaire',noel:'noel','saint-valentin':'saint-valentin','fete-meres':'fete-des-meres','fete-peres':'fete-des-peres',mariage:'mariage','black-friday':'black-friday'};
-  function updateArtwork() {
-    const box = document.querySelector('.preview');
-    if (box) box.style.backgroundImage = "url('artwork/" + (ART[$('design').value] || 'anniversaire') + ".webp')";
+  const certificate = $('giftCertificate');
+  const certificateFrame = certificate.parentElement;
+  function resizeCertificate() {
+    certificate.style.transform = 'scale(' + certificateFrame.clientWidth / 1536 + ')';
   }
-  $('design').addEventListener('change', updateArtwork);
+
+  new ResizeObserver(resizeCertificate).observe(certificateFrame);
+  resizeCertificate();
+
+  function fitCertificateText() {
+    certificate.querySelectorAll('[data-fit]').forEach(node => {
+      if (!node.getClientRects().length) return;
+      const minimum = Number(node.dataset.min);
+      let size = Number(node.dataset.fit);
+      node.style.fontSize = size + 'px';
+      while (size > minimum && (node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1)) {
+        size -= 1;
+        node.style.fontSize = size + 'px';
+      }
+    });
+  }
+  void document.fonts.ready.then(fitCertificateText);
+
+  function renderCertificate({service, duration}) {
+    const [design, occasion, standard] = designs.find(([id]) => id === $('design').value) || designs[0];
+    const isBlackFriday = design === 'black-friday';
+    const recipient = $('recipientMode').value === 'gift' ? $('recipient').value.trim() : '';
+    const mode = $('dedicationMode').value;
+    const message = mode === 'none' ? '' : mode === 'custom' ? $('dedication').value.trim() : standard;
+    const artwork = 'artwork/' + ART[design] + '.webp';
+
+    certificate.className = 'gift-certificate gift-design-' + design;
+    if ($('certificateArtwork').getAttribute('src') !== artwork) $('certificateArtwork').src = artwork;
+    $('certificateTitle').textContent = ['anniversaire', 'remerciement'].includes(design)
+      ? 'BON CADEAU · MASSAGE & BIEN-ÊTRE' : 'BON CADEAU · ' + occasion.toLocaleUpperCase('fr');
+    $('certificateBlackFriday').hidden = !isBlackFriday;
+    $('certificateStandard').hidden = isBlackFriday;
+    $('certificateOccasion').textContent = occasion;
+    $('certificateRecipient').textContent = recipient;
+    $('certificateDedication').textContent = message;
+    $('certificateService').textContent = 'Soin offert · ' + service.name + ' · ' + duration + ' minutes';
+    $('certificatePromoService').textContent = service.name;
+    $('certificatePromoDuration').textContent = duration + ' MINUTES';
+    $('certificatePromoMessage').textContent = message;
+    $('certificatePromoRecipient').textContent = recipient ? 'Nom : ' + recipient : '';
+    fitCertificateText();
+  }
   function applyChoiceToDesign() {
     const choice = chosenChoice();
     if (choice === 'black-friday') $('design').value = 'black-friday';
     else if (choice === 'novembre-bleu') { if ($('design').value === 'black-friday') $('design').value = 'anniversaire'; }
     else if (designs.some(([id]) => id === choice)) $('design').value = choice;
-    updateArtwork();
     updatePersonalization();
   }
   document.querySelectorAll('input[name="offer"]').forEach(radio => {
