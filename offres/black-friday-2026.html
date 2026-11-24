@@ -242,7 +242,6 @@
     padding: 28px 20px 30px;
   }
   .bf-copy, .bf-gallery { grid-column: 1; grid-row: auto; justify-self: center; }
-  .bf-copy { order: -1; }
   .bf-copy h1 { font-size: clamp(3.6rem, 14vw, 6rem); }
   .bf-copy .bf-kicker { margin-bottom: 12px; font-size: .73rem; }
   .bf-copy .bf-gift { margin-bottom: 13px; }
@@ -258,6 +257,13 @@
 <body class="bf-page">
 <main>
 <section class="bf-hero" aria-labelledby="bf-title">
+<div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title" aria-label="Black Friday"><span aria-hidden="true">Black</span><em aria-hidden="true"><span style="--bf-letter:0">F</span><span style="--bf-letter:1">r</span><span style="--bf-letter:2">i</span><span style="--bf-letter:3">d</span><span style="--bf-letter:4">a</span><span style="--bf-letter:5">y</span><span style="--bf-letter:6">.</span></em></h1>
+<p class="bf-gift">Le cadeau qui fait du bien.</p>
+<p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong></p>
+<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau <span aria-hidden="true">↗</span></a>
+<p class="bf-meta">Recevez le bon par e-mail et choisissez votre rendez-vous ensuite.</p>
+<p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
+</div>
 <section class="bf-gallery" aria-roledescription="carrousel" aria-label="Découvrir Serenity &amp; Relax">
   <div class="bf-slides">
     <figure class="bf-slide is-current" aria-hidden="false"><img src="../images/massage.webp" alt="Illustration d’une séance de massage" fetchpriority="high"></figure>
@@ -273,13 +279,7 @@
     <button class="bf-play" type="button" data-bf-play aria-label="Mettre en pause">Ⅱ</button>
   </div>
 </section>
-<div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title" aria-label="Black Friday"><span aria-hidden="true">Black</span><em aria-hidden="true"><span style="--bf-letter:0">F</span><span style="--bf-letter:1">r</span><span style="--bf-letter:2">i</span><span style="--bf-letter:3">d</span><span style="--bf-letter:4">a</span><span style="--bf-letter:5">y</span><span style="--bf-letter:6">.</span></em></h1>
-<p class="bf-gift">Le cadeau qui fait du bien.</p>
-<p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong></p>
-<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau <span aria-hidden="true">↗</span></a>
-<p class="bf-meta">Recevez le bon par e-mail et choisissez votre rendez-vous ensuite.</p>
-<p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
-</div></section>
+</section>
 <section class="bf-details"><div class="bf-details-inner"><p class="bf-kicker">Une parenthèse pour vous</p><h2>Le plaisir de prendre soin de soi.</h2>
 <p>Offrez-vous un moment de détente, loin du rythme du quotidien. Une séance de massage adaptée à vos besoins, pour relâcher les tensions et retrouver un instant de sérénité.</p>
 <h2>Comment fonctionne le bon cadeau ?</h2><div class="bf-steps"><article><strong>01 · Achetez en ligne</strong><p>Choisissez votre bon Black Friday.</p></article><article><strong>02 · Recevez votre bon</strong><p>Après le paiement, votre bon est envoyé par e-mail.</p></article><article><strong>03 · Choisissez votre rendez-vous</strong><p>Utilisez votre bon selon les disponibilités du cabinet.</p></article></div>
