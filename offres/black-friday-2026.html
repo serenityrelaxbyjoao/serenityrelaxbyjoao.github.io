@@ -16,13 +16,14 @@
   font-display: swap;
 }
 .bf-page {
-  --bf-ocean: #102f3e;
-  --bf-deep: #0b2330;
-  --bf-cream: #fff5e4;
-  --bf-gold: #ffdc8a;
-  --bf-coral: #ff8d68;
-  --bf-paper: #fff3e2;
-  --bf-ink: #162f3b;
+  --bf-blue: #1d3265;
+  --bf-deep: #101a38;
+  --bf-cream: #fff4e7;
+  --bf-gold: #ffdb8a;
+  --bf-rose: #ffacac;
+  --bf-bordeaux: #9d2448;
+  --bf-paper: #fff3e7;
+  --bf-ink: #222b46;
   margin: 0;
   background: var(--bf-deep);
   color: var(--bf-cream);
@@ -37,7 +38,7 @@
   gap: clamp(28px, 4vw, 84px);
   min-height: 680px;
   padding: clamp(42px, 5.5vw, 96px) clamp(24px, 6vw, 116px);
-  background: radial-gradient(ellipse at 91% 0%, #287283 0%, var(--bf-ocean) 55%, var(--bf-deep) 100%);
+  background: radial-gradient(ellipse at 92% 3%, #3a5a9c 0%, transparent 58%), radial-gradient(ellipse at 3% 96%, #592241 0%, transparent 48%), linear-gradient(125deg, var(--bf-deep), var(--bf-blue));
 }
 .bf-copy { grid-column: 1; grid-row: 1; min-width: 0; max-width: 650px; justify-self: end; width: 100%; }
 .bf-kicker {
@@ -65,7 +66,7 @@
 .bf-copy h1 em {
   width: fit-content;
   margin: .03em 0 .11em .14em;
-  color: var(--bf-coral);
+  color: var(--bf-rose);
   font: italic 400 1.1em/.85 "Instrument Serif", var(--serif);
   letter-spacing: -.06em;
   transform: rotate(-5deg);
@@ -94,13 +95,28 @@
   align-items: baseline;
   gap: 4px clamp(11px, 1.5vw, 21px);
   width: fit-content;
-  margin: 0 0 20px;
+  margin: 0;
   padding-top: 12px;
   border-top: 1px solid #ffdc8a80;
   color: var(--bf-gold);
   font: 500 clamp(1.7rem, 4.3vw, 3.8rem)/1 var(--sans);
   letter-spacing: -.05em;
 }
+.bf-price-block { width: fit-content; max-width: 100%; margin: 0 0 18px; }
+.bf-offer .bf-saving {
+  display: inline-block;
+  align-self: center;
+  padding: .55em .68em;
+  border: 1px solid #ffc0c38c;
+  border-radius: 4px;
+  background: var(--bf-bordeaux);
+  color: var(--bf-cream);
+  font: 700 clamp(1rem, 2vw, 1.5rem)/1 var(--sans);
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
+.bf-reference { margin: 6px 0 0; color: var(--bf-cream); font-size: .9rem; line-height: 1.4; }
+.bf-reference s { text-decoration-thickness: 1px; }
 .bf-offer strong { font-weight: 750; }
 .bf-offer .bf-unit { font: italic 400 .76em/1 "Instrument Serif", var(--serif); }
 .bf-offer .bf-sep { font-weight: 400; }
@@ -113,15 +129,15 @@
   min-height: 55px;
   max-width: 100%;
   padding: 11px 22px;
-  border: 1px solid transparent;
+  border: 1px solid #ffacac80;
   border-radius: 4px;
-  background: var(--bf-coral);
-  color: #24191a;
+  background: var(--bf-bordeaux);
+  color: var(--bf-cream);
   text-decoration: none;
   font-weight: 700;
   transition: background-color .2s, transform .2s;
 }
-.bf-page .bf-button:hover { background: #ffa889; }
+.bf-page .bf-button:hover { background: #b92d53; }
 .bf-page .bf-button:active { transform: translateY(1px); }
 .bf-meta { margin: 10px 0 0; color: #ffedcf; font-size: .93rem; line-height: 1.45; }
 .bf-page :is(a, button):focus-visible { outline: 2px solid var(--bf-gold); outline-offset: 4px; }
@@ -132,9 +148,9 @@
   max-width: 780px;
   min-width: 0;
   padding: clamp(10px, 1.5vw, 20px);
-  border: 1px solid #97d5db70;
+  border: 1px solid #9db7ff70;
   border-radius: 18px;
-  background: linear-gradient(155deg, #2b6571, #163746 70%);
+  background: linear-gradient(155deg, #435f9a, #28375e 72%);
 }
 .bf-slides {
   position: relative;
@@ -142,7 +158,7 @@
   height: clamp(460px, 41vw, 680px);
   overflow: hidden;
   border-radius: 10px;
-  background: #112d3a;
+  background: #18274c;
 }
 .bf-slide {
   position: absolute;
@@ -206,7 +222,7 @@
   opacity: 1;
   box-shadow: 0 0 0 4px #ffdc8a40;
 }
-.bf-controls :is(button:hover, button:focus-visible) { background: #0b233082; }
+.bf-controls :is(button:hover, button:focus-visible) { background: #101a3899; }
 .bf-controls .bf-play { border-color: #fff5e45e; }
 .bf-details { background: var(--bf-paper); color: var(--bf-ink); }
 .bf-details-inner {
@@ -216,12 +232,12 @@
   line-height: 1.65;
 }
 .bf-details p { max-width: 68ch; color: var(--bf-ink); }
-.bf-details .bf-kicker { color: #9d3823; }
+.bf-details .bf-kicker { color: #92274b; }
 .bf-details h2 { color: var(--bf-ink); font: 500 clamp(1.85rem, 4vw, 3.1rem)/1.06 var(--serif); }
 .bf-details-inner > h2:not(:first-of-type) { margin-top: 36px; }
 .bf-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 25px 0 33px; }
-.bf-steps article { border-top: 1px solid #42717c82; padding: 12px 0; }
-.bf-terms { border-top: 1px solid #42717c82; padding-top: 27px; }
+.bf-steps article { border-top: 1px solid #52608868; padding: 12px 0; }
+.bf-terms { border-top: 1px solid #52608868; padding-top: 27px; }
 .bf-terms p { margin-top: .35em; }
 .bf-terms .bf-button { margin-top: 12px; }
 .bf-details :is(a, button):focus-visible { outline-color: var(--bf-deep); }
@@ -245,7 +261,8 @@
   .bf-copy h1 { font-size: clamp(3.6rem, 14vw, 6rem); }
   .bf-copy .bf-kicker { margin-bottom: 12px; font-size: .73rem; }
   .bf-copy .bf-gift { margin-bottom: 13px; }
-  .bf-offer { margin-bottom: 15px; padding-top: 10px; }
+  .bf-offer { gap: 6px 10px; padding-top: 10px; }
+  .bf-price-block { margin-bottom: 15px; }
   .bf-slides { height: clamp(290px, 94vw, 500px); }
   .bf-steps { grid-template-columns: 1fr; gap: 6px; }
 }
@@ -259,7 +276,10 @@
 <section class="bf-hero" aria-labelledby="bf-title">
 <div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title" aria-label="Black Friday"><span aria-hidden="true">Black</span><em aria-hidden="true"><span style="--bf-letter:0">F</span><span style="--bf-letter:1">r</span><span style="--bf-letter:2">i</span><span style="--bf-letter:3">d</span><span style="--bf-letter:4">a</span><span style="--bf-letter:5">y</span><span style="--bf-letter:6">.</span></em></h1>
 <p class="bf-gift">Le cadeau qui fait du bien.</p>
-<p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong></p>
+<div class="bf-price-block">
+  <p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong><span class="bf-saving" aria-label="40 pour cent de rabais">−40&nbsp;%</span></p>
+  <p class="bf-reference">Au lieu de <s>150 CHF</s> sur une sélection de massages.</p>
+</div>
 <a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau <span aria-hidden="true">↗</span></a>
 <p class="bf-meta">Recevez le bon par e-mail et choisissez votre rendez-vous ensuite.</p>
 <p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
