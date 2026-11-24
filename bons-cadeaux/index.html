@@ -8,7 +8,7 @@
 <meta name="description" content="Préparation du parcours d'achat de bons cadeaux Serenity & Relax by João.">
 <style>
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
 @font-face{font-family:"Great Vibes";src:url(../fonts/great-vibes.woff2) format("woff2");font-display:swap}
 @font-face{font-family:"Cormorant";font-style:italic;font-weight:500;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");font-display:swap}
 .brand{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;white-space:nowrap}
@@ -59,8 +59,9 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>
 <div class="layout">
 <form id="giftForm" novalidate>
-<section class="panel">
+<section class="panel" id="offerPanel">
 <h2>1. Choisissez votre offre</h2>
+<p id="offerUnavailable" hidden role="status">L’offre Black Friday est indisponible. Vous pouvez choisir un autre bon cadeau.</p>
 <div class="options">
 <label data-promo="black-friday" hidden><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
 <label data-promo="novembre-bleu" hidden><input type="radio" name="offer" value="novembre-bleu"> Novembre Bleu · 90 min · 110 CHF</label>
@@ -74,20 +75,21 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </div>
 </section>
 <section class="panel">
-<h2>2. Votre prestation</h2>
+<h2><span id="serviceStep">2</span>. Choisissez votre massage</h2>
+<p class="promo" id="directOffer" hidden><strong>Black Friday · 90 min · 90 CHF</strong><br><a href="./">Voir les autres bons cadeaux</a></p>
 <div class="field"><label for="service">Massage</label><select id="service"></select></div>
 <div class="field"><label for="duration">Durée</label><select id="duration"></select></div>
 </section>
 <section class="panel">
-<h2>3. Le modèle du bon cadeau</h2>
-<div class="field"><label for="design">Occasion</label><select id="design"></select></div>
+<h2><span id="personalizationStep">3</span>. Personnalisez votre bon cadeau</h2>
+<div class="field" id="titleField"><label for="giftTitle">Titre du bon cadeau</label><input id="giftTitle" maxlength="70" autocomplete="off" required></div>
 <div class="field"><label for="recipientMode">Pour qui ?</label><select id="recipientMode"><option value="self">Pour un moment à moi</option><option value="gift">Pour faire plaisir à quelqu'un</option></select></div>
 <div class="field" id="recipientField" hidden><label for="recipient">Nom du destinataire</label><input id="recipient" maxlength="100" autocomplete="off"></div>
 <div class="field"><label for="dedicationMode">Dédicace</label><select id="dedicationMode"><option value="default">Utiliser le message proposé</option><option value="custom">Écrire mon propre message</option></select></div>
 <div class="field" id="dedicationField" hidden><label for="dedication">Votre message</label><textarea id="dedication" rows="3" maxlength="300" placeholder="Votre petit mot..."></textarea></div>
 </section>
 <section class="panel">
-<h2>4. Vos coordonnées</h2>
+<h2><span id="contactStep">4</span>. Vos coordonnées</h2>
 <div class="field"><label for="fullName">Prénom et nom *</label><input id="fullName" autocomplete="name" maxlength="120" required></div>
 <div class="columns">
 <div class="field"><label for="email">Adresse email *</label><input type="email" id="email" autocomplete="email" required></div>
@@ -110,7 +112,7 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <p class="error" id="phoneError" role="status" aria-live="polite"></p>
 </section>
 <section class="panel">
-<h2>5. Conditions de vente</h2>
+<h2><span id="termsStep">5</span>. Conditions de vente</h2>
 <p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. À utiliser de préférence dans les 12 mois suivant l’émission. Bon non remboursable.</p>
 <div class="options"><label><input type="checkbox" id="acceptTerms" required> J'ai lu et j'accepte les conditions générales de vente des bons cadeaux.</label></div>
 <p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> s’appliquent à votre achat.</p>
@@ -162,5 +164,5 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </main>
 <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.0/bundle/libphonenumber-js.min.js" defer></script>
 <script src="./test-config.js" defer></script>
-<script src="./bons-cadeaux.js?v=certificate-1" defer></script>
+<script src="./bons-cadeaux.js?v=gift-flow-2" defer></script>
 </body></html>

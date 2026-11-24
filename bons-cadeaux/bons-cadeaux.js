@@ -25,6 +25,13 @@
   const $ = id => document.getElementById(id);
   // Étape 1 : offres promotionnelles (prix fixe pour 90 min) ou occasions au tarif habituel.
   const PROMOS = { 'black-friday': { price: 90, label: 'Black Friday' }, 'novembre-bleu': { price: 110, label: 'Novembre Bleu' } };
+  const directBlackFriday = new URLSearchParams(location.search).get('offre') === 'black-friday';
+  const titles = {
+    anniversaire: 'Joyeux anniversaire', noel: 'Joyeux Noël',
+    'saint-valentin': 'Joyeuse Saint-Valentin', 'fete-meres': 'Joyeuse fête des Mères',
+    'fete-peres': 'Joyeuse fête des Pères', mariage: 'Félicitations pour votre mariage',
+    remerciement: 'Juste un remerciement', 'novembre-bleu': 'Novembre Bleu', 'black-friday': 'Black Friday',
+  };
   const chosenChoice = () => document.querySelector('input[name="offer"]:checked')?.value || 'anniversaire';
   const chosenOffer = () => PROMOS[chosenChoice()] ? chosenChoice() : 'standard';
   const isPromo = offer => Boolean(PROMOS[offer]);
@@ -39,10 +46,9 @@
     return element;
   };
   function fillServices() {
+    const current = $('service').value;
     $('service').replaceChildren(...services.map(item => option(item.id, item.name)));
-  }
-  function fillDesigns() {
-    $('design').replaceChildren(...designs.map(([id, name]) => option(id, name)));
+    if (services.some(service => service.id === current)) $('service').value = current;
   }
   function synchronizeDurations() {
     const offer = chosenOffer();
@@ -53,6 +59,7 @@
       if (fallback && fallback.id !== service.id) { $('service').value = fallback.id; return synchronizeDurations(); }
     }
     const eligible = Object.keys(service.prices).map(Number).filter(duration => !isPromo(offer) || duration === 90);
+    const previousDuration = Number($('duration').value);
     $('duration').replaceChildren(...eligible.map(d => option(String(d), d + ' minutes')));
     $('service').querySelectorAll('option').forEach(optionElement => {
       const selected = services.find(s => s.id === optionElement.value);
@@ -63,7 +70,7 @@
       $('service').value = fallback.id;
       return synchronizeDurations();
     }
-    $('duration').value = String(isPromo(offer) ? 90 : eligible[0]);
+    $('duration').value = String(eligible.includes(previousDuration) ? previousDuration : eligible[0]);
     updateSummary();
   }
   function quote() {
@@ -87,6 +94,7 @@
   function updatePersonalization() {
     $('recipientField').hidden = $('recipientMode').value !== 'gift';
     $('dedicationField').hidden = $('dedicationMode').value !== 'custom';
+    $('dedication').setCustomValidity('');
     updateSummary();
   }
   function checkEmails() {
@@ -162,21 +170,29 @@
   }
   void document.fonts.ready.then(fitCertificateText);
 
+  function certificateDesign() {
+    const choice = chosenChoice();
+    return designs.find(([id]) => id === choice) || [choice, titles[choice], ''];
+  }
+
+  function dedicationText() {
+    return $('dedicationMode').value === 'custom' ? $('dedication').value.trim() : certificateDesign()[2];
+  }
+
   function renderCertificate({service, duration}) {
-    const [design, occasion, standard] = designs.find(([id]) => id === $('design').value) || designs[0];
+    const [design, occasion] = certificateDesign();
     const isBlackFriday = design === 'black-friday';
     const recipient = $('recipientMode').value === 'gift' ? $('recipient').value.trim() : '';
-    const mode = $('dedicationMode').value;
-    const message = mode === 'none' ? '' : mode === 'custom' ? $('dedication').value.trim() : standard;
-    const artwork = 'artwork/' + ART[design] + '.webp';
+    const message = dedicationText();
+    const artwork = 'artwork/' + (ART[design] || 'anniversaire') + '.webp';
 
     certificate.className = 'gift-certificate gift-design-' + design;
     if ($('certificateArtwork').getAttribute('src') !== artwork) $('certificateArtwork').src = artwork;
-    $('certificateTitle').textContent = ['anniversaire', 'remerciement'].includes(design)
+    $('certificateTitle').textContent = ['anniversaire', 'remerciement', 'novembre-bleu'].includes(design)
       ? 'BON CADEAU · MASSAGE & BIEN-ÊTRE' : 'BON CADEAU · ' + occasion.toLocaleUpperCase('fr');
     $('certificateBlackFriday').hidden = !isBlackFriday;
     $('certificateStandard').hidden = isBlackFriday;
-    $('certificateOccasion').textContent = occasion;
+    $('certificateOccasion').textContent = $('giftTitle').value.trim() || titles[design];
     $('certificateRecipient').textContent = recipient;
     $('certificateDedication').textContent = message;
     $('certificateService').textContent = 'Soin offert · ' + service.name + ' · ' + duration + ' minutes';
@@ -186,15 +202,24 @@
     $('certificatePromoRecipient').textContent = recipient ? 'Nom : ' + recipient : '';
     fitCertificateText();
   }
-  function applyChoiceToDesign() {
+  function syncOffer(resetTitle) {
     const choice = chosenChoice();
-    if (choice === 'black-friday') $('design').value = 'black-friday';
-    else if (choice === 'novembre-bleu') { if ($('design').value === 'black-friday') $('design').value = 'anniversaire'; }
-    else if (designs.some(([id]) => id === choice)) $('design').value = choice;
+    const blackFriday = choice === 'black-friday';
+    const direct = directBlackFriday && blackFriday;
+    $('offerPanel').hidden = direct;
+    $('directOffer').hidden = !direct;
+    $('offerUnavailable').hidden = !directBlackFriday || blackFriday;
+    $('titleField').hidden = blackFriday;
+    $('giftTitle').disabled = blackFriday;
+    if (resetTitle) $('giftTitle').value = titles[choice];
+    ['serviceStep', 'personalizationStep', 'contactStep', 'termsStep'].forEach((id, index) => {
+      $(id).textContent = index + (direct ? 1 : 2);
+    });
+    synchronizeDurations();
     updatePersonalization();
   }
   document.querySelectorAll('input[name="offer"]').forEach(radio => {
-    radio.addEventListener('change', () => { applyChoiceToDesign(); synchronizeDurations(); });
+    radio.addEventListener('change', () => syncOffer(true));
   });
   // Les offres promotionnelles ne sont visibles que pendant leur période (le serveur le vérifie aussi).
   function showPromo(id, visible) {
@@ -209,8 +234,8 @@
   showPromo('novembre-bleu', swissToday <= '2026-11-30');
   $('service').addEventListener('change', synchronizeDurations);
   $('duration').addEventListener('change', updateSummary);
-  ['design', 'recipientMode', 'dedicationMode'].forEach(id => $(id).addEventListener('change', updatePersonalization));
-  ['recipient', 'dedication'].forEach(id => $(id).addEventListener('input', updateSummary));
+  ['recipientMode', 'dedicationMode'].forEach(id => $(id).addEventListener('change', updatePersonalization));
+  ['giftTitle', 'recipient', 'dedication'].forEach(id => $(id).addEventListener('input', updatePersonalization));
   $('email').addEventListener('input', checkEmails);
   $('phone').addEventListener('input', checkPhonePreview);
   $('countryCode').addEventListener('change', checkPhonePreview);
@@ -321,10 +346,15 @@
       $('recipient').focus();
       return;
     }
-    const currentDedication = $('dedicationMode').value;
-    const proposed = designs.find(([id]) => id === $('design').value)?.[2] || '';
-    const dedication = currentDedication === 'none' ? '' :
-      currentDedication === 'custom' ? $('dedication').value.trim() : proposed;
+    const [model] = certificateDesign();
+    const title = model === 'black-friday' ? '' : $('giftTitle').value.trim();
+    // The current PDF service prints the personalized heading before the message.
+    const dedication = [title, dedicationText()].filter(Boolean).join('\n');
+    if (dedication.length > 300) {
+      $('dedication').setCustomValidity('Le titre et le message doivent totaliser 300 caractères maximum.');
+      $('dedication').reportValidity();
+      return;
+    }
     $('checkout').disabled = true;
     $('checkout').textContent = 'Ouverture du paiement sécurisé…';
     try {
@@ -342,7 +372,7 @@
           emailProof,
           recipientMode,
           recipient: $('recipient').value.trim(),
-          design: $('design').value,
+          design: model === 'novembre-bleu' ? 'anniversaire' : model,
           dedication,
           acceptedTerms: true,
           acceptedTermsVersion: TERMS_VERSION,
@@ -378,10 +408,10 @@
       if (!services.length) throw new Error('Aucune prestation disponible.');
       fillServices();
       if (Array.isArray(catalogue.offers?.blackFriday?.serviceIds)) blackFridayIds = catalogue.offers.blackFriday.serviceIds;
+      const previousChoice = chosenChoice();
       showPromo('black-friday', catalogue.offers?.blackFriday?.enabled === true);
       showPromo('novembre-bleu', catalogue.offers?.novembreBleu?.enabled === true);
-      applyChoiceToDesign();
-      synchronizeDurations();
+      syncOffer(previousChoice !== chosenChoice());
       catalogReady = true;
       $('checkout').disabled = !emailProof;
     } catch (error) {
@@ -391,7 +421,6 @@
     }
   }
   fillServices();
-  fillDesigns();
   initializeWorldPhoneSelector();
   $('sendEmailCode').disabled = !CHECKOUT_TEST.enabled;
   if (CHECKOUT_TEST.enabled) {
@@ -404,8 +433,6 @@
   const requested = new URLSearchParams(window.location.search).get('offre');
   const requestedInput = requested && document.querySelector('input[name="offer"][value="' + CSS.escape(requested) + '"]');
   if (requestedInput && !requestedInput.closest('label').hidden) requestedInput.checked = true;
-  applyChoiceToDesign();
-  synchronizeDurations();
-  updatePersonalization();
+  syncOffer(true);
   void loadCatalogWhenConfigured();
 })();
