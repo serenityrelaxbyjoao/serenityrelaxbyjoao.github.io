@@ -32,6 +32,23 @@
   padding: 60px var(--bf-gutter) 89px;
   background: var(--bf-deep);
 }
+.bf-return {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  left: var(--bf-gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 5px 11px;
+  border: 1px solid #e4cba587;
+  border-radius: 5px;
+  background: #102330ed;
+  font-size: .88rem;
+  text-decoration: none;
+}
+.bf-return:hover, .bf-return:focus-visible { text-decoration: underline; }
 .bf-copy {
   position: relative;
   display: grid;
@@ -70,7 +87,7 @@
   display: grid;
   gap: 10px;
   width: min(100%, 345px);
-  margin-left: clamp(16px, 3vw, 50px);
+  margin-left: clamp(8px, 1.5vw, 24px);
   padding: clamp(16px, 2vw, 24px);
   border: 1px solid #e4cba567;
   border-radius: 8px;
@@ -257,6 +274,7 @@
 <body class="bf-page">
 <main>
 <section class="bf-hero" aria-labelledby="bf-title">
+<a class="bf-return" href="../"><span aria-hidden="true">←</span> Retour à l’accueil</a>
 <div class="bf-copy">
   <div class="bf-intro">
     <p class="bf-kicker">Du 25 au 30 novembre 2026</p>
