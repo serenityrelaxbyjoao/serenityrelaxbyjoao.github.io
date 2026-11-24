@@ -9,8 +9,6 @@
 <style>
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:#233e30;color:#fff;padding:22px max(20px,calc((100vw - 1040px)/2))}
-header a{color:#fff;text-decoration:none}
 @font-face{font-family:"Great Vibes";src:url(../fonts/great-vibes.woff2) format("woff2");font-display:swap}
 @font-face{font-family:"Cormorant";font-style:italic;font-weight:500;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");font-display:swap}
 .brand{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;white-space:nowrap}
@@ -30,7 +28,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-of
 .options input{width:auto}.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .note{font-size:13px;color:var(--muted)}.error{color:#9f302c;font-size:13px;min-height:19px}
 .promo{border-left:4px solid var(--gold);padding:12px 14px;background:#faf4e8;margin-bottom:16px}
-.summary{position:sticky;top:18px}.sum-line{display:flex;justify-content:space-between;gap:12px;margin:14px 0}
+.summary{position:sticky;top:116px}.sum-line{display:flex;justify-content:space-between;gap:12px;margin:14px 0}
 .total{border-top:1px solid var(--line);margin-top:22px;padding-top:16px;font-size:23px;font-weight:700}
 button{border:0;background:var(--green);color:white;padding:14px 20px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer;width:100%}
 button:disabled{background:#a4aaa5;cursor:not-allowed}
@@ -40,9 +38,23 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 .footer{font-size:13px;color:var(--muted);margin-top:25px}
 @media(max-width:760px){.layout,.columns{grid-template-columns:1fr}.summary{position:static}.panel{padding:19px}}
 </style>
+<link rel="stylesheet" href="../site-navigation.css?v=1">
 </head>
 <body>
-<header><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a></header>
+<header class="site-subnav"><div class="site-subnav-inner">
+  <a class="site-subnav-brand" href="../" aria-label="Accueil Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a>
+  <nav aria-label="Menu principal">
+    <a href="../massages.html">Massages &amp; soins</a>
+    <a href="../tarifs.html">Tarifs</a>
+    <a href="../quel-massage.html">Quel massage ?</a>
+    <a href="../qui-suis-je.html">Qui suis-je ?</a>
+    <a href="../bons-cadeaux/" aria-current="page">Bons cadeaux</a>
+    <a href="../avis.html">Avis</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../faq.html">FAQ</a>
+    <a href="../reservation/?lang=fr">Réserver</a>
+  </nav>
+</div></header>
 <main>
 <h1>Offrez un moment de bien-être</h1>
 <p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>

@@ -1,0 +1,39 @@
+@font-face{font-family:"Great Vibes";src:url(fonts/great-vibes.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Jost";src:url(fonts/jost-latin-400-normal.woff2) format("woff2");font-display:swap}
+
+header.site-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 0;
+  background: #f8f4ec;
+  color: #1c2621;
+  border-bottom: 1px solid #e3d8c4;
+  font: 400 15px/1.35 "Jost", system-ui, sans-serif;
+}
+.site-subnav-inner {
+  width: min(1180px, 100% - 32px);
+  margin-inline: auto;
+  padding-block: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  min-height: 72px;
+}
+.site-subnav a { color: inherit; text-decoration: none; }
+.site-subnav a:hover, .site-subnav a[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+.site-subnav-brand { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.site-subnav-brand b { font: 400 32px/1 "Great Vibes", cursive; }
+.site-subnav-brand small { color: #7a5c2c; font: italic 500 15px/1 Georgia, serif; }
+.site-subnav nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 2px 14px; }
+.site-subnav nav a { display: inline-flex; align-items: center; min-height: 32px; white-space: nowrap; }
+@media(max-width: 780px) {
+  .site-subnav-inner { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .site-subnav nav { justify-content: flex-start; gap: 0 12px; }
+  .site-subnav nav a { min-height: 29px; font-size: 14px; }
+}
+
+.site-content-page main h1 { font-size: clamp(2.55rem, 6vw, 4.7rem); }
+.site-content-page main > .section:first-child { padding-top: clamp(30px, 6vw, 76px) !important; }
+.site-content-page .avis h1 { color: inherit; }
