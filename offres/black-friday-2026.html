@@ -35,11 +35,10 @@
 .bf-copy {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(268px, 340px);
-  align-items: end;
-  gap: clamp(28px, 8vw, 135px);
-  width: min(100%, 1130px);
-  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 4vh, 37px);
+  width: min(100%, 54vw, 680px);
+  margin-left: max(0px, calc((100% - 1130px) / 2));
 }
 .bf-intro { min-width: 0; animation: bf-enter .65s ease-out both; }
 .bf-kicker {
@@ -58,7 +57,7 @@
 .bf-copy h1 {
   margin: 0;
   color: var(--bf-cream);
-  font: 650 clamp(2.65rem, 6.6vw, 6.55rem)/1.01 var(--bf-type);
+  font: 650 clamp(2.65rem, 6vw, 6.05rem)/1.01 var(--bf-type);
   letter-spacing: -.065em;
 }
 .bf-gift {
@@ -69,8 +68,10 @@
 }
 .bf-purchase {
   display: grid;
-  gap: 13px;
-  padding: clamp(18px, 3.1vw, 34px);
+  gap: 10px;
+  width: min(100%, 345px);
+  margin-left: clamp(16px, 3vw, 50px);
+  padding: clamp(16px, 2vw, 24px);
   border: 1px solid #e4cba567;
   border-radius: 8px;
   background: #102330ed;
@@ -230,13 +231,13 @@
     --bf-gutter: clamp(18px, 5.5vw, 32px);
     align-content: end;
     min-height: clamp(600px, 88svh, 740px);
-    padding: clamp(110px, 25svh, 240px) var(--bf-gutter) 77px;
+    padding: clamp(170px, 32svh, 270px) var(--bf-gutter) 77px;
   }
-  .bf-copy { grid-template-columns: minmax(0, 1fr); gap: 21px; }
+  .bf-copy { width: 100%; margin: 0; gap: 18px; }
   .bf-copy h1 { font-size: clamp(2.65rem, 11vw, 4.4rem); }
   .bf-gift { margin-top: 7px; }
   .bf-kicker { margin-bottom: 9px; }
-  .bf-purchase { max-width: 400px; }
+  .bf-purchase { width: min(100%, 380px); margin-left: 0; }
   .bf-slide img {
     width: 100%;
     object-fit: cover;
