@@ -5,14 +5,23 @@
 <title>Black Friday 2026 | Massage 90 min · 90 CHF | Serenity &amp; Relax by João</title>
 <meta name="description" content="90 minutes de massage à Cointrin, Genève, pour 90 CHF. À s’offrir ou à offrir.">
 <meta name="robots" content="noindex">
-<link rel="preload" href="../fonts/great-vibes.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/instrument-serif-italic.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="../style.css?v=11">
 <style>
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("../fonts/instrument-serif-italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
 .bf-page {
-  --bf-ink: #15141a;
-  --bf-cream: #fff4e7;
-  --bf-rose: #ebb0aa;
-  --bf-gold: #e1c29d;
+  --bf-ink: #492b2d;
+  --bf-cream: #fff0dc;
+  --bf-rose: #f4b99c;
+  --bf-gold: #f3c68f;
+  --bf-paper: #f4e4d5;
+  --bf-text: #4b302b;
   margin: 0;
   background: var(--bf-ink);
   color: var(--bf-cream);
@@ -20,15 +29,8 @@
 }
 .bf-page [hidden] { display: none !important; }
 .bf-page a { color: inherit; }
-.bf-header {
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 2;
-  padding: 24px clamp(22px, 6vw, 108px);
-  background: transparent;
-}
-.bf-header .brand, .bf-footer .brand { width: fit-content; }
-.bf-header .brand small, .bf-footer .brand small { color: var(--bf-gold); }
+.bf-footer .brand { width: fit-content; }
+.bf-footer .brand small { color: var(--bf-gold); }
 .bf-hero {
   position: relative;
   isolation: isolate;
@@ -36,7 +38,7 @@
   align-items: center;
   min-height: clamp(685px, 88svh, 940px);
   overflow: hidden;
-  background: #241d22;
+  background: #5e3534;
 }
 .bf-gallery, .bf-slides, .bf-slide {
   position: absolute;
@@ -49,8 +51,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, #15141a 0%, #15141a61 16%, transparent 34%),
-    linear-gradient(90deg, #15141af7 0%, #15141ae8 20%, #15141aac 44%, #15141a32 68%, #15141a24 100%);
+    linear-gradient(0deg, #492b2dfa 0%, #492b2d36 20%, transparent 45%),
+    linear-gradient(90deg, #402326fa 0%, #49272aee 25%, #53302dc9 42%, #69413944 66%, #6742330a 100%);
   pointer-events: none;
 }
 .bf-slide {
@@ -113,12 +115,12 @@
   opacity: 1;
   box-shadow: 0 0 0 4px #ebb0aa32;
 }
-.bf-controls button:hover, .bf-controls button:focus-visible { background: #15141a82; }
+.bf-controls button:hover, .bf-controls button:focus-visible { background: #492b2dc4; }
 .bf-controls .bf-play { border-color: #fff4e760; }
 .bf-page :is(a, button):focus-visible { outline: 2px solid var(--bf-cream); outline-offset: 4px; }
 .bf-copy {
   width: min(100%, 710px);
-  padding: 112px 24px 112px clamp(22px, 6vw, 108px);
+  padding: 78px 24px 96px clamp(22px, 6vw, 108px);
 }
 .bf-kicker {
   margin: 0 0 23px;
@@ -127,11 +129,20 @@
   letter-spacing: .15em;
   text-transform: uppercase;
 }
+.bf-copy .bf-kicker {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 2px;
+  background: var(--bf-gold);
+  color: #462824;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
 .bf-copy h1 {
-  margin: 0 0 30px;
+  margin: 0 0 26px;
   color: var(--bf-cream);
-  font: 900 clamp(4.3rem, 10.2vw, 9.8rem)/.74 Arial, system-ui, sans-serif;
-  letter-spacing: -.085em;
+  font: 700 clamp(4.3rem, 9.4vw, 9rem)/.78 var(--sans);
+  letter-spacing: -.075em;
 }
 .bf-copy h1 > span, .bf-copy h1 em { display: block; }
 .bf-copy h1 > span { animation: bf-enter .7s .06s both; }
@@ -139,9 +150,9 @@
   width: fit-content;
   margin: .09em 0 .09em .22em;
   color: var(--bf-rose);
-  font: italic 500 1em/.78 var(--serif);
-  letter-spacing: -.085em;
-  transform: rotate(-6deg);
+  font: italic 400 1.14em/.78 "Instrument Serif", var(--serif);
+  letter-spacing: -.06em;
+  transform: rotate(-5deg);
 }
 .bf-copy h1 em span {
   display: inline-block;
@@ -176,15 +187,17 @@
   flex-wrap: wrap;
   gap: 6px 18px;
   margin: 0 0 20px;
-  color: #f0dbcf;
-  font-size: .89rem;
+  color: var(--bf-cream);
+  font-size: 1rem;
+  font-weight: 500;
 }
 .bf-gift {
   margin: 11px 0 0;
-  color: #f2ded5;
+  color: #f9d7c2;
   font: italic 500 1.35rem/1.15 var(--serif);
 }
 .bf-offer, .bf-meta, .bf-gift { animation: bf-enter .65s .38s both; }
+.bf-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .bf-page .bf-button {
   display: inline-flex;
   align-items: center;
@@ -192,40 +205,47 @@
   gap: 24px;
   min-height: 50px;
   padding: 10px 22px;
-  border: 1px solid #eeb8ae80;
+  border: 1px solid #f2bb9a;
   border-radius: 3px;
-  background: #8f354a;
-  color: #fff7ed;
+  background: #a34e40;
+  color: #fff6e9;
   text-decoration: none;
   font-weight: 600;
   transition: background-color .2s, border-color .2s;
 }
-.bf-page .bf-button:hover { background: #a44459; border-color: var(--bf-rose); }
+.bf-page .bf-button:hover { background: #8a3e32; border-color: var(--bf-gold); }
+.bf-page .bf-button-secondary { background: #492b2dc4; }
+.bf-page .bf-button-secondary:hover { background: #69413b; }
 .bf-details {
+  background: var(--bf-paper);
+  color: var(--bf-text);
+}
+.bf-details-inner {
   max-width: 990px;
   margin: auto;
   padding: 55px clamp(22px, 5vw, 50px) 60px;
   line-height: 1.65;
 }
-.bf-details p { max-width: 68ch; color: #eeded6; }
-.bf-details .bf-kicker { color: var(--bf-gold); }
-.bf-details h2 { color: var(--bf-cream); font: 500 clamp(1.85rem, 4vw, 3.1rem)/1.06 var(--serif); }
-.bf-details > h2:not(:first-of-type) { margin-top: 36px; }
+.bf-details p { max-width: 68ch; color: var(--bf-text); }
+.bf-details .bf-kicker { color: #883e32; }
+.bf-details h2 { color: var(--bf-text); font: 500 clamp(1.85rem, 4vw, 3.1rem)/1.06 var(--serif); }
+.bf-details-inner > h2:not(:first-of-type) { margin-top: 36px; }
 .bf-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 25px 0 33px; }
-.bf-steps article { border-top: 1px solid #e1c29d67; padding: 12px 0; }
-.bf-terms { border-top: 1px solid #fff4e740; padding-top: 27px; }
+.bf-steps article { border-top: 1px solid #a4675480; padding: 12px 0; }
+.bf-terms { border-top: 1px solid #a4675480; padding-top: 27px; }
+.bf-details :is(a, button):focus-visible { outline-color: #722e28; }
 .bf-footer { border-top: 1px solid #fff4e740; padding: 27px 24px; text-align: center; font-size: .92rem; }
 .bf-footer .brand { margin: 0 auto 12px; }
 @media (max-width: 700px) {
-  .bf-header { padding: 21px 23px; }
   .bf-hero { min-height: 690px; align-items: end; }
   .bf-slides::after {
-    background: linear-gradient(180deg, #15141ac9 0%, #15141a19 20%, #15141a8c 42%, #15141aed 68%, #15141a 100%);
+    background: linear-gradient(180deg, #492b2d1a 0%, #492b2d29 18%, #4e2b2db8 43%, #492b2df2 68%, #492b2d 100%);
   }
   .bf-slide img { object-position: 58% 33%; }
   .bf-slide:nth-child(2) img { object-position: 62% 22%; }
   .bf-slide:nth-child(3) img { object-position: 59% 36%; }
-  .bf-copy { padding: 150px 22px 87px; }
+  .bf-copy { padding: 155px 22px 86px; }
+  .bf-actions .bf-button { gap: 12px; padding-inline: 13px; }
   .bf-copy h1 { font-size: clamp(4.25rem, 15vw, 6.6rem); margin-bottom: 23px; }
   .bf-kicker { margin-bottom: 19px; font-size: .72rem; }
   .bf-offer { gap: 5px 10px; padding-top: 13px; }
@@ -238,7 +258,6 @@
 </style>
 </head>
 <body class="bf-page">
-<header class="bf-header"><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a></header>
 <main>
 <section class="bf-hero" aria-labelledby="bf-title">
 <section class="bf-gallery" aria-roledescription="carrousel" aria-label="Découvrir Serenity &amp; Relax">
@@ -258,16 +277,19 @@
 </section>
 <div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title" aria-label="Black Friday"><span aria-hidden="true">Black</span><em aria-hidden="true"><span style="--bf-letter:0">F</span><span style="--bf-letter:1">r</span><span style="--bf-letter:2">i</span><span style="--bf-letter:3">d</span><span style="--bf-letter:4">a</span><span style="--bf-letter:5">y</span><span style="--bf-letter:6">.</span></em></h1>
 <p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong></p>
-<div class="bf-meta"><span>Offre exclusive en ligne</span><span>À utiliser de préférence dans les 12 mois</span></div>
-<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">J’en profite <span aria-hidden="true">↗</span></a>
+<p class="bf-meta">En bon cadeau en ligne ou en séance au cabinet au même tarif.</p>
+<div class="bf-actions">
+  <a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter un bon <span aria-hidden="true">↗</span></a>
+  <a class="bf-button bf-button-secondary" data-bf-buy href="https://serenityrelaxbyjoao.ch/reservation/?lang=fr">Réserver au cabinet</a>
+</div>
 <p class="bf-gift">À s’offrir ou à offrir.</p>
 <p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
 </div></section>
-<section class="bf-details"><p class="bf-kicker">Une parenthèse pour vous</p><h2>Le plaisir de prendre soin de soi.</h2>
+<section class="bf-details"><div class="bf-details-inner"><p class="bf-kicker">Une parenthèse pour vous</p><h2>Le plaisir de prendre soin de soi.</h2>
 <p>Offrez-vous un moment de détente, loin du rythme du quotidien. Une séance de massage adaptée à vos besoins, pour relâcher les tensions et retrouver un instant de sérénité.</p>
-<h2>Comment ça marche ?</h2><div class="bf-steps"><article><strong>01 · Achetez en ligne</strong><p>Choisissez votre bon Black Friday.</p></article><article><strong>02 · Recevez votre bon</strong><p>Après le paiement, votre bon est envoyé par e-mail.</p></article><article><strong>03 · Choisissez votre rendez-vous</strong><p>Utilisez votre bon selon les disponibilités du cabinet.</p></article></div>
-<div class="bf-terms"><h2>Détails et conditions de l’offre</h2><p>Offre Black Friday du 25 au 30 novembre 2026 (heure de Genève) : massage de 90 minutes à 90 CHF. Paiement par carte bancaire. Bon non remboursable ; en cas d’absence sans prévenir ou d’annulation moins de 24 heures avant le rendez-vous, le bon est considéré comme utilisé. Achat exclusivement en ligne, sous réserve de disponibilité de l’offre. À utiliser de préférence dans les 12 mois suivant l’émission. Consultez les <a href="../conditions-bons-cadeaux.html">conditions de vente des bons cadeaux</a>.</p>
-<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon · 90 CHF</a></div></section>
+<h2>Comment fonctionne le bon cadeau ?</h2><div class="bf-steps"><article><strong>01 · Achetez en ligne</strong><p>Choisissez votre bon Black Friday.</p></article><article><strong>02 · Recevez votre bon</strong><p>Après le paiement, votre bon est envoyé par e-mail.</p></article><article><strong>03 · Choisissez votre rendez-vous</strong><p>Utilisez votre bon selon les disponibilités du cabinet.</p></article></div>
+<div class="bf-terms"><h2>Détails et conditions de l’offre</h2><p>Du 25 au 30 novembre 2026 (heure de Genève), le massage de 90 minutes est proposé à 90 CHF. Vous pouvez acheter un bon cadeau en ligne ou profiter du même tarif pour une séance au cabinet entre le 25 et le 30 novembre, selon les disponibilités.</p><p>Le bon cadeau en ligne se paie par carte bancaire. Il est non remboursable et à utiliser de préférence dans les 12 mois suivant son émission. En cas d’absence sans prévenir ou d’annulation moins de 24 heures avant le rendez-vous, le bon est considéré comme utilisé. Consultez les <a href="../conditions-bons-cadeaux.html">conditions de vente des bons cadeaux</a>.</p>
+<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon · 90 CHF</a></div></div></section>
 </main><footer class="bf-footer"><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a><div>Chemin de Joinville 26 · 1216 Cointrin, Genève</div><br><a href="../">Retour au site</a></footer>
 <script>if(Date.now()>=Date.parse('2026-12-01T00:00:00+01:00')){document.querySelectorAll('[data-bf-buy]').forEach(el=>el.hidden=true);document.querySelector('[data-bf-expired]').hidden=false;}</script>
 <script>
