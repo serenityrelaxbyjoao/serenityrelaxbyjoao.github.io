@@ -45,10 +45,16 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <section class="panel">
 <h2>1. Choisissez votre offre</h2>
 <div class="options">
-<label><input type="radio" name="offer" value="standard" checked> Tarif habituel</label>
-<label><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
+<label data-promo="black-friday" hidden><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
+<label data-promo="novembre-bleu" hidden><input type="radio" name="offer" value="novembre-bleu"> Novembre Bleu · 90 min · 110 CHF</label>
+<label><input type="radio" name="offer" value="anniversaire" checked> Anniversaire</label>
+<label><input type="radio" name="offer" value="noel"> Noël</label>
+<label><input type="radio" name="offer" value="saint-valentin"> Saint-Valentin</label>
+<label><input type="radio" name="offer" value="fete-meres"> Fête des Mères</label>
+<label><input type="radio" name="offer" value="fete-peres"> Fête des Pères</label>
+<label><input type="radio" name="offer" value="mariage"> Mariage</label>
+<label><input type="radio" name="offer" value="remerciement"> Juste un remerciement</label>
 </div>
-<div class="promo" id="promoNotice" hidden>Offre Black Friday du 25 au 30 novembre 2026 : massage de 90 minutes à 90 CHF.</div>
 </section>
 <section class="panel">
 <h2>2. Votre prestation</h2>
@@ -68,7 +74,6 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="field"><label for="fullName">Prénom et nom *</label><input id="fullName" autocomplete="name" maxlength="120" required></div>
 <div class="columns">
 <div class="field"><label for="email">Adresse email *</label><input type="email" id="email" autocomplete="email" required></div>
-<div class="field"><label for="emailAgain">Confirmez votre email *</label><input type="email" id="emailAgain" autocomplete="off" required></div>
 </div>
 <p class="error" id="emailError" role="status" aria-live="polite"></p>
 <div class="field">
