@@ -1,0 +1,11 @@
+/* Bandeau Black Friday 2026 : visible du 25 au 30 novembre (heure de Genève), voir black-friday-banner.js */
+.bf-topbar{display:flex;align-items:center;justify-content:center;gap:10px 18px;flex-wrap:wrap;padding:9px 16px;background:#ad2546;color:#fff;font:600 14px/1.35 var(--sans,system-ui,sans-serif);text-align:center;text-decoration:none;letter-spacing:.01em}
+.bf-topbar[hidden]{display:none}
+.bf-topbar strong{font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.bf-topbar .bf-topbar-cta{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;background:#fff;color:#ad2546;font-weight:800;white-space:nowrap}
+.bf-topbar:hover .bf-topbar-cta,.bf-topbar:focus-visible .bf-topbar-cta{background:#ffe3e8}
+.bf-topbar:focus-visible{outline:3px solid #fff;outline-offset:-5px}
+@media(max-width:560px){.bf-topbar{font-size:13px;padding:8px 12px;gap:6px 10px}.bf-topbar .bf-topbar-dates{display:none}}
+/* Le bandeau fait partie de l'en-tête fixe : on décale le contenu d'autant. */
+.bf-topbar-on .hero{padding-top:46px}
+@media(max-width:560px){.bf-topbar-on .hero{padding-top:64px}}
