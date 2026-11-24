@@ -31,7 +31,7 @@
   --bf-gutter: clamp(24px, 9vw, 168px);
   align-items: center;
   justify-items: start;
-  min-height: clamp(650px, 93svh, 920px);
+  min-height: clamp(570px, 86svh, 800px);
   overflow: hidden;
   padding: clamp(42px, 6vw, 88px) var(--bf-gutter) 92px;
   background: radial-gradient(ellipse at 74% 0%, #354f87, transparent 66%), linear-gradient(130deg, #1b264b, #472039);
@@ -39,21 +39,19 @@
 .bf-copy {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
   grid-template-areas: "title saving" "price purchase";
-  align-content: space-between;
-  align-items: end;
-  gap: clamp(48px, 9vh, 116px) clamp(20px, 6vw, 100px);
-  min-height: clamp(385px, 62svh, 580px);
-  width: min(100%, 1380px);
+  align-items: center;
+  gap: clamp(25px, 4.5vh, 48px) clamp(22px, 6vw, 92px);
+  width: min(100%, 1040px);
   justify-self: center;
 }
-.bf-intro { grid-area: title; min-width: 0; align-self: start; }
+.bf-intro { grid-area: title; min-width: 0; }
 .bf-purchase {
   grid-area: purchase;
   justify-self: end;
   width: min(100%, 305px);
-  text-align: right;
+  text-align: left;
 }
 .bf-kicker {
   margin: 0 0 16px;
@@ -73,18 +71,18 @@
 .bf-copy h1 {
   margin: 0;
   color: var(--bf-cream);
-  font: 600 clamp(2.5rem, 7.6vw, 7.4rem)/.95 var(--serif);
+  font: 600 clamp(2.5rem, 6.6vw, 6.6rem)/.98 var(--serif);
   letter-spacing: -.035em;
   text-shadow: 0 4px 32px #080c20a0;
   animation: bf-enter .68s .1s ease-out both;
 }
 .bf-saving {
   grid-area: saving;
-  justify-self: end;
+  justify-self: center;
   margin: 0;
   color: var(--bf-rose);
   text-shadow: 0 4px 38px #100b21aa;
-  font: 600 clamp(5.3rem, 11vw, 11rem)/.88 var(--serif);
+  font: 600 clamp(4.7rem, 9.3vw, 9rem)/.92 var(--serif);
   font-variant-numeric: lining-nums;
   letter-spacing: -.035em;
   white-space: nowrap;
@@ -253,7 +251,7 @@
 .bf-footer .brand small { color: var(--bf-gold); }
 @media (max-width: 760px) {
   .bf-hero {
-    min-height: 680px;
+    min-height: 635px;
     align-items: end;
     --bf-gutter: clamp(20px, 6vw, 34px);
     padding: 110px var(--bf-gutter) 82px;
@@ -261,8 +259,7 @@
   .bf-copy {
     grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
     grid-template-areas: "title title" "saving price" "purchase purchase";
-    gap: 24px 14px;
-    min-height: 0;
+    gap: 20px 14px;
   }
   .bf-copy h1 { font-size: clamp(2.5rem, 10.6vw, 4.6rem); }
   .bf-saving { justify-self: start; align-self: center; font-size: clamp(3.65rem, 15vw, 6.5rem); }
