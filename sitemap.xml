@@ -1,73 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/pt.html</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/en.html</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/es.html</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/it.html</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/de.html</loc>
-    <lastmod>2026-10-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://serenityrelaxbyjoao.ch/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://serenityrelaxbyjoao.ch/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://serenityrelaxbyjoao.ch/en.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://serenityrelaxbyjoao.ch/es.html"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://serenityrelaxbyjoao.ch/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://serenityrelaxbyjoao.ch/de.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://serenityrelaxbyjoao.ch/"/>
-  </url>
-  <url>
-    <loc>https://serenityrelaxbyjoao.ch/conditions.html</loc>
-    <lastmod>2026-10-15</lastmod>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://serenityrelaxbyjoao.ch/</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/tarifs.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/massages.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/quel-massage.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/qui-suis-je.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/avis.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/contact.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/faq.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/reservation.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/bons-cadeaux/</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/offres/black-friday-2026.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/conditions.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/conditions-bons-cadeaux.html</loc></url>
+  <url><loc>https://serenityrelaxbyjoao.ch/confidentialite-bons-cadeaux.html</loc></url>
 </urlset>
