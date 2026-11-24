@@ -32,15 +32,21 @@
 .bf-page [hidden] { display: none !important; }
 .bf-page a { color: inherit; }
 .bf-hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
-  align-items: center;
-  gap: clamp(28px, 4vw, 84px);
-  min-height: 680px;
-  padding: clamp(42px, 5.5vw, 96px) clamp(24px, 6vw, 116px);
-  background: radial-gradient(ellipse at 92% 3%, #3a5a9c 0%, transparent 58%), radial-gradient(ellipse at 3% 96%, #592241 0%, transparent 48%), linear-gradient(125deg, var(--bf-deep), var(--bf-blue));
+  place-items: center;
+  min-height: clamp(650px, 93svh, 920px);
+  overflow: hidden;
+  padding: clamp(42px, 6vw, 88px) 22px 92px;
+  background: radial-gradient(ellipse at 74% 0%, #354f87, transparent 66%), linear-gradient(130deg, #1b264b, #472039);
 }
-.bf-copy { grid-column: 1; grid-row: 1; min-width: 0; max-width: 650px; justify-self: end; width: 100%; }
+.bf-copy {
+  position: relative;
+  width: min(100%, 880px);
+  min-width: 0;
+  text-align: center;
+}
 .bf-kicker {
   margin: 0 0 16px;
   font: 600 .82rem/1.4 var(--sans);
@@ -54,23 +60,26 @@
   background: var(--bf-gold);
   color: var(--bf-deep);
   font-weight: 700;
+  animation: bf-enter .55s ease-out both;
 }
 .bf-copy h1 {
   margin: 0 0 clamp(18px, 2.2vw, 34px);
   color: var(--bf-cream);
-  font: 700 clamp(2.05rem, 4.65vw, 5.2rem)/.98 var(--sans);
+  font: 750 clamp(2.35rem, 7.05vw, 7.1rem)/.98 var(--sans);
   letter-spacing: -.055em;
   white-space: nowrap;
-  animation: bf-enter .55s ease-out both;
+  text-shadow: 0 4px 32px #080c20a0;
+  animation: bf-enter .68s .1s ease-out both;
 }
 .bf-saving {
   display: block;
   margin: 0 0 clamp(22px, 2.5vw, 38px);
   color: var(--bf-rose);
+  text-shadow: 0 4px 38px #100b21aa;
   font: 750 clamp(5.2rem, 10.2vw, 11rem)/.87 var(--sans);
   letter-spacing: -.085em;
   white-space: nowrap;
-  animation: bf-enter .6s .12s both;
+  animation: bf-enter .65s .25s both;
 }
 .bf-saving-unit {
   font: italic 400 .69em/1 "Instrument Serif", var(--serif);
@@ -89,21 +98,21 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: center;
   gap: 4px clamp(11px, 1.5vw, 21px);
-  width: fit-content;
   margin: 0;
-  padding-top: 0;
   color: var(--bf-gold);
   font: 500 clamp(1.65rem, 3.7vw, 3.1rem)/1 var(--sans);
   letter-spacing: -.05em;
 }
-.bf-price-block { width: fit-content; max-width: 100%; margin: 0 0 18px; }
+.bf-price-block { width: fit-content; max-width: 100%; margin: 0 auto 18px; animation: bf-enter .65s .4s both; }
 .bf-reference { margin: 9px 0 0; color: var(--bf-cream); font-size: .9rem; line-height: 1.4; }
 .bf-reference s { text-decoration-thickness: 1px; }
 .bf-offer strong { font-weight: 750; }
 .bf-offer .bf-unit { font: italic 400 .76em/1 "Instrument Serif", var(--serif); }
 .bf-offer .bf-sep { font-weight: 400; }
-.bf-gift, .bf-offer { animation: bf-enter .65s .28s both; }
+.bf-gift { animation: bf-enter .65s .52s both; }
+.bf-copy .bf-button, .bf-meta { animation: bf-enter .6s .62s both; }
 .bf-page .bf-button {
   display: inline-flex;
   align-items: center;
@@ -124,36 +133,26 @@
 .bf-page .bf-button:active { transform: translateY(1px); }
 .bf-meta { margin: 10px 0 0; color: #ffedcf; font-size: .93rem; line-height: 1.45; }
 .bf-page :is(a, button):focus-visible { outline: 2px solid var(--bf-gold); outline-offset: 4px; }
-.bf-gallery {
-  grid-column: 2;
-  grid-row: 1;
-  width: 100%;
-  max-width: 780px;
-  min-width: 0;
-  padding: clamp(10px, 1.5vw, 20px);
-  border: 1px solid #9db7ff70;
-  border-radius: 18px;
-  background: linear-gradient(155deg, #435f9a, #28375e 72%);
-}
-.bf-slides {
-  position: relative;
-  isolation: isolate;
-  height: clamp(460px, 41vw, 680px);
-  overflow: hidden;
-  border-radius: 10px;
-  background: #18274c;
-}
-.bf-slide {
+.bf-gallery, .bf-slides, .bf-slide {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
-  place-items: center;
   margin: 0;
+}
+.bf-slides { z-index: -1; isolation: isolate; overflow: hidden; }
+.bf-slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, #101a38f5 0%, #16193979 27%, #15182d38 100%),
+    radial-gradient(ellipse at 48% 53%, #151326c9 0%, #171a3578 40%, #14172c10 75%);
+  pointer-events: none;
+}
+.bf-slide {
   opacity: 0;
   visibility: hidden;
-  transform: translateX(12px);
-  transition: opacity .9s ease, transform .9s ease, visibility 0s .9s;
+  transform: translateX(16px);
+  transition: opacity 1.22s ease, transform 1.22s ease, visibility 0s 1.22s;
 }
 .bf-slide.is-current {
   opacity: 1;
@@ -162,22 +161,32 @@
   transition-delay: 0s;
 }
 .bf-slide img {
+  position: absolute;
+  right: 0;
+  top: 0;
   display: block;
+  height: 100%;
   width: auto;
-  height: auto;
   max-width: 100%;
-  max-height: 100%;
-  min-width: 0;
-  min-height: 0;
   object-fit: contain;
-  border-radius: 7px;
+  object-position: right center;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+}
+.bf-slide-landscape img {
+  width: 100%;
+  object-fit: cover;
+  object-position: 52% center;
+  mask-image: none;
 }
 .bf-controls {
+  position: absolute;
+  z-index: 1;
+  bottom: 22px;
+  left: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 3px;
-  margin: 7px auto 0;
+  transform: translateX(-50%);
 }
 .bf-controls button {
   display: grid;
@@ -235,19 +244,26 @@
 .bf-footer .brand small { color: var(--bf-gold); }
 @media (max-width: 760px) {
   .bf-hero {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 25px;
-    min-height: 0;
-    padding: 28px 20px 30px;
+    min-height: 680px;
+    align-items: end;
+    padding: 110px 17px 82px;
   }
-  .bf-copy, .bf-gallery { grid-column: 1; grid-row: auto; justify-self: center; }
-  .bf-copy h1 { font-size: clamp(2.05rem, 8.1vw, 4rem); }
-  .bf-saving { font-size: clamp(5.2rem, 21vw, 8rem); margin-bottom: 23px; }
-  .bf-copy .bf-kicker { margin-bottom: 12px; font-size: .73rem; }
-  .bf-copy .bf-gift { margin-bottom: 13px; }
-  .bf-offer { gap: 6px 10px; }
+  .bf-copy h1 { font-size: clamp(2.32rem, 9.55vw, 4.5rem); }
+  .bf-saving { font-size: clamp(5.2rem, 23vw, 8rem); margin-bottom: 21px; }
+  .bf-copy .bf-kicker { margin-bottom: 16px; font-size: .73rem; }
+  .bf-copy .bf-gift { margin-bottom: 12px; }
   .bf-price-block { margin-bottom: 15px; }
-  .bf-slides { height: clamp(290px, 94vw, 500px); }
+  .bf-slide img {
+    width: 100%;
+    object-fit: cover;
+    object-position: 61% top;
+    mask-image: none;
+  }
+  .bf-slide-landscape img { object-position: 60% center; }
+  .bf-slides::after {
+    background: linear-gradient(180deg, #101a3840 0%, #19182f66 24%, #17172eb8 58%, #101a38f5 100%);
+  }
+  .bf-controls { bottom: 17px; }
   .bf-steps { grid-template-columns: 1fr; gap: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -272,7 +288,7 @@
 <section class="bf-gallery" aria-roledescription="carrousel" aria-label="Découvrir Serenity &amp; Relax">
   <div class="bf-slides">
     <figure class="bf-slide is-current" aria-hidden="false"><img src="../images/massage.webp" alt="Illustration d’une séance de massage" fetchpriority="high"></figure>
-    <figure class="bf-slide" aria-hidden="true"><img src="../images/cabinet.webp" alt="Le cabinet Serenity &amp; Relax à Cointrin" decoding="async"></figure>
+    <figure class="bf-slide bf-slide-landscape" aria-hidden="true"><img src="../images/cabinet.webp" alt="Le cabinet Serenity &amp; Relax à Cointrin" decoding="async"></figure>
     <figure class="bf-slide" aria-hidden="true"><img src="../images/joao.webp" alt="João, praticien en massage" decoding="async"></figure>
   </div>
   <div class="bf-controls" aria-label="Commandes du carrousel" hidden>
