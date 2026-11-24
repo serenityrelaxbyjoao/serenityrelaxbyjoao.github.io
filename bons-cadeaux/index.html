@@ -4,13 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Bons cadeaux, aperçu | Serenity &amp; Relax by João</title>
+<title>Bons cadeaux | Serenity &amp; Relax by João</title>
 <meta name="description" content="Préparation du parcours d'achat de bons cadeaux Serenity & Relax by João.">
 <style>
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
 header{background:#233e30;color:#fff;padding:22px max(20px,calc((100vw - 1040px)/2))}
-header a{color:#fff;text-decoration:none;font-weight:600}header small{display:block;font-weight:400;color:#e3d5b7}
+header a{color:#fff;text-decoration:none}
+@font-face{font-family:"Great Vibes";src:url(../fonts/great-vibes.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Cormorant";font-style:italic;font-weight:500;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");font-display:swap}
+.brand{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;white-space:nowrap}
+.brand b{font:400 33px/1 "Great Vibes",cursive;color:#fff}
+.brand small{font:italic 500 16px/1 "Cormorant",Georgia,serif;color:#e0c48e}
+
 main{max-width:1040px;margin:32px auto 70px;padding:0 18px}
 h1,h2{font-family:Georgia,serif;font-weight:500;line-height:1.2}h1{font-size:clamp(32px,5vw,52px);margin:10px 0}h2{font-size:24px;margin:0 0 18px}
 .intro{max-width:750px;color:var(--muted);margin-bottom:28px}
@@ -29,27 +35,32 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-of
 button{border:0;background:var(--green);color:white;padding:14px 20px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer;width:100%}
 button:disabled{background:#a4aaa5;cursor:not-allowed}
 .status{padding:10px;border-radius:8px;background:#f6ead6;font-size:13px}
-.preview{font-family:Georgia,serif;text-align:center;background:linear-gradient(145deg,#fdfbf5,#f3eadb);border:1px solid #d0bc99;padding:24px 14px;margin:16px 0}
+.preview{font-family:Georgia,serif;text-align:center;background:#f3eadb center/cover no-repeat;border:1px solid #d0bc99;aspect-ratio:3/2;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:18px 14px;margin:16px 0;color:#1d1d1d}.preview>*{background:rgba(253,251,245,.82);padding:2px 10px;margin:3px 0;border-radius:3px}.preview>p:empty,.preview>blockquote:empty{display:none}
 .preview strong{font-size:23px}.preview blockquote{font-size:16px;font-style:italic;margin:14px 0}
 .footer{font-size:13px;color:var(--muted);margin-top:25px}
 @media(max-width:760px){.layout,.columns{grid-template-columns:1fr}.summary{position:static}.panel{padding:19px}}
 </style>
 </head>
 <body>
-<header><a href="../">Serenity &amp; Relax <small>by João</small></a></header>
+<header><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a></header>
 <main>
-<p class="note">APERÇU DE TEST · AUCUN PAIEMENT POSSIBLE</p>
 <h1>Offrez un moment de bien-être</h1>
-<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms">L’achat est désactivé sur cet aperçu.</span></p>
+<p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>
 <div class="layout">
 <form id="giftForm" novalidate>
 <section class="panel">
 <h2>1. Choisissez votre offre</h2>
 <div class="options">
-<label><input type="radio" name="offer" value="standard" checked> Tarif habituel</label>
-<label><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
+<label data-promo="black-friday" hidden><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
+<label data-promo="novembre-bleu" hidden><input type="radio" name="offer" value="novembre-bleu"> Novembre Bleu · 90 min · 110 CHF</label>
+<label><input type="radio" name="offer" value="anniversaire" checked> Anniversaire</label>
+<label><input type="radio" name="offer" value="noel"> Noël</label>
+<label><input type="radio" name="offer" value="saint-valentin"> Saint-Valentin</label>
+<label><input type="radio" name="offer" value="fete-meres"> Fête des Mères</label>
+<label><input type="radio" name="offer" value="fete-peres"> Fête des Pères</label>
+<label><input type="radio" name="offer" value="mariage"> Mariage</label>
+<label><input type="radio" name="offer" value="remerciement"> Juste un remerciement</label>
 </div>
-<div class="promo" id="promoNotice" hidden>Offre Black Friday de 90 minutes, disponible sur les massages éligibles. La période de vente sera contrôlée par le serveur.</div>
 </section>
 <section class="panel">
 <h2>2. Votre prestation</h2>
@@ -59,9 +70,9 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <section class="panel">
 <h2>3. Le modèle du bon cadeau</h2>
 <div class="field"><label for="design">Occasion</label><select id="design"></select></div>
-<div class="field"><label for="recipientMode">Pour qui ?</label><select id="recipientMode"><option value="later">Je déciderai du destinataire plus tard</option><option value="self">Pour moi-même</option><option value="gift">Pour offrir à quelqu'un</option></select></div>
+<div class="field"><label for="recipientMode">Pour qui ?</label><select id="recipientMode"><option value="self">Pour un moment à moi</option><option value="gift">Pour faire plaisir à quelqu'un</option></select></div>
 <div class="field" id="recipientField" hidden><label for="recipient">Nom du destinataire</label><input id="recipient" maxlength="100" autocomplete="off"></div>
-<div class="field"><label for="dedicationMode">Dédicace</label><select id="dedicationMode"><option value="default">Utiliser le message proposé</option><option value="custom">Écrire mon propre message</option><option value="none">Sans dédicace</option></select></div>
+<div class="field"><label for="dedicationMode">Dédicace</label><select id="dedicationMode"><option value="default">Utiliser le message proposé</option><option value="custom">Écrire mon propre message</option></select></div>
 <div class="field" id="dedicationField" hidden><label for="dedication">Votre message</label><textarea id="dedication" rows="3" maxlength="300" placeholder="Votre petit mot..."></textarea></div>
 </section>
 <section class="panel">
@@ -69,7 +80,6 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="field"><label for="fullName">Prénom et nom *</label><input id="fullName" autocomplete="name" maxlength="120" required></div>
 <div class="columns">
 <div class="field"><label for="email">Adresse email *</label><input type="email" id="email" autocomplete="email" required></div>
-<div class="field"><label for="emailAgain">Confirmez votre email *</label><input type="email" id="emailAgain" autocomplete="off" required></div>
 </div>
 <p class="error" id="emailError" role="status" aria-live="polite"></p>
 <div class="field">
@@ -79,20 +89,20 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
     <input id="emailCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="Code à 6 chiffres">
   </div>
   <button type="button" id="confirmEmailCode" disabled>Vérifier le code</button>
-  <p class="note" id="emailVerifyStatus" aria-live="polite">Vérification activée uniquement en environnement de test sécurisé.</p>
+  <p class="note" id="emailVerifyStatus" aria-live="polite">Vous recevrez un code à 6 chiffres par e-mail pour confirmer votre adresse.</p>
 </div>
 <div class="columns">
 <div class="field"><label for="countryCode">Indicatif</label><select id="countryCode"><option value="+41">Suisse (+41)</option><option value="+33">France (+33)</option><option value="+351">Portugal (+351)</option><option value="+34">Espagne (+34)</option><option value="+39">Italie (+39)</option><option value="+49">Allemagne (+49)</option><option value="+44">Royaume-Uni (+44)</option><option value="+1">États-Unis / Canada (+1)</option><option value="+55">Brésil (+55)</option><option value="+32">Belgique (+32)</option><option value="+31">Pays-Bas (+31)</option><option value="+352">Luxembourg (+352)</option></select></div>
 <div class="field"><label for="phone">Téléphone *</label><input type="tel" id="phone" autocomplete="tel-national" required placeholder="79 123 45 67"></div>
 </div>
-<p class="note">Sélecteur et contrôle international complets à connecter avec libphonenumber-js avant toute mise en ligne.</p>
+<p class="note">Uniquement pour vous joindre au sujet de votre bon, si nécessaire.</p>
 <p class="error" id="phoneError" role="status" aria-live="polite"></p>
 </section>
 <section class="panel">
 <h2>5. Conditions de vente</h2>
-<p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. Utilisation conseillée dans les douze mois suivant l'émission.</p>
+<p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. À utiliser de préférence dans les 12 mois suivant l’émission. Bon non remboursable.</p>
 <div class="options"><label><input type="checkbox" id="acceptTerms" required> J'ai lu et j'accepte les conditions générales de vente des bons cadeaux.</label></div>
-<p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> seront accessibles avant l'achat.</p>
+<p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> s’appliquent à votre achat.</p>
 </section>
 </form>
 <aside class="summary panel" aria-live="polite">
@@ -102,9 +112,9 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <div class="sum-line"><span>Durée</span><strong id="summaryDuration"></strong></div>
 <div class="sum-line"><span>Offre</span><strong id="summaryOffer"></strong></div>
 <div class="sum-line total"><span>Total</span><span id="summaryTotal"></span></div>
-<p class="note">Le prix sera recalculé côté serveur avant d'ouvrir Stripe Checkout.</p>
-<button type="button" id="checkout" disabled>Paiement indisponible en aperçu</button>
-<p class="status" id="checkoutStatus">Paiement désactivé.</p>
+<p class="note">Paiement sécurisé par carte bancaire.</p>
+<button type="button" id="checkout" disabled>Vérifiez votre adresse e-mail pour continuer</button>
+<p class="status" id="checkoutStatus"></p>
 </aside>
 </div>
 <p class="footer"><a href="../">Retour au site</a></p>

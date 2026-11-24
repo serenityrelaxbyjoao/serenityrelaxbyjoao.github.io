@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Black Friday 2026 | Massage 90 min · 90 CHF | Serenity &amp; Relax by João</title>
+<meta name="description" content="Black Friday à Cointrin : un bon cadeau pour 90 minutes de massage à 90 CHF. Le cadeau qui fait du bien.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../style.css?v=11">
+<style>
+.bf-page {
+  --bf-deep: #102330;
+  --bf-cream: #fff8eb;
+  --bf-gold: #e4cba5;
+  --bf-paper: #f5eee3;
+  --bf-ink: #243743;
+  --bf-type: "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  background: var(--bf-deep);
+  color: var(--bf-cream);
+  font-family: var(--bf-type);
+}
+.bf-page [hidden] { display: none !important; }
+.bf-page a { color: inherit; }
+.bf-hero {
+  --bf-gutter: clamp(26px, 7vw, 125px);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  min-height: clamp(570px, 84svh, 810px);
+  overflow: hidden;
+  padding: 60px var(--bf-gutter) 89px;
+  background: var(--bf-deep);
+}
+.bf-copy {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 4vh, 37px);
+  width: min(100%, 54vw, 680px);
+  margin-left: max(0px, calc((100% - 1130px) / 2));
+}
+.bf-intro { min-width: 0; animation: bf-enter .65s ease-out both; }
+.bf-kicker {
+  margin: 0 0 16px;
+  font-size: .78rem;
+  font-weight: 650;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.bf-copy .bf-kicker {
+  width: fit-content;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e4cba587;
+  color: var(--bf-gold);
+}
+.bf-copy h1 {
+  margin: 0;
+  color: var(--bf-cream);
+  font: 650 clamp(2.65rem, 6vw, 6.05rem)/1.01 var(--bf-type);
+  letter-spacing: -.065em;
+}
+.bf-gift {
+  margin: 15px 0 0;
+  color: var(--bf-cream);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 400;
+}
+.bf-purchase {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 345px);
+  margin-left: clamp(16px, 3vw, 50px);
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid #e4cba567;
+  border-radius: 8px;
+  background: #102330ed;
+  animation: bf-enter .65s .18s both;
+}
+.bf-saving {
+  width: fit-content;
+  margin: 0;
+  color: var(--bf-gold);
+  font: 600 clamp(1.7rem, 4vw, 2.7rem)/1 var(--bf-type);
+  letter-spacing: -.05em;
+}
+.bf-offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0;
+  color: var(--bf-cream);
+  font: 450 clamp(1.3rem, 2.8vw, 1.9rem)/1.1 var(--bf-type);
+  letter-spacing: -.025em;
+}
+.bf-offer strong { font-weight: 700; }
+.bf-reference, .bf-meta { margin: 6px 0 0; color: #f1e6d7; font-size: .86rem; line-height: 1.5; }
+.bf-meta { margin: 0; }
+.bf-reference s { text-decoration-thickness: 1px; }
+@keyframes bf-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.bf-page .bf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--bf-gold);
+  color: var(--bf-deep);
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color .2s;
+}
+.bf-page .bf-button:hover { background: #f2dfc0; }
+.bf-page :is(a, button):focus-visible { outline: 2px solid var(--bf-gold); outline-offset: 4px; }
+.bf-gallery, .bf-slides, .bf-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+.bf-slides { z-index: -1; isolation: isolate; overflow: hidden; }
+.bf-slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #102330dd 0%, #1023307a 38%, #10233014 70%), linear-gradient(0deg, #102330cc 0%, transparent 56%);
+  pointer-events: none;
+}
+.bf-slide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(16px);
+  transition: opacity 1.22s ease, transform 1.22s ease, visibility 0s 1.22s;
+}
+.bf-slide.is-current {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+.bf-slide img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: right center;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+}
+.bf-slide-landscape img {
+  width: 100%;
+  object-fit: cover;
+  object-position: 52% center;
+  mask-image: none;
+}
+.bf-controls {
+  position: absolute;
+  z-index: 1;
+  bottom: 22px;
+  right: var(--bf-gutter);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.bf-controls button {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--bf-cream);
+  cursor: pointer;
+  font: 500 1.12rem/1 var(--sans);
+}
+.bf-controls [data-bf-dot]::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bf-cream);
+  opacity: .7;
+}
+.bf-controls [data-bf-dot][aria-current="true"]::after {
+  background: var(--bf-gold);
+  opacity: 1;
+  box-shadow: 0 0 0 4px #ffdc8a40;
+}
+.bf-controls :is(button:hover, button:focus-visible) { background: #101a3899; }
+.bf-controls .bf-play { border-color: #fff5e45e; }
+.bf-details { background: var(--bf-paper); color: var(--bf-ink); }
+.bf-details-inner {
+  max-width: 990px;
+  margin: auto;
+  padding: 55px clamp(22px, 5vw, 50px) 60px;
+  line-height: 1.65;
+}
+.bf-details p { max-width: 68ch; color: var(--bf-ink); }
+.bf-details .bf-kicker { color: #665346; }
+.bf-details h2 { color: var(--bf-ink); font: 600 clamp(1.65rem, 3.6vw, 2.7rem)/1.12 var(--bf-type); }
+.bf-details-inner > h2:not(:first-of-type) { margin-top: 36px; }
+.bf-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 25px 0 33px; }
+.bf-steps article { border-top: 1px solid #52646f60; padding: 12px 0; }
+.bf-terms { border-top: 1px solid #52646f60; padding-top: 27px; }
+.bf-terms p { margin-top: .35em; }
+.bf-terms .bf-button { margin-top: 12px; }
+.bf-details :is(a, button):focus-visible { outline-color: var(--bf-deep); }
+.bf-footer {
+  border-top: 1px solid #fff4e740;
+  padding: 27px 24px;
+  background: var(--bf-deep);
+  text-align: center;
+  font-size: .92rem;
+}
+.bf-footer .brand { width: fit-content; margin: 0 auto 12px; }
+.bf-footer .brand small { color: var(--bf-gold); }
+@media (max-width: 760px) {
+  .bf-hero {
+    --bf-gutter: clamp(18px, 5.5vw, 32px);
+    align-content: end;
+    min-height: clamp(600px, 88svh, 740px);
+    padding: clamp(170px, 32svh, 270px) var(--bf-gutter) 77px;
+  }
+  .bf-copy { width: 100%; margin: 0; gap: 18px; }
+  .bf-copy h1 { font-size: clamp(2.65rem, 11vw, 4.4rem); }
+  .bf-gift { margin-top: 7px; }
+  .bf-kicker { margin-bottom: 9px; }
+  .bf-purchase { width: min(100%, 380px); margin-left: 0; }
+  .bf-slide img {
+    width: 100%;
+    object-fit: cover;
+    object-position: 61% top;
+    mask-image: none;
+  }
+  .bf-slide-landscape img { object-position: 60% center; }
+  .bf-slides::after { background: linear-gradient(180deg, #10233010 10%, #102330a0 44%, #102330e0 100%); }
+  .bf-controls { bottom: 17px; left: var(--bf-gutter); right: auto; }
+  .bf-steps { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bf-page *, .bf-page *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body class="bf-page">
+<main>
+<section class="bf-hero" aria-labelledby="bf-title">
+<div class="bf-copy">
+  <div class="bf-intro">
+    <p class="bf-kicker">Du 25 au 30 novembre 2026</p>
+    <h1 id="bf-title">Black Friday</h1>
+    <p class="bf-gift">Le cadeau qui fait du bien.</p>
+  </div>
+  <div class="bf-purchase">
+    <p class="bf-saving" aria-label="40 pour cent de rabais">−40&nbsp;%</p>
+    <div>
+      <p class="bf-offer"><span>90 min</span><span aria-hidden="true">·</span><strong>90 CHF</strong></p>
+      <p class="bf-reference">Au lieu de <s>150 CHF</s> sur une sélection de massages.</p>
+    </div>
+    <a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau <span aria-hidden="true">↗</span></a>
+    <p class="bf-meta">Recevez le bon par e-mail et choisissez votre rendez-vous ensuite.</p>
+    <p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
+  </div>
+</div>
+<section class="bf-gallery" aria-roledescription="carrousel" aria-label="Découvrir Serenity &amp; Relax">
+  <div class="bf-slides">
+    <figure class="bf-slide bf-slide-landscape is-current" aria-hidden="false"><img src="../images/cabinet.webp" alt="Le cabinet Serenity &amp; Relax à Cointrin" fetchpriority="high"></figure>
+    <figure class="bf-slide" aria-hidden="true"><img src="../images/massage.webp" alt="Illustration d’une séance de massage" decoding="async"></figure>
+    <figure class="bf-slide" aria-hidden="true"><img src="../images/joao.webp" alt="João, praticien en massage" decoding="async"></figure>
+  </div>
+  <div class="bf-controls" aria-label="Commandes du carrousel" hidden>
+    <button type="button" data-bf-prev aria-label="Photo précédente">‹</button>
+    <button type="button" data-bf-dot aria-label="Le cabinet" aria-current="true"></button>
+    <button type="button" data-bf-dot aria-label="Illustration d’une séance"></button>
+    <button type="button" data-bf-dot aria-label="João, praticien en massage"></button>
+    <button type="button" data-bf-next aria-label="Photo suivante">›</button>
+    <button class="bf-play" type="button" data-bf-play aria-label="Mettre en pause">Ⅱ</button>
+  </div>
+</section>
+</section>
+<section class="bf-details"><div class="bf-details-inner"><p class="bf-kicker">Une parenthèse pour vous</p><h2>Le plaisir de prendre soin de soi.</h2>
+<p>Offrez-vous un moment de détente, loin du rythme du quotidien. Une séance de massage adaptée à vos besoins, pour relâcher les tensions et retrouver un instant de sérénité.</p>
+<h2>Comment fonctionne le bon cadeau ?</h2><div class="bf-steps"><article><strong>01 · Achetez en ligne</strong><p>Choisissez votre bon Black Friday.</p></article><article><strong>02 · Recevez votre bon</strong><p>Après le paiement, votre bon est envoyé par e-mail.</p></article><article><strong>03 · Choisissez votre rendez-vous</strong><p>Utilisez votre bon selon les disponibilités du cabinet.</p></article></div>
+<div class="bf-terms"><h2>Détails et conditions de l’offre</h2>
+<p>Du 25 au 30 novembre 2026, profitez d’un massage de 90 minutes à 90 CHF.</p>
+<p>Le bon cadeau est à utiliser de préférence dans les 12 mois suivant son émission. <a href="../conditions-bons-cadeaux.html">Conditions de vente des bons cadeaux</a>.</p>
+<a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon · 90 CHF</a></div></div></section>
+</main><footer class="bf-footer"><a class="brand" href="../" aria-label="Serenity &amp; Relax by João"><b>Serenity &amp; Relax</b><small>by João</small></a><div>Chemin de Joinville 26 · 1216 Cointrin, Genève</div><br><a href="../">Retour au site</a></footer>
+<script>if(Date.now()>=Date.parse('2026-12-01T00:00:00+01:00')){document.querySelectorAll('[data-bf-buy]').forEach(el=>el.hidden=true);document.querySelector('[data-bf-expired]').hidden=false;}</script>
+<script>
+(() => {
+  const gallery = document.querySelector('.bf-gallery');
+  const slides = [...gallery.querySelectorAll('.bf-slide')];
+  const controls = gallery.querySelector('.bf-controls');
+  const dots = [...controls.querySelectorAll('[data-bf-dot]')];
+  const play = controls.querySelector('[data-bf-play]');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current = 0;
+  let timer;
+  let paused = motion.matches;
+
+  function show(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, position) => {
+      const active = position === current;
+      slide.classList.toggle('is-current', active);
+      slide.setAttribute('aria-hidden', String(!active));
+      if (active) dots[position].setAttribute('aria-current', 'true');
+      else dots[position].removeAttribute('aria-current');
+    });
+  }
+
+  function sync() {
+    clearInterval(timer);
+    play.textContent = paused ? '▶' : 'Ⅱ';
+    play.setAttribute('aria-label', paused ? 'Lancer le défilement' : 'Mettre en pause');
+    if (!paused && !document.hidden) timer = setInterval(() => show(current + 1), 6700);
+  }
+
+  function select(index) {
+    paused = true;
+    show(index);
+    sync();
+  }
+
+  controls.querySelector('[data-bf-prev]').addEventListener('click', () => select(current - 1));
+  controls.querySelector('[data-bf-next]').addEventListener('click', () => select(current + 1));
+  dots.forEach((dot, index) => dot.addEventListener('click', () => select(index)));
+  play.addEventListener('click', () => {
+    paused = !paused;
+    sync();
+  });
+  gallery.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    select(current + (event.key === 'ArrowLeft' ? -1 : 1));
+  });
+  motion.addEventListener('change', (event) => {
+    if (event.matches) paused = true;
+    sync();
+  });
+  document.addEventListener('visibilitychange', sync);
+  controls.hidden = false;
+  sync();
+})();
+</script></body></html>

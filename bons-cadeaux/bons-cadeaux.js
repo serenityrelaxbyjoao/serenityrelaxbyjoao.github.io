@@ -20,10 +20,18 @@
     ['fete-peres', 'Fête des Pères', 'Bonne fête ! Un moment de détente bien mérité.'],
     ['mariage', 'Mariage', 'Félicitations ! Un moment de sérénité à savourer.'],
     ['black-friday', 'Black Friday', 'Une pause bien méritée, un instant de détente rien que pour vous.'],
+    ['remerciement', 'Juste un remerciement', 'Juste un remerciement. Que cette parenthèse de détente vous apporte douceur et bien-être.'],
   ];
   const $ = id => document.getElementById(id);
-  const chosenOffer = () => document.querySelector('input[name="offer"]:checked').value;
+  // Étape 1 : offres promotionnelles (prix fixe pour 90 min) ou occasions au tarif habituel.
+  const PROMOS = { 'black-friday': { price: 90, label: 'Black Friday' }, 'novembre-bleu': { price: 110, label: 'Novembre Bleu' } };
+  const chosenChoice = () => document.querySelector('input[name="offer"]:checked')?.value || 'anniversaire';
+  const chosenOffer = () => PROMOS[chosenChoice()] ? chosenChoice() : 'standard';
+  const isPromo = offer => Boolean(PROMOS[offer]);
   const chosenService = () => services.find(service => service.id === $('service').value);
+  // Black Friday : seulement les massages dont le tarif habituel 90 min est de 150 CHF (liste fournie par le serveur).
+  let blackFridayIds = null;
+  const blackFridayEligible = service => Boolean(service) && (blackFridayIds ? blackFridayIds.includes(service.id) : service.prices[90] === 150);
   const option = (value, label) => {
     const element = document.createElement('option');
     element.value = value;
@@ -40,18 +48,22 @@
     const offer = chosenOffer();
     const service = chosenService();
     if (!service) return;
-    const eligible = Object.keys(service.prices).map(Number).filter(duration => offer !== 'black-friday' || duration === 90);
+    if (isPromo(offer) && !blackFridayEligible(service)) {
+      const fallback = services.find(blackFridayEligible);
+      if (fallback && fallback.id !== service.id) { $('service').value = fallback.id; return synchronizeDurations(); }
+    }
+    const eligible = Object.keys(service.prices).map(Number).filter(duration => !isPromo(offer) || duration === 90);
     $('duration').replaceChildren(...eligible.map(d => option(String(d), d + ' minutes')));
     $('service').querySelectorAll('option').forEach(optionElement => {
       const selected = services.find(s => s.id === optionElement.value);
-      optionElement.disabled = offer === 'black-friday' && !Object.prototype.hasOwnProperty.call(selected.prices, '90');
+      optionElement.disabled = isPromo(offer) && !blackFridayEligible(selected);
     });
     if (!eligible.length) {
       const fallback = services.find(s => s.prices[90] !== undefined);
       $('service').value = fallback.id;
       return synchronizeDurations();
     }
-    $('duration').value = String(offer === 'black-friday' ? 90 : eligible[0]);
+    $('duration').value = String(isPromo(offer) ? 90 : eligible[0]);
     updateSummary();
   }
   function quote() {
@@ -60,16 +72,15 @@
     const offer = chosenOffer();
     const regular = service?.prices[duration];
     if (!Number.isFinite(regular)) return null;
-    if (offer === 'black-friday' && duration !== 90) return null;
-    return { service, duration, offer, amount: offer === 'black-friday' ? 90 : regular };
+    if (isPromo(offer) && duration !== 90) return null;
+    return { service, duration, offer, amount: isPromo(offer) ? PROMOS[offer].price : regular };
   }
   function updateSummary() {
     const q = quote();
     if (!q) return;
-    $('promoNotice').hidden = q.offer !== 'black-friday';
     $('summaryService').textContent = q.service.name;
     $('summaryDuration').textContent = q.duration + ' min';
-    $('summaryOffer').textContent = q.offer === 'black-friday' ? 'Black Friday' : 'Tarif habituel';
+    $('summaryOffer').textContent = isPromo(q.offer) ? PROMOS[q.offer].label : 'Tarif habituel';
     $('summaryTotal').textContent = q.amount + ' CHF';
     $('previewService').textContent = q.service.name + ' · ' + q.duration + ' minutes';
     const recipient = $('recipientMode').value === 'gift' ? $('recipient').value.trim() : '';
@@ -85,13 +96,9 @@
   }
   function checkEmails() {
     const email = $('email').value.trim();
-    const confirmation = $('emailAgain').value.trim();
-    if (!confirmation) {
+    // L'adresse est confirmée par le code envoyé : plus besoin de la saisir deux fois.
+    if (!email) {
       $('emailError').textContent = '';
-      return false;
-    }
-    if (email.toLocaleLowerCase() !== confirmation.toLocaleLowerCase()) {
-      $('emailError').textContent = 'Les deux adresses email ne correspondent pas.';
       return false;
     }
     if (!$('email').checkValidity()) {
@@ -135,14 +142,40 @@
     $('phoneError').textContent = raw && !formatted ? 'Numéro incomplet ou invalide pour le pays choisi.' : '';
     return Boolean(formatted);
   }
+  // Choisir une occasion règle aussi le modèle du bon (modifiable à l'étape 3).
+  const ART = {anniversaire:'anniversaire',remerciement:'anniversaire',noel:'noel','saint-valentin':'saint-valentin','fete-meres':'fete-des-meres','fete-peres':'fete-des-peres',mariage:'mariage','black-friday':'black-friday'};
+  function updateArtwork() {
+    const box = document.querySelector('.preview');
+    if (box) box.style.backgroundImage = "url('artwork/" + (ART[$('design').value] || 'anniversaire') + ".webp')";
+  }
+  $('design').addEventListener('change', updateArtwork);
+  function applyChoiceToDesign() {
+    const choice = chosenChoice();
+    if (choice === 'black-friday') $('design').value = 'black-friday';
+    else if (choice === 'novembre-bleu') { if ($('design').value === 'black-friday') $('design').value = 'anniversaire'; }
+    else if (designs.some(([id]) => id === choice)) $('design').value = choice;
+    updateArtwork();
+    updatePersonalization();
+  }
   document.querySelectorAll('input[name="offer"]').forEach(radio => {
-    radio.addEventListener('change', synchronizeDurations);
+    radio.addEventListener('change', () => { applyChoiceToDesign(); synchronizeDurations(); });
   });
+  // Les offres promotionnelles ne sont visibles que pendant leur période (le serveur le vérifie aussi).
+  function showPromo(id, visible) {
+    const label = document.querySelector('[data-promo="' + id + '"]');
+    if (!label) return;
+    label.hidden = !visible;
+    if (!visible && label.querySelector('input').checked) document.querySelector('input[name="offer"][value="anniversaire"]').checked = true;
+  }
+  const swissToday = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Zurich' });
+  const promoPreview = /[?&]bf=apercu(&|$)/.test(location.search);
+  showPromo('black-friday', promoPreview || (swissToday >= '2026-11-25' && swissToday <= '2026-11-30'));
+  showPromo('novembre-bleu', swissToday <= '2026-11-30');
   $('service').addEventListener('change', synchronizeDurations);
   $('duration').addEventListener('change', updateSummary);
   ['design', 'recipientMode', 'dedicationMode'].forEach(id => $(id).addEventListener('change', updatePersonalization));
   ['recipient', 'dedication'].forEach(id => $(id).addEventListener('input', updateSummary));
-  ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', checkEmails));
+  $('email').addEventListener('input', checkEmails);
   $('phone').addEventListener('input', checkPhonePreview);
   $('countryCode').addEventListener('change', checkPhonePreview);
   // Checkout stays disabled until backend, signed webhook, email ownership check,
@@ -187,7 +220,7 @@
     try {
       const result = await fetch(CHECKOUT_TEST.sendCodeEndpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: $('email').value.trim(), emailConfirmation: $('emailAgain').value.trim() }),
+        body: JSON.stringify({ email: $('email').value.trim(), emailConfirmation: $('email').value.trim() }),
       });
       if (!result.ok) throw new Error((await result.json()).error || 'Envoi impossible.');
       $('emailVerifyStatus').textContent = 'Consultez votre messagerie et saisissez le code à 6 chiffres.';
@@ -202,7 +235,7 @@
     if (!CHECKOUT_TEST.enabled || !CHECKOUT_TEST.confirmCodeEndpoint || !checkEmails()) return;
     $('confirmEmailCode').disabled = true;
     const email = $('email').value.trim();
-    const emailConfirmation = $('emailAgain').value.trim();
+    const emailConfirmation = email;
     try {
       const result = await fetch(CHECKOUT_TEST.confirmCodeEndpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -215,7 +248,7 @@
       if (!result.ok || typeof confirmation.emailProof !== 'string') {
         throw new Error(confirmation.error || 'Code incorrect.');
       }
-      if ($('email').value.trim() !== email || $('emailAgain').value.trim() !== emailConfirmation) return;
+      if ($('email').value.trim() !== email) return;
       verifiedEmail = email.toLowerCase();
       emailProof = confirmation.emailProof;
       $('emailVerifyStatus').textContent = 'Adresse email vérifiée.';
@@ -230,7 +263,7 @@
   }
   $('sendEmailCode').addEventListener('click', () => { void sendEmailCodeTest(); });
   $('confirmEmailCode').addEventListener('click', () => { void confirmEmailCodeTest(); });
-  ['email', 'emailAgain'].forEach(id => $(id).addEventListener('input', () => {
+  ['email'].forEach(id => $(id).addEventListener('input', () => {
     verifiedEmail = '';
     emailProof = '';
     $('checkout').disabled = true;
@@ -268,7 +301,7 @@
           offerId: q.offer,
           buyerName: $('fullName').value.trim(),
           email: $('email').value.trim(),
-          emailConfirmation: $('emailAgain').value.trim(),
+          emailConfirmation: $('email').value.trim(),
           phoneE164,
           emailProof,
           recipientMode,
@@ -308,10 +341,10 @@
       );
       if (!services.length) throw new Error('Aucune prestation disponible.');
       fillServices();
-      if (!catalogue.offers?.blackFriday?.enabled) {
-        document.querySelector('input[name="offer"][value="standard"]').checked = true;
-        document.querySelector('input[name="offer"][value="black-friday"]').closest('label').hidden = true;
-      }
+      if (Array.isArray(catalogue.offers?.blackFriday?.serviceIds)) blackFridayIds = catalogue.offers.blackFriday.serviceIds;
+      showPromo('black-friday', catalogue.offers?.blackFriday?.enabled === true);
+      showPromo('novembre-bleu', catalogue.offers?.novembreBleu?.enabled === true);
+      applyChoiceToDesign();
       synchronizeDurations();
       catalogReady = true;
       $('checkout').disabled = !emailProof;
@@ -332,9 +365,10 @@
       ? 'Paiement sécurisé par Stripe. Votre bon cadeau en PDF vous est envoyé par e-mail dès la confirmation du paiement.'
       : 'Le PDF est envoyé après confirmation du paiement simulé.';
   }
-  if (new URLSearchParams(window.location.search).get('offre') === 'black-friday') {
-    document.querySelector('input[name="offer"][value="black-friday"]').checked = true;
-  }
+  const requested = new URLSearchParams(window.location.search).get('offre');
+  const requestedInput = requested && document.querySelector('input[name="offer"][value="' + CSS.escape(requested) + '"]');
+  if (requestedInput && !requestedInput.closest('label').hidden) requestedInput.checked = true;
+  applyChoiceToDesign();
   synchronizeDurations();
   updatePersonalization();
   void loadCatalogWhenConfigured();
