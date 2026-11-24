@@ -6,5 +6,5 @@ window.SERENITY_GIFT_TEST_CONFIG = Object.freeze({
   enabled: true,
   projectId: 'serenity-relax-gestion',
   localEmulator: false,
-  termsVersion: '2026-11-23-projet',
+  termsVersion: '2026-11-25',
 });
