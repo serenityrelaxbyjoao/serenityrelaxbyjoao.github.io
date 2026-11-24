@@ -56,29 +56,25 @@
   font-weight: 700;
 }
 .bf-copy h1 {
-  margin: 0 0 12px;
+  margin: 0 0 clamp(18px, 2.2vw, 34px);
   color: var(--bf-cream);
-  font: 700 clamp(4rem, 7.7vw, 8.8rem)/.82 var(--sans);
-  letter-spacing: -.075em;
+  font: 700 clamp(2.05rem, 4.65vw, 5.2rem)/.98 var(--sans);
+  letter-spacing: -.055em;
+  white-space: nowrap;
+  animation: bf-enter .55s ease-out both;
 }
-.bf-copy h1 > span, .bf-copy h1 em { display: block; }
-.bf-copy h1 > span { animation: bf-enter .6s .05s both; }
-.bf-copy h1 em {
-  width: fit-content;
-  margin: .03em 0 .11em .14em;
+.bf-saving {
+  display: block;
+  margin: 0 0 clamp(22px, 2.5vw, 38px);
   color: var(--bf-rose);
-  font: italic 400 1.1em/.85 "Instrument Serif", var(--serif);
-  letter-spacing: -.06em;
-  transform: rotate(-5deg);
+  font: 750 clamp(5.2rem, 10.2vw, 11rem)/.87 var(--sans);
+  letter-spacing: -.085em;
+  white-space: nowrap;
+  animation: bf-enter .6s .12s both;
 }
-.bf-copy h1 em span {
-  display: inline-block;
-  animation: bf-letter .46s cubic-bezier(.2,.65,.3,1) calc(.17s + .07s * var(--bf-letter)) both;
-}
-.bf-copy h1 em span + span { margin-left: -.015em; }
-@keyframes bf-letter {
-  from { opacity: 0; transform: translateY(.2em) rotate(-6deg); }
-  to { opacity: 1; transform: none; }
+.bf-saving-unit {
+  font: italic 400 .69em/1 "Instrument Serif", var(--serif);
+  margin-left: .09em;
 }
 @keyframes bf-enter {
   from { opacity: 0; transform: translateY(12px); }
@@ -96,26 +92,13 @@
   gap: 4px clamp(11px, 1.5vw, 21px);
   width: fit-content;
   margin: 0;
-  padding-top: 12px;
-  border-top: 1px solid #ffdc8a80;
+  padding-top: 0;
   color: var(--bf-gold);
-  font: 500 clamp(1.7rem, 4.3vw, 3.8rem)/1 var(--sans);
+  font: 500 clamp(1.65rem, 3.7vw, 3.1rem)/1 var(--sans);
   letter-spacing: -.05em;
 }
 .bf-price-block { width: fit-content; max-width: 100%; margin: 0 0 18px; }
-.bf-offer .bf-saving {
-  display: inline-block;
-  align-self: center;
-  padding: .55em .68em;
-  border: 1px solid #ffc0c38c;
-  border-radius: 4px;
-  background: var(--bf-bordeaux);
-  color: var(--bf-cream);
-  font: 700 clamp(1rem, 2vw, 1.5rem)/1 var(--sans);
-  letter-spacing: -.025em;
-  white-space: nowrap;
-}
-.bf-reference { margin: 6px 0 0; color: var(--bf-cream); font-size: .9rem; line-height: 1.4; }
+.bf-reference { margin: 9px 0 0; color: var(--bf-cream); font-size: .9rem; line-height: 1.4; }
 .bf-reference s { text-decoration-thickness: 1px; }
 .bf-offer strong { font-weight: 750; }
 .bf-offer .bf-unit { font: italic 400 .76em/1 "Instrument Serif", var(--serif); }
@@ -258,10 +241,11 @@
     padding: 28px 20px 30px;
   }
   .bf-copy, .bf-gallery { grid-column: 1; grid-row: auto; justify-self: center; }
-  .bf-copy h1 { font-size: clamp(3.6rem, 14vw, 6rem); }
+  .bf-copy h1 { font-size: clamp(2.05rem, 8.1vw, 4rem); }
+  .bf-saving { font-size: clamp(5.2rem, 21vw, 8rem); margin-bottom: 23px; }
   .bf-copy .bf-kicker { margin-bottom: 12px; font-size: .73rem; }
   .bf-copy .bf-gift { margin-bottom: 13px; }
-  .bf-offer { gap: 6px 10px; padding-top: 10px; }
+  .bf-offer { gap: 6px 10px; }
   .bf-price-block { margin-bottom: 15px; }
   .bf-slides { height: clamp(290px, 94vw, 500px); }
   .bf-steps { grid-template-columns: 1fr; gap: 6px; }
@@ -274,12 +258,13 @@
 <body class="bf-page">
 <main>
 <section class="bf-hero" aria-labelledby="bf-title">
-<div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title" aria-label="Black Friday"><span aria-hidden="true">Black</span><em aria-hidden="true"><span style="--bf-letter:0">F</span><span style="--bf-letter:1">r</span><span style="--bf-letter:2">i</span><span style="--bf-letter:3">d</span><span style="--bf-letter:4">a</span><span style="--bf-letter:5">y</span><span style="--bf-letter:6">.</span></em></h1>
-<p class="bf-gift">Le cadeau qui fait du bien.</p>
+<div class="bf-copy"><p class="bf-kicker">Du 25 au 30 novembre 2026</p><h1 id="bf-title">BLACK FRIDAY</h1>
+<p class="bf-saving" aria-label="40 pour cent de rabais">−40<span class="bf-saving-unit">&nbsp;%</span></p>
 <div class="bf-price-block">
-  <p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong><span class="bf-saving" aria-label="40 pour cent de rabais">−40&nbsp;%</span></p>
+  <p class="bf-offer"><span>90 <span class="bf-unit">min.</span></span><span class="bf-sep" aria-hidden="true">·</span><strong>90 <span class="bf-unit">CHF</span></strong></p>
   <p class="bf-reference">Au lieu de <s>150 CHF</s> sur une sélection de massages.</p>
 </div>
+<p class="bf-gift">Le cadeau qui fait du bien.</p>
 <a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau <span aria-hidden="true">↗</span></a>
 <p class="bf-meta">Recevez le bon par e-mail et choisissez votre rendez-vous ensuite.</p>
 <p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
