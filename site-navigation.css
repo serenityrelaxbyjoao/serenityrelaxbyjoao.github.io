@@ -37,3 +37,8 @@ header.site-subnav {
 .site-content-page main h1 { font-size: clamp(2.55rem, 6vw, 4.7rem); }
 .site-content-page main > .section:first-child { padding-top: clamp(30px, 6vw, 76px) !important; }
 .site-content-page .avis h1 { color: inherit; }
+
+header.site-subnav .bf-topbar { color: #fff; }
+header.site-subnav .bf-topbar:hover { text-decoration: none; }
+.site-compact-footer { padding: 22px 0; }
+.site-compact-footer .legal { margin: 0; padding: 0; border: 0; }

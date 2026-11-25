@@ -1,0 +1,9 @@
+.site-menu-toggle{display:none}
+@media(max-width:900px){
+  .site-subnav-inner{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0}
+  .site-menu-toggle{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:0 11px;border:1px solid #d9ccb4;border-radius:12px;background:transparent;cursor:pointer}
+  .site-menu-toggle span{display:block;height:2px;background:#1c2621;border-radius:2px}
+  .site-subnav nav{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;gap:0;padding:6px 0 10px}
+  .site-subnav.menu-open nav{display:flex}
+  .site-subnav nav a{min-height:44px;font-size:16px;border-top:1px solid #e9dfcc}
+}

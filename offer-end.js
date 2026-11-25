@@ -2,7 +2,7 @@
  * Changer OFFER_LAST_DAY pour prolonger l'offre. Le formulaire de réservation fait la même vérification. */
 (function () {
   'use strict';
-  var OFFER_LAST_DAY = '2026-11-30';
+  var OFFER_LAST_DAY = '2026-11-24';
   var today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Zurich' });
   if (today <= OFFER_LAST_DAY) return;
   function run() {

@@ -8,7 +8,7 @@
   if (!/^(fr|pt|en|es|it|de)$/.test(lang)) lang = 'fr';
   var preselect = params.get('service') || '';
   // Dernier jour de l'offre Novembre Bleu : à partir du lendemain, elle n'est plus proposée.
-  var OFFER_LAST_DAY = '2026-11-30';
+  var OFFER_LAST_DAY = '2026-11-24';
   document.documentElement.lang = lang;
   var OFFER_NAMES = {fr:'Offre du mois · Novembre Bleu 2026', pt:'Oferta do mês · Novembro Azul 2026', en:'Offer of the month · Blue November 2026', es:'Oferta del mes · Noviembre Azul 2026', it:'Offerta del mese · Novembre Blu 2026', de:'Angebot des Monats · Blauer November 2026'};
   function serviceName(s){ return (s.id === 'offre-du-mois' && OFFER_NAMES[lang]) ? OFFER_NAMES[lang] : s.name; }

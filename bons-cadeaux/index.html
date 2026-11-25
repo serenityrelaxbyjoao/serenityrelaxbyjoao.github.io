@@ -3,12 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <title>Bons cadeaux | Serenity &amp; Relax by João</title>
 <meta name="description" content="Préparation du parcours d'achat de bons cadeaux Serenity & Relax by João.">
 <style>
 :root{--ink:#26372c;--green:#2e4938;--gold:#af8750;--cream:#fbf8f1;--line:#dfd7c8;--muted:#657169}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
 @font-face{font-family:"Great Vibes";src:url(../fonts/great-vibes.woff2) format("woff2");font-display:swap}
 @font-face{font-family:"Cormorant";font-style:italic;font-weight:500;src:url(../fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2");font-display:swap}
 .brand{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;white-space:nowrap}
@@ -33,12 +32,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-of
 button{border:0;background:var(--green);color:white;padding:14px 20px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer;width:100%}
 button:disabled{background:#a4aaa5;cursor:not-allowed}
 .status{padding:10px;border-radius:8px;background:#f6ead6;font-size:13px}
-.preview{font-family:Georgia,serif;text-align:center;background:#f3eadb center/cover no-repeat;border:1px solid #d0bc99;aspect-ratio:3/2;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:18px 14px;margin:16px 0;color:#1d1d1d}.preview>*{background:rgba(253,251,245,.82);padding:2px 10px;margin:3px 0;border-radius:3px}.preview>p:empty,.preview>blockquote:empty{display:none}
-.preview strong{font-size:23px}.preview blockquote{font-size:16px;font-style:italic;margin:14px 0}
 .footer{font-size:13px;color:var(--muted);margin-top:25px}
 @media(max-width:760px){.layout,.columns{grid-template-columns:1fr}.summary{position:static}.panel{padding:19px}}
 </style>
 <link rel="stylesheet" href="../site-navigation.css?v=1">
+<link rel="stylesheet" href="gift-certificate.css?v=2">
+<link rel="stylesheet" href="../site-menu.css?v=2"><script src="../site-menu.js?v=1" defer></script>
 </head>
 <body>
 <header class="site-subnav"><div class="site-subnav-inner">
@@ -60,8 +59,9 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <p class="intro">Choisissez un massage, personnalisez votre bon cadeau et retrouvez le montant avant de payer. <span id="previewTerms"></span></p>
 <div class="layout">
 <form id="giftForm" novalidate>
-<section class="panel">
+<section class="panel" id="offerPanel">
 <h2>1. Choisissez votre offre</h2>
+<p id="offerUnavailable" hidden role="status">L’offre Black Friday est indisponible. Vous pouvez choisir un autre bon cadeau.</p>
 <div class="options">
 <label data-promo="black-friday" hidden><input type="radio" name="offer" value="black-friday"> Black Friday · 90 min · 90 CHF</label>
 <label data-promo="novembre-bleu" hidden><input type="radio" name="offer" value="novembre-bleu"> Novembre Bleu · 90 min · 110 CHF</label>
@@ -75,20 +75,21 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </div>
 </section>
 <section class="panel">
-<h2>2. Votre prestation</h2>
+<h2><span id="serviceStep">2</span>. Choisissez votre massage</h2>
+<p class="promo" id="directOffer" hidden><strong>Black Friday · 90 min · 90 CHF</strong><br><a href="./">Voir les autres bons cadeaux</a></p>
 <div class="field"><label for="service">Massage</label><select id="service"></select></div>
 <div class="field"><label for="duration">Durée</label><select id="duration"></select></div>
 </section>
 <section class="panel">
-<h2>3. Le modèle du bon cadeau</h2>
-<div class="field"><label for="design">Occasion</label><select id="design"></select></div>
+<h2><span id="personalizationStep">3</span>. Personnalisez votre bon cadeau</h2>
+<div class="field" id="titleField"><label for="giftTitle">Titre du bon cadeau</label><input id="giftTitle" maxlength="70" autocomplete="off" required></div>
 <div class="field"><label for="recipientMode">Pour qui ?</label><select id="recipientMode"><option value="self">Pour un moment à moi</option><option value="gift">Pour faire plaisir à quelqu'un</option></select></div>
 <div class="field" id="recipientField" hidden><label for="recipient">Nom du destinataire</label><input id="recipient" maxlength="100" autocomplete="off"></div>
 <div class="field"><label for="dedicationMode">Dédicace</label><select id="dedicationMode"><option value="default">Utiliser le message proposé</option><option value="custom">Écrire mon propre message</option></select></div>
 <div class="field" id="dedicationField" hidden><label for="dedication">Votre message</label><textarea id="dedication" rows="3" maxlength="300" placeholder="Votre petit mot..."></textarea></div>
 </section>
 <section class="panel">
-<h2>4. Vos coordonnées</h2>
+<h2><span id="contactStep">4</span>. Vos coordonnées</h2>
 <div class="field"><label for="fullName">Prénom et nom *</label><input id="fullName" autocomplete="name" maxlength="120" required></div>
 <div class="columns">
 <div class="field"><label for="email">Adresse email *</label><input type="email" id="email" autocomplete="email" required></div>
@@ -111,7 +112,7 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 <p class="error" id="phoneError" role="status" aria-live="polite"></p>
 </section>
 <section class="panel">
-<h2>5. Conditions de vente</h2>
+<h2><span id="termsStep">5</span>. Conditions de vente</h2>
 <p class="note">Le bon cadeau est délivré après confirmation du paiement, envoyé par email et utilisable une seule fois. À utiliser de préférence dans les 12 mois suivant l’émission. Bon non remboursable.</p>
 <div class="options"><label><input type="checkbox" id="acceptTerms" required> J'ai lu et j'accepte les conditions générales de vente des bons cadeaux.</label></div>
 <p class="note">Les <a href="../conditions-bons-cadeaux.html" target="_blank" rel="noopener">conditions de vente</a> et la <a href="../confidentialite-bons-cadeaux.html" target="_blank" rel="noopener">politique de confidentialité</a> s’appliquent à votre achat.</p>
@@ -119,7 +120,37 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </form>
 <aside class="summary panel" aria-live="polite">
 <h2>Votre bon cadeau</h2>
-<div class="preview"><p>SERENITY &amp; RELAX BY JOÃO</p><strong>BON CADEAU</strong><p id="previewService"></p><p id="previewRecipient"></p><blockquote id="previewDedication"></blockquote></div>
+<div class="gift-preview-frame">
+  <article class="gift-certificate gift-design-anniversaire" id="giftCertificate" aria-label="Aperçu du bon cadeau">
+    <img class="gift-artwork" id="certificateArtwork" src="artwork/anniversaire.webp" alt="">
+    <img class="gift-brand" src="artwork/serenity-logo-gold.png" alt="Serenity &amp; Relax by João">
+    <div class="gift-small-title" id="certificateTitle">BON CADEAU · MASSAGE &amp; BIEN-ÊTRE</div>
+    <div id="certificateStandard">
+      <h2 class="gift-occasion" id="certificateOccasion" data-fit="104" data-min="40"></h2>
+      <h3 class="gift-recipient" id="certificateRecipient" data-fit="72" data-min="30"></h3>
+      <div class="gift-dedication" id="certificateDedication" data-fit="34" data-min="20"></div>
+      <div class="gift-service" id="certificateService" data-fit="30" data-min="19"></div>
+      <div class="gift-number-label">Nº du bon</div>
+      <div class="gift-number">APERÇU</div>
+      <div class="gift-validity">12 mois<br>conseillés</div>
+    </div>
+    <div id="certificateBlackFriday" hidden>
+      <h2 class="gift-black-friday-service" id="certificatePromoService" data-fit="72" data-min="34"></h2>
+      <div class="gift-black-friday-duration" id="certificatePromoDuration" data-fit="86" data-min="44"></div>
+      <div class="gift-black-friday-message" id="certificatePromoMessage" data-fit="29" data-min="18"></div>
+      <div class="gift-black-friday-name" id="certificatePromoRecipient" data-fit="38" data-min="22"></div>
+      <div class="gift-black-friday-meta" data-fit="30" data-min="20">Bon n° APERÇU · 12 mois conseillés</div>
+    </div>
+    <footer class="gift-contact">
+      <span class="gift-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Alpha Business Center – 4e étage<br>Chemin de Joinville 26<br>1216 Cointrin, Genève</span></span>
+      <span class="gift-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-9 9c-1.5 0-3-.4-4.2-1L3 21l1.3-4.5A9 9 0 1 1 21 12Z"/><path d="M9 8c0 3 3 6 6 7l1-2-2-1-1 1-2-2 1-1-1-2z"/></svg><span>+41 78 333 68 23</span></span>
+      <div class="gift-socials">
+        <span class="gift-website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><span>serenityrelaxbyjoao.ch<br>Réservation en ligne</span></span>
+        <span class="gift-instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg><span>@serenity.relax.by.joao</span></span>
+      </div>
+    </footer>
+  </article>
+</div>
 <div class="sum-line"><span>Prestation</span><strong id="summaryService"></strong></div>
 <div class="sum-line"><span>Durée</span><strong id="summaryDuration"></strong></div>
 <div class="sum-line"><span>Offre</span><strong id="summaryOffer"></strong></div>
@@ -133,5 +164,5 @@ button:disabled{background:#a4aaa5;cursor:not-allowed}
 </main>
 <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.0/bundle/libphonenumber-js.min.js" defer></script>
 <script src="./test-config.js" defer></script>
-<script src="./bons-cadeaux.js" defer></script>
+<script src="./bons-cadeaux.js?v=gift-flow-2" defer></script>
 </body></html>
