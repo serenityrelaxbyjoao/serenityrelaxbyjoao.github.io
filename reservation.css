@@ -17,3 +17,13 @@ body{background:linear-gradient(180deg,rgba(24,41,31,.55),rgba(24,41,31,.72)),ur
 .wrap{padding-top:24px}
 .card{background:var(--paper);box-shadow:0 24px 70px -30px rgba(0,0,0,.6)}
 .card textarea{min-height:0;height:58px;padding-top:10px;padding-bottom:10px;resize:vertical}
+/* Formulaire plus compact et harmonieux. */
+.card{padding:clamp(18px,4vw,30px)}
+.step{margin-top:18px;padding-top:16px}
+.step-title{margin-bottom:8px}
+label.lbl,.lbl{margin:10px 0 5px}
+.step label[for]{margin-top:10px;margin-bottom:5px}
+input,select,textarea{padding:10px 12px}
+.card textarea{height:auto;min-height:44px;overflow:hidden;resize:none}
+.card h1{margin-bottom:6px}
+.card .check{margin-top:8px}

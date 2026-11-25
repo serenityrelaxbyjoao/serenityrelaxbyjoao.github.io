@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex">
   <title>Réservation | Serenity &amp; Relax by João</title>
   <meta name="theme-color" content="#26402f">
-  <link rel="stylesheet" href="../reservation.css?v=10">
+  <link rel="stylesheet" href="../reservation.css?v=11">
   <link rel="stylesheet" href="../site-navigation.css?v=1">
 <link rel="stylesheet" href="../site-menu.css?v=3"><script src="../site-menu.js?v=1" defer></script>
 </head>
@@ -61,7 +61,7 @@
         <label for="areaWork" hidden style="display:none" data-i18n="areaWork">Zones à travailler en priorité (facultatif)</label>
         <textarea hidden style="display:none" id="areaWork" maxlength="300" rows="2"></textarea>
         <label for="areaAvoid" hidden style="display:none" data-i18n="areaAvoid">Zones à éviter (facultatif)</label>
-        <textarea id="areaAvoid" maxlength="300" rows="2"></textarea>
+        <textarea hidden style="display:none" id="areaAvoid" maxlength="300" rows="2"></textarea>
         <label for="area" data-i18n="areaOther">Tensions particulières ou autre demande (facultatif)</label>
         <textarea id="area" maxlength="300" rows="2"></textarea>
         <label for="code" data-i18n="codeLabel">Code promotionnel ou nom de la personne qui vous a recommandé (facultatif)</label>
@@ -124,5 +124,6 @@
   <p class="cookie-settings"><a href="../conditions.html" data-cookies id="bookingCookieSettings">Choix des cookies</a></p>
   <script src="../app.js?v=10" defer></script>
   <script src="../reservation.js?v=13" defer></script>
+<script>document.addEventListener("input",function(e){var t=e.target;if(t.tagName==="TEXTAREA"&&t.id!=="transportPayload"){t.style.height="auto";t.style.height=t.scrollHeight+"px";}});</script>
 </body>
 </html>
