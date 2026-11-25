@@ -27,3 +27,11 @@ input,select,textarea{padding:10px 12px}
 .card textarea{height:auto;min-height:44px;overflow:hidden;resize:none}
 .card h1{margin-bottom:6px}
 .card .check{margin-top:8px}
+/* Formulaire plus fin : textes plus petits, champs resserrés. */
+.card h1{font-size:clamp(1.7rem,3.4vw,2.2rem)}
+.card .lead,.card .sub,.card header p{font-size:15px}
+label,.lbl{font-size:14.5px}
+.step-title{font-size:12px}
+input,select,textarea{padding:7px 11px;font-size:15px;border-radius:10px}
+.card textarea{min-height:36px}
+.chip{padding:6px 12px;font-size:14.5px}
