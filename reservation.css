@@ -11,3 +11,8 @@
 .cookie-bar button{font:inherit;padding:9px 20px;border:1px solid #476957;border-radius:6px;background:#fff;color:#253b33;cursor:pointer}
 .cookie-settings{text-align:center;padding:16px;font-size:13px}
 .cookie-settings a{color:#253b33}
+/* Fond photo du cabinet, formulaire lisible sur carte claire. */
+html{background:#26402f}
+body{background:linear-gradient(180deg,rgba(24,41,31,.55),rgba(24,41,31,.72)),url("images/cabinet.webp") center/cover fixed no-repeat}
+.wrap{padding-top:24px}
+.card{background:var(--paper);box-shadow:0 24px 70px -30px rgba(0,0,0,.6)}
