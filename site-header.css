@@ -24,3 +24,14 @@ header.site-subnav{background:#26402f!important;color:#f8f4ec!important;border-b
 .bf-topbar{display:none!important}
 .bf-topbar-on .hero{padding-top:0!important}
 html.bf-topbar-on{scroll-padding-top:90px!important}
+/* Page Avis : fond clair, cartes blanches (l'en-tête reste vert). */
+.site-content-page .avis{background:var(--cream,#f8f4ec);color:#1c2621}
+.site-content-page .avis h1,.site-content-page .avis h2{color:#26402f}
+.site-content-page .avis .eyebrow{color:#7a5c2c}
+.site-content-page .avis .score b,.site-content-page .avis .score .stars{color:#b08d57}
+.site-content-page .avis .score small{color:#56625b}
+.site-content-page .avis .reviews{scrollbar-color:#c9bda6 transparent}
+.site-content-page .avis .review{background:#fff;border-color:#e3d8c4}
+.site-content-page .avis .review .stars{color:#b08d57}
+.site-content-page .avis .review blockquote{color:#1c2621}
+.site-content-page .avis .review cite{color:#56625b}
