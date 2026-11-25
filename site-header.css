@@ -1,0 +1,26 @@
+/* En-tête vert fixe, menu plus lisible (toutes les pages). */
+header,header.solid{background:#26402f!important;color:#f8f4ec!important;box-shadow:0 1px 0 rgba(255,255,255,.08);backdrop-filter:none!important}
+header .brand small{color:#e4cba5!important}
+header .brand b{color:#fff}
+.menu a{font-size:clamp(14px,1.08vw,16.5px)!important;opacity:1!important;color:#f8f4ec}
+.menu a:hover{text-decoration:underline;text-underline-offset:6px}
+header .lang-btn,header .pro-access{color:#f8f4ec;border-color:rgba(255,255,255,.35)}
+header.open .menu{background:#26402f!important}
+header.open .menu a{color:#f8f4ec;border-bottom-color:rgba(255,255,255,.14)}
+header .burger span{background:#f8f4ec!important}
+/* Pages internes */
+header.site-subnav{background:#26402f!important;color:#f8f4ec!important;border-bottom:0}
+.site-subnav a{color:#f8f4ec}
+.site-subnav-brand small{color:#e4cba5!important}
+.site-subnav nav a{font-size:16px}
+@media(min-width:901px){
+  .site-subnav nav a:hover{background:rgba(255,255,255,.12)}
+  .site-subnav nav a[aria-current]{background:#f8f4ec;color:#26402f}
+}
+.site-menu-toggle{border-color:rgba(255,255,255,.4)!important}
+.site-menu-toggle span{background:#f8f4ec!important}
+.site-subnav nav a{border-top-color:rgba(255,255,255,.14)!important}
+/* La bande rouge Black Friday est remplacée par une bannière d'offre sur l'accueil. */
+.bf-topbar{display:none!important}
+.bf-topbar-on .hero{padding-top:0!important}
+html.bf-topbar-on{scroll-padding-top:90px!important}
