@@ -16,3 +16,4 @@ html{background:#26402f}
 body{background:linear-gradient(180deg,rgba(24,41,31,.55),rgba(24,41,31,.72)),url("images/cabinet.webp") center/cover fixed no-repeat}
 .wrap{padding-top:24px}
 .card{background:var(--paper);box-shadow:0 24px 70px -30px rgba(0,0,0,.6)}
+.card textarea{min-height:0;height:58px;padding-top:10px;padding-bottom:10px;resize:vertical}
