@@ -386,3 +386,4 @@ header.solid .pro-access:hover,header.open .pro-access:hover{background:var(--sa
  .hero h1{font-size:clamp(36px,8vw,46px)}
  .hero .lead{font-size:17px}
 }
+.card .card-prices{margin:10px 0 0;font-weight:600;color:var(--deep);line-height:1.5;font-size:15px}
