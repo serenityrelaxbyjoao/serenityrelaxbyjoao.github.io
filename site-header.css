@@ -48,3 +48,11 @@ html.bf-topbar-on{scroll-padding-top:90px!important}
 .contact-grid .info{background:#fff;border:1px solid #e3d8c4;border-radius:16px;padding:18px 20px}
 .contact-grid .info h3{margin:0 0 8px;font-size:16px;color:#26402f}
 .contact-grid .info p{margin:0 0 6px}
+/* Bons cadeaux et Réserver : boîtes de vente mises en avant */
+@media(min-width:901px){
+  .menu a.nav-gift,.site-subnav nav a.nav-gift{border:1.5px solid #e4cba5;color:#e4cba5!important;border-radius:999px;padding:6px 16px;margin-left:8px;font-weight:500}
+  .menu a.nav-gift:hover,.site-subnav nav a.nav-gift:hover{background:#e4cba5;color:#26402f!important;text-decoration:none}
+  .site-subnav nav a.nav-book{background:#e4cba5;color:#26402f!important;border-radius:999px;padding:6px 18px;font-weight:500;margin-left:4px}
+  .site-subnav nav a.nav-book:hover{background:#f1dfbf;text-decoration:none}
+}
+.site-subnav nav a.nav-gift[aria-current],.site-subnav nav a.nav-book[aria-current]{background:#f8f4ec;color:#26402f!important}
