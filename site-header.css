@@ -56,3 +56,16 @@ html.bf-topbar-on{scroll-padding-top:90px!important}
   .site-subnav nav a.nav-book:hover{background:#f1dfbf;text-decoration:none}
 }
 .site-subnav nav a.nav-gift[aria-current],.site-subnav nav a.nav-book[aria-current]{background:#f8f4ec;color:#26402f!important}
+/* Bloc Bons cadeaux de l'accueil */
+.gift-v2{grid-template-columns:1.1fr .9fr!important;align-items:center;gap:clamp(20px,4vw,48px)}
+.gift-v2::before,.gift-v2::after{display:none}
+.gift-v2 .gift-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.gift-v2 h2{margin:0}
+.gift-bf{display:inline-block;padding:7px 16px;border:1px solid #e4cba5;border-radius:999px;color:#e4cba5;text-decoration:none;font-size:15px}
+.gift-bf:hover{background:#e4cba5;color:#26402f}
+.gift-bf[hidden]{display:none}
+.gift-points{list-style:none;margin:0;padding:0;display:grid;gap:8px;color:rgba(255,255,255,.9)}
+.gift-points li{padding-left:22px;position:relative}
+.gift-points li::before{content:"✓";position:absolute;left:0;color:#e4cba5}
+.gift-art{width:100%;height:auto;border-radius:14px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6);transform:rotate(-2deg)}
+@media(max-width:760px){.gift-v2{grid-template-columns:1fr!important}.gift-art{transform:none}}

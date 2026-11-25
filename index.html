@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="offer-share.css?v=4">
   <script src="offer-share.js?v=3" defer></script>
 <style>.hero-promo[hidden]{display:none!important}</style>
-<link rel="stylesheet" href="site-header.css?v=5">
+<link rel="stylesheet" href="site-header.css?v=6">
 </head>
 <body>
   <header><a class="bf-topbar" href="offres/black-friday-2026.html" data-bf-topbar hidden><strong>Black Friday</strong><span>Bon cadeau massage 90 min · 90 CHF</span><span class="bf-topbar-dates">du 25 au 30 novembre</span><span class="bf-topbar-cta">J’en profite <span aria-hidden="true">→</span></span></a><div class="wrap nav">
@@ -96,8 +96,16 @@
     </div></section>
 
 <section class="section" id="cadeau"><div class="wrap">
-      <div class="gift reveal"><div><span class="eyebrow">Bons cadeaux</span><h2>Offrez un moment de détente</h2><p>Pour un anniversaire, un remerciement ou une fête, choisissez le massage et personnalisez votre bon cadeau. Vous le recevez en PDF par e-mail après votre achat.</p></div>
-        <div class="ctas"><a class="btn gold" href="bons-cadeaux/">Acheter un bon cadeau</a></div></div>
+      <div class="gift reveal gift-v2">
+        <div class="gift-copy">
+          <span class="eyebrow">Bons cadeaux</span>
+          <h2>Offrez un moment de détente</h2>
+          <a class="gift-bf" id="giftBf" href="offres/black-friday-2026.html" hidden><strong>Black Friday</strong> · 90 min · 90 CHF <span aria-hidden="true">→</span></a>
+          <ul class="gift-points"><li>Reçu par e-mail en PDF, tout de suite</li><li>Vous choisissez le massage et la dédicace</li><li>À partir de 110 CHF</li></ul>
+          <a class="btn gold" id="giftBuy" href="bons-cadeaux/">Acheter un bon cadeau</a>
+        </div>
+        <img class="gift-art" id="giftArt" src="bons-cadeaux/artwork/anniversaire.webp" width="1536" height="1024" loading="lazy" alt="Exemple de bon cadeau Serenity &amp; Relax by João">
+      </div>
     </div></section>
 
 <section class="section final" id="reserver"><div class="wrap reveal">
@@ -122,5 +130,6 @@
   </div>
   <script src="offer-end.js?v=2" defer></script>
   <script src="black-friday-banner.js?v=1" defer></script>
+<script>(function(){var d=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Zurich'});if(d>='2026-11-25'&&d<='2026-11-30'){var t=document.getElementById('giftBf');if(t)t.hidden=false;var b=document.getElementById('giftBuy');if(b)b.href='offres/black-friday-2026.html';var i=document.getElementById('giftArt');if(i)i.src='bons-cadeaux/artwork/black-friday.webp';}})();</script>
 </body>
 </html>
