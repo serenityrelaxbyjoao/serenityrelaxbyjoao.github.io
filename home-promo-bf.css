@@ -1,0 +1,21 @@
+/* Accueil : carte Black Friday dans le hero (25-30 novembre) et bloc « Bons cadeaux » plus compact. */
+
+/* Carte verticale à droite du hero : visuel + bouton + lien vers les détails */
+.hero .hero-promo.hero-bf{max-width:400px;padding:12px;border-radius:22px;background:rgba(18,28,22,.62);border:1px solid rgba(228,203,165,.45);box-shadow:0 22px 54px rgba(0,0,0,.45);backdrop-filter:blur(3px);gap:12px}
+.hero .hero-promo.hero-bf[hidden]{display:none}
+.hero .hero-bf .hero-bf-art{display:block;border-radius:16px;overflow:hidden}
+.hero .hero-bf .hero-bf-art img{position:static;inset:auto;transform:none;animation:none;display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:16px;box-shadow:none}
+.hero .wrap:has(.hero-bf:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(300px,400px)}
+.hero .hero-bf .hero-bf-button{background:#e4cba5;color:#26402f;font-weight:600;font-size:17px;min-height:50px}
+.hero .hero-bf .hero-bf-button:hover{background:#f1dfbf}
+.hero .hero-bf .hero-bf-more{display:block;text-align:center;color:#f8f4ec;font-size:14px;text-decoration:underline;text-underline-offset:4px;padding:2px 0 4px}
+.hero .hero-bf .hero-bf-more:hover{color:#e4cba5}
+@media(max-width:900px){.hero .wrap:has(.hero-bf:not([hidden])){grid-template-columns:1fr}.hero .hero-promo.hero-bf{grid-column:1;grid-row:auto;justify-self:start;width:min(340px,100%);max-width:340px;margin-top:24px}}
+
+/* Bloc « Offrez un moment de détente » : plus petit, vert plus clair */
+.gift.gift-v2{padding:clamp(22px,3vw,34px);gap:clamp(16px,3vw,32px);background:linear-gradient(120deg,#46704f,#335a42);grid-template-columns:1.35fr .65fr!important}
+.gift.gift-v2 h2{font-size:clamp(26px,2.7vw,36px);line-height:1.12}
+.gift.gift-v2 .gift-points{margin:10px 0 14px}
+.gift.gift-v2 .gift-bf{margin:10px 0 2px;padding:9px 18px;font-size:16px;background:rgba(255,255,255,.1)}
+.gift.gift-v2 .gift-art{max-width:300px;justify-self:end;border-radius:12px}
+@media(max-width:760px){.gift.gift-v2{grid-template-columns:1fr!important}.gift.gift-v2 .gift-art{max-width:260px;justify-self:center}}

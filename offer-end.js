@@ -6,10 +6,10 @@
   var today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Zurich' });
   if (today <= OFFER_LAST_DAY) return;
   function run() {
-    var card = document.querySelector('.hero-promo');
+    var card = document.querySelector('.hero-promo:not(.hero-bf)');
     if (card) card.hidden = true;
     document.querySelectorAll('a[href*="offre-du-mois"]').forEach(function (a) { a.hidden = true; });
-    document.querySelectorAll('[data-offer-share]').forEach(function (s) { s.hidden = true; });
+    document.querySelectorAll('[data-offer-share]:not([data-share-url])').forEach(function (s) { s.hidden = true; });
     if (document.querySelector('[data-campaign-booking]') === null && document.querySelector('.offer-ended-note') === null && /novembre-bleu/.test(location.pathname)) {
       var note = document.createElement('p');
       note.className = 'offer-ended-note';
