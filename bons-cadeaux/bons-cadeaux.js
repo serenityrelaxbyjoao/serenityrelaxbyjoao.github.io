@@ -19,7 +19,7 @@
     ['fete-meres', 'Fête des Mères', 'Bonne fête ! Un moment de douceur rien que pour toi.'],
     ['fete-peres', 'Fête des Pères', 'Bonne fête ! Un moment de détente bien mérité.'],
     ['mariage', 'Mariage', 'Félicitations ! Un moment de sérénité à savourer.'],
-    ['black-friday', 'Black Friday', 'Une pause bien méritée, un instant de détente rien que pour vous.'],
+    ['black-friday', 'Black Friday', 'Un moment de détente rien que pour vous'],
     ['remerciement', 'Juste un remerciement', 'Juste un remerciement. Que cette parenthèse de détente vous apporte douceur et bien-être.'],
   ];
   const $ = id => document.getElementById(id);
