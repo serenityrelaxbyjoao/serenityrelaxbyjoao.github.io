@@ -29,15 +29,23 @@
     it: 'Un momento per te 💙\nNovembre Blu: 90 minuti di massaggio a 110 CHF invece di 150 CHF.\n📍 Cointrin, Ginevra · Per tutti, fino al 30 novembre 2026.\n@serenity.relax.by.joao\nScopri l’offerta e prenota: '
   };
   var caption = (captions[document.documentElement.lang.split('-')[0]] || captions.fr) + url;
-  var imagePromise;
-  function prepareImage() {
-    if (!imagePromise) imagePromise = fetch('/images/novembre-bleu-2026.jpg').then(function (response) {
+  var imagePromises = {};
+  function prepareImage(src, name, mime) {
+    if (!imagePromises[src]) imagePromises[src] = fetch(src).then(function (response) {
       if (!response.ok) throw new Error('Image unavailable');
       return response.blob();
-    }).then(function (blob) { return new File([blob], 'serenity-relax-novembre-bleu-2026.jpg', {type: 'image/jpeg'}); }).catch(function (error) { imagePromise = null; throw error; });
-    return imagePromise;
+    }).then(function (blob) { return new File([blob], name, {type: mime}); }).catch(function (error) { imagePromises[src] = null; throw error; });
+    return imagePromises[src];
   }
   document.querySelectorAll('[data-offer-share]').forEach(function (host, index) {
+    var shareUrl = host.dataset.shareUrl || url;
+    var shareTitle = host.dataset.shareTitle || 'Novembre Bleu · Serenity & Relax by João';
+    var shareText = host.dataset.shareText || '90 min · 110 CHF · Cointrin, Genève · Jusqu’au 30 novembre 2026';
+    var shareWa = host.dataset.shareWa || 'Novembre Bleu · 90 min · 110 CHF · Jusqu’au 30 novembre 2026';
+    var shareCaption = host.dataset.shareCaption ? host.dataset.shareCaption + shareUrl : caption;
+    var shareImg = host.dataset.shareImage || '/images/novembre-bleu-2026.jpg';
+    var shareFile = host.dataset.shareFile || 'serenity-relax-novembre-bleu-2026.jpg';
+    var shareMime = host.dataset.shareMime || 'image/jpeg';
     var trigger = document.createElement('button');
     trigger.type = 'button'; trigger.className = 'offer-share-trigger';
     trigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 14v6h16v-6"/></svg>'; trigger.appendChild(document.createTextNode(' ' + t[0])); trigger.setAttribute('aria-label', t[0]); trigger.title = t[0];
@@ -79,14 +87,14 @@
     }
     if (typeof navigator.share === 'function') {
       button(t[7], async function () {
-        try { await navigator.share({title: 'Novembre Bleu · Serenity & Relax by João', text: '90 min · 110 CHF · Cointrin, Genève · Jusqu’au 30 novembre 2026', url: url}); }
+        try { await navigator.share({title: shareTitle, text: shareText, url: shareUrl}); }
         catch (err) { if (err.name !== 'AbortError') { field.hidden = false; field.focus(); field.select(); status.textContent = t[6]; } }
       });
     }
-    link('WhatsApp', 'https://wa.me/?text=' + encodeURIComponent('Novembre Bleu · 90 min · 110 CHF · Jusqu’au 30 novembre 2026\n' + url));
-    link('Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
+    link('WhatsApp', 'https://wa.me/?text=' + encodeURIComponent(shareWa + '\n' + shareUrl));
+    link('Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl));
     var composer = document.createElement('div'); composer.className = 'offer-instagram'; composer.hidden = true;
-    var message = document.createElement('textarea'); message.value = caption; message.rows = 8;
+    var message = document.createElement('textarea'); message.value = shareCaption; message.rows = 8;
     message.setAttribute('aria-label', ig[1]);
     var instruction = document.createElement('p'); instruction.textContent = ig[5];
     var igStatus = document.createElement('p'); igStatus.setAttribute('role', 'status');
@@ -103,7 +111,7 @@
       if (!readyImage) return;
       try {
         // No fetch or clipboard await here: retain the user's activation for the share sheet.
-        await navigator.share({files: [readyImage], title: 'Novembre Bleu · Serenity & Relax by João', text: message.value});
+        await navigator.share({files: [readyImage], title: shareTitle, text: message.value});
       } catch (error) { if (error.name !== 'AbortError') igStatus.textContent = ig[6]; }
     });
     composer.appendChild(message); composer.appendChild(copyMessage); composer.appendChild(shareImage); composer.appendChild(instruction); composer.appendChild(igStatus);
@@ -113,7 +121,7 @@
       if (typeof navigator.share !== 'function' || typeof navigator.canShare !== 'function') { igStatus.textContent = ig[6]; return; }
       igStatus.textContent = ig[7];
       try {
-        var image = await prepareImage();
+        var image = await prepareImage(shareImg, shareFile, shareMime);
         if (!navigator.canShare({files: [image]})) { igStatus.textContent = ig[6]; return; }
         readyImage = image; shareImage.disabled = false; igStatus.textContent = '';
       } catch (error) { igStatus.textContent = ig[6]; }
@@ -122,13 +130,13 @@
     button(t[1], async function () {
       try {
         if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
-        await navigator.clipboard.writeText(url); status.textContent = t[2];
+        await navigator.clipboard.writeText(shareUrl); status.textContent = t[2];
       } catch (err) { field.hidden = false; field.focus(); field.select(); status.textContent = t[6]; }
     });
-    var download = link(t[4], '/images/novembre-bleu-2026.jpg');
-    download.download = 'serenity-relax-novembre-bleu-2026.jpg'; download.removeAttribute('target');
+    var download = link(t[4], shareImg);
+    download.download = shareFile; download.removeAttribute('target');
     
-    var field = document.createElement('input'); field.type = 'url'; field.readOnly = true; field.value = url;
+    var field = document.createElement('input'); field.type = 'url'; field.readOnly = true; field.value = shareUrl;
     field.setAttribute('aria-label', t[6]); field.hidden = true; panel.appendChild(field);
     var status = document.createElement('p'); status.setAttribute('role', 'status'); panel.appendChild(status);
     function close() { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
