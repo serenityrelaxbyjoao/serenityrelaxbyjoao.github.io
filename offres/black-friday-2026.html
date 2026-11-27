@@ -246,6 +246,14 @@
 }
 .bf-footer .brand { width: fit-content; margin: 0 auto 12px; }
 .bf-footer .brand small { color: var(--bf-gold); }
+.bf-banner{position:absolute;z-index:2;right:var(--bf-gutter);top:50%;transform:translateY(-46%);width:clamp(300px,26vw,380px);padding:12px;border-radius:22px;background:#102330d9;border:1px solid #e4cba580;box-shadow:0 22px 54px #00000073;display:grid;gap:12px}
+.bf-banner-art{display:block;border-radius:16px;overflow:hidden}
+.bf-banner-art img{display:block;width:100%;height:auto;aspect-ratio:1;border-radius:16px}
+.bf-banner-button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;border-radius:999px;background:var(--bf-gold);color:#26402f!important;font-weight:700;font-size:1.05rem;text-decoration:none}
+.bf-banner-button:hover,.bf-banner-button:focus-visible{background:#f2dfc0}
+@media (max-width: 1000px) {
+  .bf-banner{position:relative;right:auto;top:auto;transform:none;width:min(340px,100%);margin-top:22px}
+}
 @media (max-width: 760px) {
   .bf-hero {
     --bf-gutter: clamp(18px, 5.5vw, 32px);
@@ -325,6 +333,10 @@
     <p data-bf-expired hidden>Cette offre est terminée. <a href="../bons-cadeaux/">Découvrir nos bons cadeaux</a>.</p>
   </div>
 </div>
+<aside class="bf-banner" data-bf-banner aria-label="Offre Black Friday">
+  <a class="bf-banner-art" data-bf-buy href="../bons-cadeaux/?offre=black-friday"><img src="../images/black-friday-2026-carre.webp" width="1254" height="1254" alt="Black Friday : massage 90 min, 90 CHF, du 25 au 30 novembre 2026"></a>
+  <a class="bf-banner-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">J’en profite de l’offre <span aria-hidden="true">→</span></a>
+</aside>
 <section class="bf-gallery" aria-roledescription="carrousel" aria-label="Découvrir Serenity &amp; Relax">
   <div class="bf-slides">
     <figure class="bf-slide bf-slide-landscape is-current" aria-hidden="false"><img src="../images/cabinet.webp" alt="Le cabinet Serenity &amp; Relax à Cointrin" fetchpriority="high"></figure>
@@ -350,7 +362,7 @@
 <p>Le bon cadeau est à utiliser de préférence dans les 12 mois suivant son émission. <a href="../conditions-bons-cadeaux.html">Conditions de vente des bons cadeaux</a>.</p>
 <a class="bf-button" data-bf-buy href="../bons-cadeaux/?offre=black-friday">Acheter mon bon cadeau · 90 CHF</a></div></div></section>
 </main><footer class="bf-footer-slim"><span>© Serenity &amp; Relax by João</span><span><a href="../conditions-bons-cadeaux.html">Conditions de vente des bons</a> · <a href="../conditions.html">Conditions générales et confidentialité</a></span></footer>
-<script>if(Date.now()>=Date.parse('2026-12-01T00:00:00+01:00')){document.querySelectorAll('[data-bf-buy]').forEach(el=>el.hidden=true);document.querySelector('[data-bf-expired]').hidden=false;}</script>
+<script>if(Date.now()>=Date.parse('2026-12-01T00:00:00+01:00')){document.querySelectorAll('[data-bf-buy],[data-bf-banner]').forEach(el=>el.hidden=true);document.querySelector('[data-bf-expired]').hidden=false;}</script>
 <script>
 (() => {
   const gallery = document.querySelector('.bf-gallery');
