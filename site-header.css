@@ -13,7 +13,7 @@ header.site-subnav{background:#26402f!important;color:#f8f4ec!important;border-b
 .site-subnav a{color:#f8f4ec}
 .site-subnav-brand small{color:#e4cba5!important}
 .site-subnav nav a{font-size:16px}
-@media(min-width:901px){
+@media(min-width:1161px){
   .site-subnav nav a:hover{background:rgba(255,255,255,.12)}
   .site-subnav nav a[aria-current]{background:#f8f4ec;color:#26402f}
 }
@@ -49,7 +49,11 @@ html.bf-topbar-on{scroll-padding-top:90px!important}
 .contact-grid .info h3{margin:0 0 8px;font-size:16px;color:#26402f}
 .contact-grid .info p{margin:0 0 6px}
 /* Bons cadeaux et Réserver : boîtes de vente mises en avant */
-@media(min-width:901px){
+@media(min-width:1021px){
+  .menu a.nav-gift{border:1.5px solid #e4cba5;color:#e4cba5!important;border-radius:999px;padding:6px 16px;margin-left:8px;font-weight:500}
+  .menu a.nav-gift:hover{background:#e4cba5;color:#26402f!important;text-decoration:none}
+}
+@media(min-width:1161px){
   .menu a.nav-gift,.site-subnav nav a.nav-gift{border:1.5px solid #e4cba5;color:#e4cba5!important;border-radius:999px;padding:6px 16px;margin-left:8px;font-weight:500}
   .menu a.nav-gift:hover,.site-subnav nav a.nav-gift:hover{background:#e4cba5;color:#26402f!important;text-decoration:none}
   .site-subnav nav a.nav-book{background:#e4cba5;color:#26402f!important;border-radius:999px;padding:6px 18px;font-weight:500;margin-left:4px}
